@@ -12,19 +12,19 @@
 
 #include "minishell.h"
 
-char **split_env_path(void)			// check for NULL string or error here ?
+char	**split_env_path(void)			// check for NULL string or error here ?
 {
-	extern char **environ;
-	char **split;
-	char **second;
-	char *temp;
-	int i;
+	extern char	**environ;
+	char		**split;
+	char		**second;
+	char		*temp;
+	int			i;
 
 	i = 0;
-	while(environ[i])
+	while (environ[i])
 	{
 		if (ft_strnstr(environ[i], "PATH=", 5))
-			break;
+			break ;
 		i++;
 	}
 	split = ft_split(environ[i], ':');
@@ -35,21 +35,15 @@ char **split_env_path(void)			// check for NULL string or error here ?
 	ft_free_2d((void ***)&second, 1);
 	return (split);
 }
-	
-	
 
 char	*get_abs_path(char *s)
 {
-	char **paths;
-	
+	char	**paths;
+
 	paths = split_env_path();
 	s = 0;
-	
 	return (NULL);
 }
-	
-
-
 
 int	parse(char *cmd_str)
 {
@@ -57,4 +51,3 @@ int	parse(char *cmd_str)
 	//execve(get_abs_path(cmd_str), get_args(cmd_str), environ);		// be careful to always NULL-terminate get_args 
 	return (0);
 }
-
