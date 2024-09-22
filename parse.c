@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-char	**split_env_path(void)			// check for NULL string or error here ?
+char	**split_env_path(void)
 {
 	extern char	**environ;
 	char		**split;
@@ -23,7 +23,7 @@ char	**split_env_path(void)			// check for NULL string or error here ?
 	i = 0;
 	while (environ[i])
 	{
-		if (ft_strnstr(environ[i], "PATH=", 5))
+		if (ft_strnstr(environ[i], "PATH=", 5))		// should protect for PATH=NULL or no PATH here ? yes ->segfault otherwise
 			break ;
 		i++;
 	}
@@ -36,11 +36,28 @@ char	**split_env_path(void)			// check for NULL string or error here ?
 	return (split);
 }
 
-char	*get_abs_path(char *s)
+// has to work with ../../../bin/ls
+// ~/../../bin/ls 
+// ./ls	 (if current dir is /bin)
+// ls	(if current dir is /bin)
+// what about current directory ? if we cd to /bin or any dir we have to be able to execute a bin there. So in path get also the current dir
+// check man about paths
+
+int	search_for_dir(char **paths, char *s)
+{
+	getcwd()
+	
+}
+
+
+
+char	*get_abs_path(char *s)	
 {
 	char	**paths;
 
 	paths = split_env_path();
+	//append_str(search_for_dir(paths, s)
+	//get_args()
 	s = 0;
 	return (NULL);
 }
@@ -51,3 +68,4 @@ int	parse(char *cmd_str)
 	//execve(get_abs_path(cmd_str), get_args(cmd_str), environ);		// be careful to always NULL-terminate get_args 
 	return (0);
 }
+
