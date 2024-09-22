@@ -6,25 +6,45 @@
 /*   By: gbonis <gbonis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 17:05:10 by gbonis            #+#    #+#             */
-/*   Updated: 2024/09/18 19:02:41 by gbonis           ###   ########.fr       */
+/*   Updated: 2024/09/20 19:26:41 by gbonis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+char **split_env_path(void)			// check for NULL string or error here ?
+{
+	extern char **environ;
+	char **split;
+	char **second;
+	char *temp;
+	int i;
+
+	i = 0;
+	while(environ[i])
+	{
+		if (ft_strnstr(environ[i], "PATH=", 5))
+			break;
+		i++;
+	}
+	split = ft_split(environ[i], ':');
+	second = ft_split(split[0], '=');
+	temp = split[0];
+	split[0] = second[1];
+	free(temp);
+	ft_free_2d((void ***)&second, 1);
+	return (split);
+}
+	
+	
+
 char	*get_abs_path(char *s)
 {
-	extern	char **environ;
 	char **paths;
-
-	paths = ft_split(environ[40], ':'); 		// this is $PATH
-	printf("%s\n", paths[0]);	// split isn't enough. will check if other way
-	printf("%s\n", paths[1]);
-	printf("%s\n", paths[2]);
-	printf("%s\n", paths[3]);
-	printf("%s\n", paths[4]);
-	printf("%s\n", paths[5]);
-	s = NULL;
+	
+	paths = split_env_path();
+	s = 0;
+	
 	return (NULL);
 }
 	
@@ -33,14 +53,8 @@ char	*get_abs_path(char *s)
 
 int	parse(char *cmd_str)
 {
-	char **split;
-	extern char **environ;
-	char *abs_path;
-
-	split = ft_split(cmd_str, ' ');
-	abs_path = get_abs_path(split[0]);	
-	execve(split[0], &split[1], environ);
-	ft_free_2d((void ***)&split, ft_2d_size((const void **)split));
+	get_abs_path(cmd_str);
+	//execve(get_abs_path(cmd_str), get_args(cmd_str), environ);		// be careful to always NULL-terminate get_args 
 	return (0);
 }
 
