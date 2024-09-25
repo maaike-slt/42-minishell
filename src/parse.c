@@ -51,9 +51,10 @@ static int	search_for_dir(char **paths, char *s)
 static char	*get_abs_path(char *s)	
 {
 	char	**paths;
+	char *result;
 
 	paths = split_env_path();
-	//append_str(search_for_dir(paths, s)
+	result = search_for_dir(paths, s)
 	//get_args()
 	s = 0;
 	return (NULL);
