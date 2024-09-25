@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 17:18:41 by msloot            #+#    #+#             */
-/*   Updated: 2024/09/18 18:40:01 by gbonis           ###   ########.fr       */
+/*   Updated: 2024/09/25 15:46:04 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-int	parse(char *cmd_str);
+bool	parse(char *cmd_str);
 
 #endif

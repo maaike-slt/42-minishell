@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbonis <gbonis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 17:05:10 by gbonis            #+#    #+#             */
-/*   Updated: 2024/09/20 19:26:41 by gbonis           ###   ########.fr       */
+/*   Updated: 2024/09/25 15:45:27 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**split_env_path(void)
+static char	**split_env_path(void)
 {
 	extern char	**environ;
 	char		**split;
 	char		**second;
-	char		*temp;
-	int			i;
+	char		*tmp;
+	size_t		i;
 
 	i = 0;
 	while (environ[i])
@@ -29,9 +29,9 @@ char	**split_env_path(void)
 	}
 	split = ft_split(environ[i], ':');
 	second = ft_split(split[0], '=');
-	temp = split[0];
+	tmp = split[0];
 	split[0] = second[1];
-	free(temp);
+	free(tmp);
 	ft_free_2d((void ***)&second, 1);
 	return (split);
 }
@@ -43,15 +43,12 @@ char	**split_env_path(void)
 // what about current directory ? if we cd to /bin or any dir we have to be able to execute a bin there. So in path get also the current dir
 // check man about paths
 
-int	search_for_dir(char **paths, char *s)
+static int	search_for_dir(char **paths, char *s)
 {
 	getcwd()
-	
 }
 
-
-
-char	*get_abs_path(char *s)	
+static char	*get_abs_path(char *s)	
 {
 	char	**paths;
 
@@ -62,10 +59,32 @@ char	*get_abs_path(char *s)
 	return (NULL);
 }
 
-int	parse(char *cmd_str)
+static bool	split_prompt(char *line)
 {
-	get_abs_path(cmd_str);
-	//execve(get_abs_path(cmd_str), get_args(cmd_str), environ);		// be careful to always NULL-terminate get_args 
-	return (0);
+	char	**sep_prompt;
+	size_t	i;
+
+	i = 0;
+	while (line(i) != '\0')
+	{
+		sep_prompt = ft_split_whitespace(line);
+		if (!sep_prompt)
+			return (false);
+	}
 }
 
+bool	parse(char *cmd_str)
+{
+	char	*line;
+
+	get_abs_path(cmd_str);
+	line = readline(cmd_str);
+	if (!line)
+		return (false);
+	add_history(line);
+	if (!split_prompt(line))
+		return (false);
+	//execve(get_abs_path(cmd_str), get_args(cmd_str), environ);		// be careful to always NULL-terminate get_args 
+	free(line);
+	return (true);
+}
