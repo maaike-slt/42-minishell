@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 17:05:10 by gbonis            #+#    #+#             */
-/*   Updated: 2024/09/25 18:51:34 by msloot           ###   ########.fr       */
+/*   Updated: 2024/09/25 18:57:58 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ static char	**split_env_path(void)
 
 static int	search_for_dir(char **paths, char *s)
 {
-	getcwd()
+	getcwd();
 }
 
-static char	*get_abs_path(char *s)	
+static char	*get_abs_path(char *s)
 {
 	char	**paths;
 	char *result;
@@ -65,13 +65,10 @@ static bool	split_prompt(char *line)
 	char	**sep_prompt;
 	size_t	i;
 
-	i = 0;
-	while (line(i) != '\0')
-	{
-		sep_prompt = ft_split_whitespace(line);
-		if (!sep_prompt)
-			return (false);
-	}
+	sep_prompt = ft_split_whitespace(line);
+	if (!sep_prompt)
+		return (false);
+	return (true);
 }
 
 bool	parse(char *cmd_str)
