@@ -12,6 +12,27 @@
 
 #include "minishell.h"
 
-char	*search_for_dir(char	*env_paths)			// don't forget to also get the current dirctory path, as it should work
+char	*search_for_dir(char	*env_paths, char *executablej)			// don't forget cur dir
 {
-	get_cwd()	
+	DIR *directory;
+	struct dirent *dirent;
+	int	i;
+
+	i = 0;
+	directory =	opendir("env_paths[i]");
+	dirent = readdir(env_paths[0]);
+
+	while(dirent)		// this loop is not finished, need to loop in all the paths also
+	{
+		if (ft_strcmp(exexecutable, dirent->d_name))		// find the right function in libft, I cant't remember
+			return (dirent->d_name);
+		dirent = readdir(env_paths[0]);				// it will return . and .. as the first entries each time, will this be a problem ?
+	}
+	return (NULL);
+}
+
+
+
+
+
+// we will perhaps have to "prune" executable before this function
