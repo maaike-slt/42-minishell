@@ -25,4 +25,7 @@
 
 bool	parse(char *cmd_str);
 
+//	directory functions //
+char	*search_for_dir(char	*env_paths, char *executable);
+
 #endif
