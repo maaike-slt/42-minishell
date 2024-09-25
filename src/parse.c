@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 17:05:10 by gbonis            #+#    #+#             */
-/*   Updated: 2024/09/25 15:45:27 by msloot           ###   ########.fr       */
+/*   Updated: 2024/09/25 18:51:34 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,13 @@ bool	parse(char *cmd_str)
 {
 	char	*line;
 
-	get_abs_path(cmd_str);
 	line = readline(cmd_str);
 	if (!line)
 		return (false);
 	add_history(line);
 	if (!split_prompt(line))
 		return (false);
+	get_abs_path(cmd_str);
 	//execve(get_abs_path(cmd_str), get_args(cmd_str), environ);		// be careful to always NULL-terminate get_args 
 	free(line);
 	return (true);
