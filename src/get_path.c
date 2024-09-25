@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbonis <gbonis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 19:03:10 by gbonis            #+#    #+#             */
-/*   Updated: 2024/09/25 19:03:12 by gbonis           ###   ########.fr       */
+/*   Updated: 2024/09/25 19:52:46 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*search_for_dir(char	*env_paths, char *executablej)			// don't forget cur dir
+char	*search_for_dir(char	*env_paths, char *executable)			// don't forget cur dir
 {
 	DIR *directory;
 	struct dirent *dirent;
@@ -24,7 +24,7 @@ char	*search_for_dir(char	*env_paths, char *executablej)			// don't forget cur d
 
 	while(dirent)		// this loop is not finished, need to loop in all the paths also
 	{
-		if (ft_strcmp(exexecutable, dirent->d_name))		// find the right function in libft, I cant't remember
+		if (ft_strcmp(executable, dirent->d_name))		// find the right function in libft, I cant't remember
 			return (dirent->d_name);
 		dirent = readdir(env_paths[0]);				// it will return . and .. as the first entries each time, will this be a problem ?
 	}
