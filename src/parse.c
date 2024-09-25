@@ -43,11 +43,6 @@ static char	**split_env_path(void)
 // what about current directory ? if we cd to /bin or any dir we have to be able to execute a bin there. So in path get also the current dir
 // check man about paths
 
-static int	search_for_dir(char **paths, char *s)
-{
-	getcwd();
-}
-
 static char	*get_abs_path(char *s)
 {
 	char	**paths;

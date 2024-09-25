@@ -14,4 +14,4 @@
 
 char	*search_for_dir(char	*env_paths)			// don't forget to also get the current dirctory path, as it should work
 {
-	
+	get_cwd()	
