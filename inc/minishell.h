@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 17:18:41 by msloot            #+#    #+#             */
-/*   Updated: 2024/09/25 15:46:04 by msloot           ###   ########.fr       */
+/*   Updated: 2024/09/25 19:43:50 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <readline/history.h>
 # include <dirent.h>
 
-bool	parse(char *cmd_str);
+bool	parse(char *prompt);
 
 //	directory functions //
 char	*search_for_dir(char	*env_paths, char *executable);

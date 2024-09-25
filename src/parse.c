@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 17:05:10 by gbonis            #+#    #+#             */
-/*   Updated: 2024/09/25 18:57:58 by msloot           ###   ########.fr       */
+/*   Updated: 2024/09/25 19:44:08 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ static char	**split_env_path(void)
 static char	*get_abs_path(char *s)
 {
 	char	**paths;
-	char *result;
+	char	*result;
 
 	paths = split_env_path();
-	result = search_for_dir(paths, s)
+	result = search_for_dir(paths, s);
 	//get_args()
 	s = 0;
 	return (NULL);
@@ -66,17 +66,17 @@ static bool	split_prompt(char *line)
 	return (true);
 }
 
-bool	parse(char *cmd_str)
+bool	parse(char *prompt)
 {
 	char	*line;
 
-	line = readline(cmd_str);
+	line = readline(prompt);
 	if (!line)
 		return (false);
 	add_history(line);
 	if (!split_prompt(line))
 		return (false);
-	get_abs_path(cmd_str);
+	get_abs_path(prompt);
 	//execve(get_abs_path(cmd_str), get_args(cmd_str), environ);		// be careful to always NULL-terminate get_args 
 	free(line);
 	return (true);
