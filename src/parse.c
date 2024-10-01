@@ -45,7 +45,10 @@ static char	*get_abs_path(char *executable)
 	paths = split_env_path();		// protect on error 
 	dir = search_for_dir(paths, executable);
 	if (!dir)
+	{
+		ft_free_2d((void ***)&paths, ft_2d_size((const void **)paths)); 
 		return (NULL);
+	}
 //	result = append_to_path(dir, executable);		//protect on error (will have a malloc here probably)
 	ft_free_2d((void ***)&paths, ft_2d_size((const void **)paths)); 
 	return (NULL);
