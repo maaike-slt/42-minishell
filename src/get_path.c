@@ -12,9 +12,6 @@
 
 #include "minishell.h"
 
-
-
-
 char **cut_exec_string(char *executable)
 {
 	char	**result;
@@ -84,6 +81,7 @@ char	*search_abs_path(char *executable)
 	free(cut);
 	return (NULL);
 }
+
 char	*search_relative_path(char **env_pths, char *executable)
 {
 	DIR *directory;
@@ -117,21 +115,23 @@ char	*search_relative_path(char **env_pths, char *executable)
 
 char	*search_for_dir(char	**env_pths, char	*executable)		// STILL NEED TO BE ABLE TO ~  (opendir can't understand ~, but bash can)
 {
-	char	*result;
-	
+	char	*exec_dir;
+
 	if (ft_strchr(executable, '/'))
 	{
-		result = search_relative_path(env_pths, executable);
-		if (result == NULL)
+		exec_dir = search_abs_path(executable);
+		if (exec_dir == NULL)
 			return (NULL);
+		printf("%s\n", exec_dir);
 	}
 	else
 	{
-		result = search_abs_path(executable);
-		if (result == NULL)
+		exec_dir = search_relative_path(env_pths, executable);
+		if (exec_dir == NULL)
 			return (NULL);
+		printf("%s\n", exec_dir);
 	}
-	return	(result);
+	return	(exec_dir);
 }
 
 // still need to manage to append executable to path, in both cases, rel or abs

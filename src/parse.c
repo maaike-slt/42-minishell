@@ -42,7 +42,6 @@ static char	*get_abs_path(char *executable)
 	char	*dir;
 	//char 	*result;
 
-		printf("lol\n");
 	paths = split_env_path();		// protect on error 
 	dir = search_for_dir(paths, executable);
 	if (!dir)
