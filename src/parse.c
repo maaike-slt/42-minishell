@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static char	**split_env_path(void)
+static char	**split_env_path(void)	// protect on error this func
 {
 	extern char	**environ;
 	char		**split;
@@ -23,7 +23,7 @@ static char	**split_env_path(void)
 	i = 0;
 	while (environ[i])
 	{
-		if (ft_strnstr(environ[i], "PATH=", 5))		// should protect for PATH=NULL or no PATH here ? yes ->segfault otherwise
+		if (ft_strnstr(environ[i], "PATH=", 5))		// should protect for PATH=NULL or no PATH here ? yes ->segfault otherwise	// prob also check for bullshit in path variable (like if export PATH=bullshit) ?
 			break ;
 		i++;
 	}
@@ -36,39 +36,35 @@ static char	**split_env_path(void)
 	return (split);
 }
 
-// has to work with ../../../bin/ls
-// ~/../../bin/ls 
-// ./ls	 (if current dir is /bin)
-// ls	(if current dir is /bin)
-// what about current directory ? if we cd to /bin or any dir we have to be able to execute a bin there. So in path get also the current dir
-// check man about paths
-
-static char	*get_abs_path(char *s)
+static char	*get_abs_path(char *executable)
 {
 	char	**paths;
-	char	*result;
+	char	*dir;
+	char 	*result;
 
-	paths = split_env_path();
-	result = search_for_dir(paths, s);
-	//get_args()
-	s = 0;
+	paths = split_env_path();		// protect on error 
+	dir = search_for_dir(paths, executable);
+	if (!dir)
+		return (NULL)
+//	result = append_to_path(dir, executable);		//protect on error (will have a malloc here probably)
 	return (NULL);
 }
 
 static bool	split_prompt(char *line)
 {
 	char	**sep_prompt;
-	size_t	i;
+	//size_t	i;
 
 	sep_prompt = ft_split_whitespace(line);
-	if (!sep_prompt)
 		return (false);
+	if (!sep_prompt)
 	return (true);
 }
 
 bool	parse(char *prompt)
 {
 	char	*line;
+	char *abs_path;
 
 	line = readline(prompt);
 	if (!line)
@@ -76,8 +72,9 @@ bool	parse(char *prompt)
 	add_history(line);
 	if (!split_prompt(line))
 		return (false);
-	get_abs_path(prompt);
-	//execve(get_abs_path(cmd_str), get_args(cmd_str), environ);		// be careful to always NULL-terminate get_args 
+	abs_path = get_abs_path(line);
+	//get_args
+	//execve(get_abs_path(cmd_str), get_args(cmd_str), environ);		// careful NULL terminate arrays
 	free(line);
 	return (true);
 }

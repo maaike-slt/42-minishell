@@ -12,27 +12,129 @@
 
 #include "minishell.h"
 
-char	*search_for_dir(char	*env_paths, char *executable)			// don't forget cur dir
+
+
+char	*search_for_dir(char	**env_pths, char	*executable)		// STILL NEED TO BE ABLE TO ~  (opendir can't understand ~, but bash can)
+{
+	char	*result;
+	
+	if (ft_strchr(executable, '/'))
+	{
+		result = search_relative_path(env_pths, executable);
+		if (result == NULL)
+			return (NULL);
+	}
+	else
+	{
+		result = search_abs_path(executable);
+		if (result == NULL)
+			return (NULL);
+	}
+	return	(result);
+}
+
+char **cut_exec_string(char *executable)
+{
+	char	**result;
+	int	temp;
+	int i;
+
+	i = 0;
+	temp = 0;
+	result = malloc(sizeof(char *) * 2);
+	if (!result)
+		return (NULL);
+	while (executable[i])
+	{
+		if (executable[i] == '/')
+			temp = i;
+		i++;
+	}
+	if (!temp)		//don't need this if abs/rel parsing done right, this is a safeguard, remove once testing done if needed for norm.
+	{
+		free(result);
+		return(NULL);
+	}
+	result[0] = ft_strndup(executable, temp + 2);
+	if (!result[0])
+		return (NULL);
+	result[0][temp + 1] = 0;
+	result[1] = ft_strdup(executable + (temp +1));
+	if (!result[1])
+	{
+		free(result[0]);
+		free(result);
+		return (NULL);
+	}
+	return (result);
+}
+
+char	*search_abs_path(char *executable)
+{
+	DIR	*directory;
+	struct dirent *dirent;
+	char	**cut;
+
+	cut = cut_exec_string(executable);
+	if (!cut)
+		return (NULL);
+	directory = opendir(cut[0]);
+	if (!directory)
+	{
+		return (NULL);
+	}
+	dirent = readdir(directory);
+	while (dirent)
+	{
+		if (!ft_strcmp(cut[1], dirent->d_name))
+		{
+			free(cut[0]);
+			free(cut[1]);
+			free(cut);
+			closedir(directory);	
+			return (executable);
+		}
+		dirent = readdir(directory);
+	}
+	closedir(directory);
+	free(cut[0]);
+	free(cut[1]);
+	free(cut);
+	return (NULL);
+}
+
+char	*search_relative_path(char **env_pths, char *executable)
 {
 	DIR *directory;
 	struct dirent *dirent;
 	int	i;
 
 	i = 0;
-	directory =	opendir("env_paths[i]");
-	dirent = readdir(env_paths[0]);
-
-	while(dirent)		// this loop is not finished, need to loop in all the paths also
+	while (env_pths[i])
 	{
-		if (ft_strcmp(executable, dirent->d_name))		// find the right function in libft, I cant't remember
-			return (dirent->d_name);
-		dirent = readdir(env_paths[0]);				// it will return . and .. as the first entries each time, will this be a problem ?
+		directory =	opendir(env_pths[i]);
+		if (directory == NULL)
+		{
+			i++;
+			continue;
+		}
+		dirent = readdir(directory);	// careful, if we give . or .. as executable, it will return a dir		// also as there is a limit of 256 char in dirent->d_name, check what does an overflow of the array does
+		while(dirent)
+		{
+			if (!ft_strcmp("ls", dirent->d_name))
+			{
+				closedir(directory);
+				return (env_pths[i]);
+			}
+			dirent = readdir(directory);
+		}
+		closedir(directory);
+		i++;
 	}
 	return (NULL);
 }
 
+// still need to manage to append executable to path, in both cases, rel or abs
+// still need to manade to ~
 
-
-
-
-// we will perhaps have to "prune" executable before this function
+// will do norm when finish building all of this

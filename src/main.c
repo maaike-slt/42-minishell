@@ -16,7 +16,7 @@ int	main(void)
 {
 	char	*prompt;
 
-	prompt = readline("minishell$ ");
+	prompt = "minishell$ ";
 	parse(prompt);
 	return (0);
 }
