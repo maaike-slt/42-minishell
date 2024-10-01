@@ -12,7 +12,25 @@
 
 #include "minishell.h"
 
-char **cut_exec_string(char *executable)
+char	*append_exec_to_path(char *exec_dir, char *executable)
+{
+	char	*appended;
+	int size_dir;
+	int size_exec;
+
+	size_dir = ft_strlen(exec_dir);
+	size_exec = ft_strlen(executable);
+	appended = malloc(sizeof(char) * (size_dir + size_exec + 2));		//	protect
+	if (!appended)
+		return (NULL);
+	ft_memcpy(appended, exec_dir, size_dir);
+	ft_memcpy(&appended[size_dir + 1], executable, size_exec);
+	appended[size_dir] = '/';
+	appended[size_dir + size_exec + 1] = 0;
+	return (appended);
+}
+
+char	**cut_exec_string(char *executable)
 {
 	char	**result;
 	int	temp;
@@ -116,20 +134,24 @@ char	*search_relative_path(char **env_pths, char *executable)
 char	*search_for_dir(char	**env_pths, char	*executable)		// STILL NEED TO BE ABLE TO ~  (opendir can't understand ~, but bash can)
 {
 	char	*exec_dir;
+	char	*append;
 
 	if (ft_strchr(executable, '/'))
 	{
-		exec_dir = search_abs_path(executable);
+		exec_dir = search_abs_path(executable);			// dont need to append here, ../../../../../bin/ls will work with execve	// still need todo something with wrong value
 		if (exec_dir == NULL)
 			return (NULL);
 		printf("%s\n", exec_dir);
 	}
 	else
 	{
-		exec_dir = search_relative_path(env_pths, executable);
+		exec_dir = search_relative_path(env_pths, executable);		//need to append here
 		if (exec_dir == NULL)
 			return (NULL);
-		printf("%s\n", exec_dir);
+		append = append_exec_to_path(exec_dir, executable);		//dont think i will need to free execdir here, but check with valgrind
+		if (!append)
+			return (NULL);	
+		printf("%s\n", append);
 	}
 	return	(exec_dir);
 }
