@@ -42,6 +42,7 @@ static char	*get_abs_path(char *executable)
 	char	*dir;
 	//char 	*result;
 
+		printf("lol\n");
 	paths = split_env_path();		// protect on error 
 	dir = search_for_dir(paths, executable);
 	if (!dir)
@@ -56,8 +57,8 @@ static bool	split_prompt(char *line)
 	//size_t	i;
 
 	sep_prompt = ft_split_whitespace(line);
-		return (false);
 	if (!sep_prompt)
+		return (false);
 	return (true);
 }
 
