@@ -49,9 +49,8 @@ static char	*get_abs_path(char *executable)
 		ft_free_2d((void ***)&paths, ft_2d_size((const void **)paths)); 
 		return (NULL);
 	}
-//	result = append_to_path(dir, executable);		//protect on error (will have a malloc here probably)
 	ft_free_2d((void ***)&paths, ft_2d_size((const void **)paths)); 
-	return (NULL);
+	return (dir);
 }
 
 static bool	split_prompt(char *line)
@@ -80,6 +79,11 @@ bool	parse(char *prompt)
 	abs_path = get_abs_path(line);
 	//get_args
 	//execve(get_abs_path(cmd_str), get_args(cmd_str), environ);		// careful NULL terminate arrays
+	if (abs_path)	// redo the protection on abs_path = NULL, this is messy
+	{
+		if (ft_strchr(abs_path, '/'))		// this is needed because only need to free when absolute path, otherwise leak or double free
+			free(abs_path);
+	}
 	free(line);
 	rl_clear_history();		// even with this still 1 leak, before was 4
 	return (true);

@@ -141,17 +141,19 @@ char	*search_for_dir(char	**env_pths, char	*executable)		// STILL NEED TO BE ABL
 		exec_dir = search_abs_path(executable);			// dont need to append here, ../../../../../bin/ls will work with execve	// still need todo something with wrong value
 		if (exec_dir == NULL)
 			return (NULL);
-		printf("%s\n", exec_dir);
+		return (exec_dir);
 	}
 	else
 	{
-		exec_dir = search_relative_path(env_pths, executable);		//need to append here
+		exec_dir = search_relative_path(env_pths, executable);
 		if (exec_dir == NULL)
 			return (NULL);
-		append = append_exec_to_path(exec_dir, executable);		//dont think i will need to free execdir here, but check with valgrind
-		if (!append)
-			return (NULL);	
+		append = append_exec_to_path(exec_dir, executable);
 		printf("%s\n", append);
+		if (!append)
+		
+			return (NULL);
+		return (append);
 	}
 	return	(exec_dir);
 }
