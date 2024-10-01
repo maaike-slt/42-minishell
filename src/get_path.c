@@ -14,24 +14,6 @@
 
 
 
-char	*search_for_dir(char	**env_pths, char	*executable)		// STILL NEED TO BE ABLE TO ~  (opendir can't understand ~, but bash can)
-{
-	char	*result;
-	
-	if (ft_strchr(executable, '/'))
-	{
-		result = search_relative_path(env_pths, executable);
-		if (result == NULL)
-			return (NULL);
-	}
-	else
-	{
-		result = search_abs_path(executable);
-		if (result == NULL)
-			return (NULL);
-	}
-	return	(result);
-}
 
 char **cut_exec_string(char *executable)
 {
@@ -102,7 +84,6 @@ char	*search_abs_path(char *executable)
 	free(cut);
 	return (NULL);
 }
-
 char	*search_relative_path(char **env_pths, char *executable)
 {
 	DIR *directory;
@@ -121,7 +102,7 @@ char	*search_relative_path(char **env_pths, char *executable)
 		dirent = readdir(directory);	// careful, if we give . or .. as executable, it will return a dir		// also as there is a limit of 256 char in dirent->d_name, check what does an overflow of the array does
 		while(dirent)
 		{
-			if (!ft_strcmp("ls", dirent->d_name))
+			if (!ft_strcmp(executable, dirent->d_name))
 			{
 				closedir(directory);
 				return (env_pths[i]);
@@ -132,6 +113,25 @@ char	*search_relative_path(char **env_pths, char *executable)
 		i++;
 	}
 	return (NULL);
+}
+
+char	*search_for_dir(char	**env_pths, char	*executable)		// STILL NEED TO BE ABLE TO ~  (opendir can't understand ~, but bash can)
+{
+	char	*result;
+	
+	if (ft_strchr(executable, '/'))
+	{
+		result = search_relative_path(env_pths, executable);
+		if (result == NULL)
+			return (NULL);
+	}
+	else
+	{
+		result = search_abs_path(executable);
+		if (result == NULL)
+			return (NULL);
+	}
+	return	(result);
 }
 
 // still need to manage to append executable to path, in both cases, rel or abs

@@ -40,12 +40,12 @@ static char	*get_abs_path(char *executable)
 {
 	char	**paths;
 	char	*dir;
-	char 	*result;
+	//char 	*result;
 
 	paths = split_env_path();		// protect on error 
 	dir = search_for_dir(paths, executable);
 	if (!dir)
-		return (NULL)
+		return (NULL);
 //	result = append_to_path(dir, executable);		//protect on error (will have a malloc here probably)
 	return (NULL);
 }

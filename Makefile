@@ -47,13 +47,18 @@ LIBNAME =   $(LIBPATH)libft.a
 LIBINC =    -I$(LIBPATH)
 
 # **************************************************************************** #
+#   READLINE     #
+
+LIBREADLINE = -lreadline
+
+# **************************************************************************** #
 #	SOURCE	#
 
 SRC_PATH =	./src/
 OBJ_PATH =	./obj/
 INC =		./inc/
 
-SRC_NAME =	main.c parse.c \
+SRC_NAME =	main.c parse.c get_path.c\
 
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 
@@ -80,16 +85,16 @@ launch:
 	$(call progress_bar)
 
 $(NAME):	$(OBJ) $(LIBNAME)
-	$(CC) $(CFLAGS) $(OBJ) $(LIBNAME) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) $(LIBNAME) -o $(NAME) $(LIBREADLINE) 
 	@printf "\n$(B)$(MAG)$(NAME) compiled$(D)\n"
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@mkdir -p $(dir $@) # 2> /dev/null || true
-	$(CC) $(CFLAGS) $(LIBINC) -I$(INC) -c $< -o $@
+	$(CC) $(CFLAGS) $(LIBINC) -I$(INC) -c $< $(LREADLINE) -o $@
 	@printf "█"
 
 $(LIBNAME):
-    @$(MAKE) -C $(LIBPATH)
+	@$(MAKE) -C $(LIBPATH)
 
 clean:
 	@$(RM) $(OBJ_PATH)
@@ -105,3 +110,4 @@ re:			fclean all
 .PHONY: all clean fclean re
 
 # **************************************************************************** #
+
