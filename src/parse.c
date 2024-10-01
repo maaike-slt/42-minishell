@@ -47,6 +47,7 @@ static char	*get_abs_path(char *executable)
 	if (!dir)
 		return (NULL);
 //	result = append_to_path(dir, executable);		//protect on error (will have a malloc here probably)
+	ft_free_2d((void ***)&paths, ft_2d_size((const void **)paths)); 
 	return (NULL);
 }
 
@@ -58,6 +59,7 @@ static bool	split_prompt(char *line)
 	sep_prompt = ft_split_whitespace(line);
 	if (!sep_prompt)
 		return (false);
+	ft_free_2d((void ***)&sep_prompt, ft_2d_size((const void **)sep_prompt));		// added this to silent valgrind
 	return (true);
 }
 
