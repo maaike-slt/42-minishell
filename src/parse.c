@@ -81,5 +81,6 @@ bool	parse(char *prompt)
 	//get_args
 	//execve(get_abs_path(cmd_str), get_args(cmd_str), environ);		// careful NULL terminate arrays
 	free(line);
+	rl_clear_history();		// even with this still 1 leak, before was 4
 	return (true);
 }
