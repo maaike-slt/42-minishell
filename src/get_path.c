@@ -12,6 +12,9 @@
 
 #include "minishell.h"
 
+/// when relative path, need to append exec name to dir if exec ///
+/// found in a dir.											    ///
+
 char	*append_exec_to_path(char *exec_dir, char *executable)
 {
 	char	*appended;
@@ -29,6 +32,8 @@ char	*append_exec_to_path(char *exec_dir, char *executable)
 	appended[size_dir + size_exec + 1] = 0;
 	return (appended);
 }
+
+/// cut the dir part of the string (../../.),from the exec name ///
 
 char	**cut_exec_string(char *executable)
 {
@@ -113,6 +118,9 @@ char	*search_relative_path(char **env_pths, char *executable)
 	}
 	return (NULL);
 }
+
+/// two posibilities: relative path (use PATH), or absolute (cut the ///
+/// dir and then search trough it.									 ///
 
 char	*search_for_dir(char	**env_pths, char	*executable)
 {

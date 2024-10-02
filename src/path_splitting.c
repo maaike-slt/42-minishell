@@ -12,6 +12,8 @@
 
 #include "minishell.h"
 
+///	parsing environment for PATH variable ///
+
 static	int	path_in_environ(void)
 {
 	extern char	**environ;
@@ -28,6 +30,8 @@ static	int	path_in_environ(void)
 		return (-1);
 	return (i);
 }
+
+/// split PATH string into char ** to be usable ///
 
 static char	**split_env_path(void)
 {
@@ -55,6 +59,8 @@ static char	**split_env_path(void)
 	ft_free_2d((void ***)&second, 1);
 	return (split);
 }
+
+///  getting absolute path of executable for execve() ///
 
 char	*get_abs_path(char *executable)
 {
