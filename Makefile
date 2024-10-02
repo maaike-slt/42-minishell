@@ -57,7 +57,7 @@ SRC_PATH =	./src/
 OBJ_PATH =	./obj/
 INC =		./inc/
 
-SRC_NAME =	main.c parse.c get_path.c\
+SRC_NAME =	main.c parse.c get_path.c get_path_utils.c\
 
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 

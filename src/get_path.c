@@ -15,8 +15,8 @@
 char	*append_exec_to_path(char *exec_dir, char *executable)
 {
 	char	*appended;
-	int size_dir;
-	int size_exec;
+	int		size_dir;
+	int		size_exec;
 
 	size_dir = ft_strlen(exec_dir);
 	size_exec = ft_strlen(executable);
@@ -33,8 +33,8 @@ char	*append_exec_to_path(char *exec_dir, char *executable)
 char	**cut_exec_string(char *executable)
 {
 	char	**result;
-	int	temp;
-	int i;
+	int		temp;
+	int		i;
 
 	i = 0;
 	temp = 0;
@@ -50,27 +50,29 @@ char	**cut_exec_string(char *executable)
 	if (!temp)		//don't need this if abs/rel parsing done right, this is a safeguard, remove once testing done if needed for norm.
 	{
 		free(result);
-		return(NULL);
-	}
-	result[0] = ft_strndup(executable, temp + 2);
-	if (!result[0])
-		return (NULL);
-	result[0][temp + 1] = 0;
-	result[1] = ft_strdup(executable + (temp +1));
-	if (!result[1])
-	{
-		free(result[0]);
-		free(result);
 		return (NULL);
 	}
+	if (!separate(&result, executable, temp))
+		return (NULL);
+//	result[0] = ft_strndup(executable, temp + 2);
+//	if (!result[0])
+//		return (NULL);
+//	result[0][temp + 1] = 0;
+//	result[1] = ft_strdup(executable + (temp +1));
+//	if (!result[1])
+//	{
+//		free(result[0]);
+//		free(result);
+//		return (NULL);
+//	}
 	return (result);
 }
 
 char	*search_abs_path(char *executable)
 {
-	DIR	*directory;
-	struct dirent *dirent;
-	char	**cut;
+	DIR				*directory;
+	struct dirent	*dirent;
+	char			**cut;
 
 	cut = cut_exec_string(executable);
 	if (!cut)
@@ -85,44 +87,48 @@ char	*search_abs_path(char *executable)
 	{
 		if (!ft_strcmp(cut[1], dirent->d_name))
 		{
-			free(cut[0]);
-			free(cut[1]);
-			free(cut);
-			closedir(directory);	
+			free_cut_n_close_dir(cut, directory);
+		//	free(cut[0]);
+		//	free(cut[1]);
+		//	free(cut);
+		//	closedir(directory);
 			return (executable);
 		}
 		dirent = readdir(directory);
 	}
-	closedir(directory);
-	free(cut[0]);
-	free(cut[1]);
-	free(cut);
+	free_cut_n_close_dir(cut, directory);
+	//closedir(directory);
+	//free(cut[0]);
+	//free(cut[1]);
+	//free(cut);
 	return (NULL);
 }
 
 char	*search_relative_path(char **env_pths, char *executable)
 {
-	DIR *directory;
-	struct dirent *dirent;
-	int	i;
+	DIR				*directory;
+	struct dirent	*dirent;
+	int				i;
 
 	i = 0;
 	while (env_pths[i])
 	{
-		directory =	opendir(env_pths[i]);
+		directory = opendir(env_pths[i]);
 		if (directory == NULL)
 		{
 			i++;
-			continue;
+			continue ;
 		}
 		dirent = readdir(directory);
-		while(dirent)
+		while (dirent)
 		{
-			if (!ft_strcmp(executable, dirent->d_name))
-			{
-				closedir(directory);
+			if (compare_exec_to_entry(executable, dirent->d_name, directory))
 				return (env_pths[i]);
-			}
+		//	if (!ft_strcmp(executable, dirent->d_name))
+		//	{
+		//		closedir(directory);
+		//		return (env_pths[i]);
+		//	}
 			dirent = readdir(directory);
 		}
 		closedir(directory);
@@ -155,5 +161,5 @@ char	*search_for_dir(char	**env_pths, char	*executable)
 			return (NULL);
 		return (append);
 	}
-	return	(exec_dir);
+	return (exec_dir);
 }

@@ -35,10 +35,10 @@ static char	**split_env_path(void)
 	char		**split;
 	char		**second;
 	char		*tmp;
-	int		i;
+	int			i;
 
 	i = path_in_environ();
-	if( i == -1)
+	if (i == -1)
 		return (NULL);
 	split = ft_split(environ[i], ':');
 	if (!split)
@@ -67,10 +67,10 @@ static char	*get_abs_path(char *executable)
 	dir = search_for_dir(paths, executable);
 	if (!dir)
 	{
-		ft_free_2d((void ***)&paths, ft_2d_size((const void **)paths)); 
+		ft_free_2d((void ***)&paths, ft_2d_size((const void **)paths));
 		return (NULL);
 	}
-	ft_free_2d((void ***)&paths, ft_2d_size((const void **)paths)); 
+	ft_free_2d((void ***)&paths, ft_2d_size((const void **)paths));
 	return (dir);
 }
 
@@ -89,7 +89,7 @@ static bool	split_prompt(char *line)
 bool	parse(char *prompt)
 {
 	char	*line;
-	char *abs_path;
+	char	*abs_path;
 
 	line = readline(prompt);
 	if (!line)

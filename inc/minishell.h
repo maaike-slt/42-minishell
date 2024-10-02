@@ -28,4 +28,9 @@ bool	parse(char *prompt);
 //	directory functions //
 char	*search_for_dir(char	**env_paths, char *executable);
 
+//  get_path_utils //
+bool	compare_exec_to_entry(char *executable, char *entry, DIR *directory);
+void	free_cut_n_close_dir(char **cut, DIR *directory);
+bool	separate(char ***result, char *executable, int temp);
+
 #endif
