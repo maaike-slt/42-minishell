@@ -15,7 +15,6 @@ CC = 	cc
 RM = 	rm -rf
 
 CFLAGS =	-Wall -Werror -Wextra
-CFLAGS +=	-pthread
 CFLAGS +=	-g
 # CFLAGS +=	-fsanitize=address
 
