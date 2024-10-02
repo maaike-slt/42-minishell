@@ -6,7 +6,7 @@
 #    By: msloot <msloot@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 19:19:04 by msloot            #+#    #+#              #
-#    Updated: 2024/09/25 15:12:38 by msloot           ###   ########.fr        #
+#    Updated: 2024/10/02 20:12:32 by msloot           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,7 +93,7 @@ $(NAME):	$(OBJ) $(LIBNAME)
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@mkdir -p $(dir $@) # 2> /dev/null || true
-	$(CC) $(CFLAGS) $(LIBINC) -I$(INC) -c $< $(LREADLINE) -o $@
+	$(CC) $(CFLAGS) $(LIBINC) -I$(INC) -c $< $(LIBREADLINE) -o $@
 	@printf "█"
 
 $(LIBNAME):
