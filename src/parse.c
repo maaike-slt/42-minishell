@@ -6,73 +6,11 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 17:05:10 by gbonis            #+#    #+#             */
-/*   Updated: 2024/09/25 19:44:08 by msloot           ###   ########.fr       */
+/*   Updated: 2024/10/02 15:20:52 by gbonis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	path_in_environ(void)
-{
-	extern char	**environ;
-	int			i;
-
-	i = 0;
-	while (environ[i])
-	{
-		if (ft_strnstr(environ[i], "PATH=", 5))
-			break ;
-		i++;
-	}
-	if (environ[i] == NULL)
-		return (-1);
-	return (i);
-}
-
-static char	**split_env_path(void)
-{
-	extern char	**environ;
-	char		**split;
-	char		**second;
-	char		*tmp;
-	int			i;
-
-	i = path_in_environ();
-	if (i == -1)
-		return (NULL);
-	split = ft_split(environ[i], ':');
-	if (!split)
-		return (NULL);
-	second = ft_split(split[0], '=');
-	if (!second)
-	{
-		ft_free_2d((void ***)&split, ft_2d_size((const void **)split));
-		return (NULL);
-	}
-	tmp = split[0];
-	split[0] = second[1];
-	free(tmp);
-	ft_free_2d((void ***)&second, 1);
-	return (split);
-}
-
-static char	*get_abs_path(char *executable)
-{
-	char	**paths;
-	char	*dir;
-
-	paths = split_env_path();
-	if (!paths)
-		return (NULL);
-	dir = search_for_dir(paths, executable);
-	if (!dir)
-	{
-		ft_free_2d((void ***)&paths, ft_2d_size((const void **)paths));
-		return (NULL);
-	}
-	ft_free_2d((void ***)&paths, ft_2d_size((const void **)paths));
-	return (dir);
-}
 
 static bool	split_prompt(char *line)
 {

@@ -69,6 +69,7 @@ char	*search_abs_path(char *executable)
 	directory = opendir(cut[0]);
 	if (!directory)
 	{
+		free_cut_n_close_dir(cut, directory);
 		return (NULL);
 	}
 	dirent = readdir(directory);
