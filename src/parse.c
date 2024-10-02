@@ -14,14 +14,14 @@
 
 int	path_in_environ(void)
 {
-	extern char	**environ;				//test dabord valgrind before refactor
+	extern char	**environ;
 	int			i;
 
 	i = 0;
-	while (environ[i])		//refactor this in a func
+	while (environ[i])
 	{
-		if (ft_strnstr(environ[i], "PATH=", 5))		// should protect for PATH=NULL or no PATH here ? yes ->segfault otherwise	// prob also check for bullshit in path variable (like if export PATH=bullshit) ?
-			break ;							// what if there is bullshit in path ? do i have to protect segfault ?
+		if (ft_strnstr(environ[i], "PATH=", 5))
+			break ;
 		i++;
 	}
 	if (environ[i] == NULL)
@@ -29,7 +29,7 @@ int	path_in_environ(void)
 	return (i);
 }
 
-static char	**split_env_path(void)	// protect on error this func
+static char	**split_env_path(void)
 {
 	extern char	**environ;
 	char		**split;
@@ -40,7 +40,7 @@ static char	**split_env_path(void)	// protect on error this func
 	i = path_in_environ();
 	if( i == -1)
 		return (NULL);
-	split = ft_split(environ[i], ':');		// what happen if no : or = ?			// protect
+	split = ft_split(environ[i], ':');
 	if (!split)
 		return (NULL);
 	second = ft_split(split[0], '=');
@@ -61,7 +61,7 @@ static char	*get_abs_path(char *executable)
 	char	**paths;
 	char	*dir;
 
-	paths = split_env_path();		// protect on error 
+	paths = split_env_path();
 	if (!paths)
 		return (NULL);
 	dir = search_for_dir(paths, executable);
@@ -97,7 +97,7 @@ bool	parse(char *prompt)
 	add_history(line);
 	if (!split_prompt(line))
 		return (false);
-	abs_path = get_abs_path(line);		//protect
+	abs_path = get_abs_path(line);
 	if (!abs_path)
 	{
 		free(line);
@@ -105,10 +105,10 @@ bool	parse(char *prompt)
 		return (false);
 	}
 	//get_args()
-	//execve(abs_path, args, environ);		// careful NULL terminate arrays
-	if (abs_path)	// redo the protection on abs_path = NULL, this is messy
+	//execve(abs_path, args, environ);
+	if (abs_path)
 	{
-		if (ft_strchr(abs_path, '/'))		// this is needed because only need to free when absolute path, otherwise leak or double free
+		if (!ft_strchr(line, '/'))			// this is only to free append (so "ls" or "cron", which become "/bin/ls"), otherwise abs_path is in fact line (because if line is "./a.out" and is viable, execve can use this)
 			free(abs_path);
 	}
 	free(line);

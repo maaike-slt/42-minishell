@@ -20,7 +20,7 @@ char	*append_exec_to_path(char *exec_dir, char *executable)
 
 	size_dir = ft_strlen(exec_dir);
 	size_exec = ft_strlen(executable);
-	appended = malloc(sizeof(char) * (size_dir + size_exec + 2));		//	protect
+	appended = malloc(sizeof(char) * (size_dir + size_exec + 2));
 	if (!appended)
 		return (NULL);
 	ft_memcpy(appended, exec_dir, size_dir);
@@ -138,9 +138,10 @@ char	*search_for_dir(char	**env_pths, char	*executable)
 
 	if (ft_strchr(executable, '/'))
 	{
-		exec_dir = search_abs_path(executable);		// still need todo something with wrong value
+		exec_dir = search_abs_path(executable);
 		if (exec_dir == NULL)
 			return (NULL);
+		printf("%s\n", exec_dir);
 		return (exec_dir);
 	}
 	else
@@ -151,7 +152,6 @@ char	*search_for_dir(char	**env_pths, char	*executable)
 		append = append_exec_to_path(exec_dir, executable);
 		printf("%s\n", append);
 		if (!append)
-		
 			return (NULL);
 		return (append);
 	}
