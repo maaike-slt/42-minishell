@@ -115,7 +115,7 @@ char	*search_relative_path(char **env_pths, char *executable)
 			i++;
 			continue;
 		}
-		dirent = readdir(directory);	// careful, if we give . or .. as executable, it will return a dir		// also as there is a limit of 256 char in dirent->d_name, check what does an overflow of the array does
+		dirent = readdir(directory);
 		while(dirent)
 		{
 			if (!ft_strcmp(executable, dirent->d_name))
@@ -141,7 +141,7 @@ char	*search_for_dir(char	**env_pths, char	*executable)
 		exec_dir = search_abs_path(executable);
 		if (exec_dir == NULL)
 			return (NULL);
-		printf("%s\n", exec_dir);
+		printf("%s\n", exec_dir);			//for testing
 		return (exec_dir);
 	}
 	else
@@ -150,7 +150,7 @@ char	*search_for_dir(char	**env_pths, char	*executable)
 		if (exec_dir == NULL)
 			return (NULL);
 		append = append_exec_to_path(exec_dir, executable);
-		printf("%s\n", append);
+		printf("%s\n", append);				// for testing
 		if (!append)
 			return (NULL);
 		return (append);
