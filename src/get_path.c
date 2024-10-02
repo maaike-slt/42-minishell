@@ -131,14 +131,14 @@ char	*search_relative_path(char **env_pths, char *executable)
 	return (NULL);
 }
 
-char	*search_for_dir(char	**env_pths, char	*executable)		// STILL NEED TO BE ABLE TO ~  (opendir can't understand ~, but bash can)
+char	*search_for_dir(char	**env_pths, char	*executable)
 {
 	char	*exec_dir;
 	char	*append;
 
 	if (ft_strchr(executable, '/'))
 	{
-		exec_dir = search_abs_path(executable);			// dont need to append here, ../../../../../bin/ls will work with execve	// still need todo something with wrong value
+		exec_dir = search_abs_path(executable);		// still need todo something with wrong value
 		if (exec_dir == NULL)
 			return (NULL);
 		return (exec_dir);
@@ -157,8 +157,3 @@ char	*search_for_dir(char	**env_pths, char	*executable)		// STILL NEED TO BE ABL
 	}
 	return	(exec_dir);
 }
-
-// still need to manage to append executable to path, in both cases, rel or abs
-// still need to manade to ~
-
-// will do norm when finish building all of this
