@@ -47,24 +47,13 @@ char	**cut_exec_string(char *executable)
 			temp = i;
 		i++;
 	}
-	if (!temp)		//don't need this if abs/rel parsing done right, this is a safeguard, remove once testing done if needed for norm.
+	if (!temp)
 	{
 		free(result);
 		return (NULL);
 	}
 	if (!separate(&result, executable, temp))
 		return (NULL);
-//	result[0] = ft_strndup(executable, temp + 2);
-//	if (!result[0])
-//		return (NULL);
-//	result[0][temp + 1] = 0;
-//	result[1] = ft_strdup(executable + (temp +1));
-//	if (!result[1])
-//	{
-//		free(result[0]);
-//		free(result);
-//		return (NULL);
-//	}
 	return (result);
 }
 
@@ -88,19 +77,11 @@ char	*search_abs_path(char *executable)
 		if (!ft_strcmp(cut[1], dirent->d_name))
 		{
 			free_cut_n_close_dir(cut, directory);
-		//	free(cut[0]);
-		//	free(cut[1]);
-		//	free(cut);
-		//	closedir(directory);
 			return (executable);
 		}
 		dirent = readdir(directory);
 	}
 	free_cut_n_close_dir(cut, directory);
-	//closedir(directory);
-	//free(cut[0]);
-	//free(cut[1]);
-	//free(cut);
 	return (NULL);
 }
 
@@ -124,11 +105,6 @@ char	*search_relative_path(char **env_pths, char *executable)
 		{
 			if (compare_exec_to_entry(executable, dirent->d_name, directory))
 				return (env_pths[i]);
-		//	if (!ft_strcmp(executable, dirent->d_name))
-		//	{
-		//		closedir(directory);
-		//		return (env_pths[i]);
-		//	}
 			dirent = readdir(directory);
 		}
 		closedir(directory);
