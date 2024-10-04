@@ -12,51 +12,19 @@
 
 #include "minishell.h"
 
-///	parsing environment for PATH variable ///
-
-static	int	path_in_environ(void)
-{
-	extern char	**environ;
-	int			i;
-
-	i = 0;
-	while (environ[i])
-	{
-		if (ft_strnstr(environ[i], "PATH=", 5))
-			break ;
-		i++;
-	}
-	if (environ[i] == NULL)
-		return (-1);
-	return (i);
-}
-
 /// split PATH string into char ** to be usable ///
 
 static char	**split_env_path(void)
 {
-	extern char	**environ;
 	char		**split;
-	char		**second;
-	char		*tmp;
-	int			i;
+	char		*path;
 
-	i = path_in_environ();
-	if (i == -1)
+	path = getenv("PATH");
+	if (!path)
 		return (NULL);
-	split = ft_split(environ[i], ':');
+	split = ft_split(path, ':');
 	if (!split)
 		return (NULL);
-	second = ft_split(split[0], '=');
-	if (!second)
-	{
-		ft_free_2d((void ***)&split, ft_2d_size((const void **)split));
-		return (NULL);
-	}
-	tmp = split[0];
-	split[0] = second[1];
-	free(tmp);
-	ft_free_2d((void ***)&second, 1);
 	return (split);
 }
 
