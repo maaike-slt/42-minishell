@@ -33,11 +33,9 @@ static char	**split_env_path(void)
 char	*get_abs_path(char *executable)
 {
 	char	**paths;
-	char	*dir; 
+	char	*dir;
 
-	paths = split_env_path();
-	if (!paths)
-		return (NULL);
+	paths = split_env_path();					// no protection here, because still need to go to search dir func, protection is there
 	dir = search_for_dir(paths, executable);
 	if (!dir)
 	{

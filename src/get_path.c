@@ -137,6 +137,8 @@ char	*search_for_dir(char	**env_pths, char	*executable)
 	}
 	else
 	{
+		if (!env_pths)
+			return (NULL);
 		exec_dir = search_relative_path(env_pths, executable);
 		if (exec_dir == NULL)
 			return (NULL);
