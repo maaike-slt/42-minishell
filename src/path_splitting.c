@@ -33,7 +33,7 @@ static char	**split_env_path(void)
 char	*get_abs_path(char *executable)
 {
 	char	**paths;
-	char	*dir;
+	char	*dir; 
 
 	paths = split_env_path();
 	if (!paths)
