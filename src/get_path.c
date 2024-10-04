@@ -120,7 +120,7 @@ char	*search_relative_path(char **env_pths, char *executable)
 }
 
 /// two posibilities: relative path (use PATH), or absolute (cut the ///
-/// dir and then search trough it.									 ///
+/// dir and then search trough it)									 ///
 
 char	*search_for_dir(char	**env_pths, char	*executable)
 {

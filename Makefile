@@ -93,7 +93,7 @@ $(NAME):	$(OBJ) $(LIBNAME)
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@mkdir -p $(dir $@) # 2> /dev/null || true
-	$(CC) $(CFLAGS) $(LIBINC) -I$(INC) -c $< $(LIBREADLINE) -o $@
+	$(CC) $(CFLAGS) $(LIBINC) -I$(INC) -c $< -o $@
 	@printf "█"
 
 $(LIBNAME):
@@ -116,5 +116,5 @@ valgrind:
 
 .PHONY: all clean fclean re valgrind
 
-# **************************************************************************** #
 
+# **************************************************************************** #
