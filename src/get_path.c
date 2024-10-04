@@ -42,7 +42,7 @@ char	**cut_exec_string(char *executable)
 	int		i;
 
 	i = 0;
-	temp = 0;
+	temp = -1;
 	result = malloc(sizeof(char *) * 2);
 	if (!result)
 		return (NULL);
@@ -52,7 +52,7 @@ char	**cut_exec_string(char *executable)
 			temp = i;
 		i++;
 	}
-	if (!temp)
+	if (temp == -1)
 	{
 		free(result);
 		return (NULL);
