@@ -22,6 +22,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <dirent.h>
+# include <termios.h>
 
 bool	parse(char *prompt);
 
