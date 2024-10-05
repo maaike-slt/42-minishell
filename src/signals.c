@@ -6,11 +6,16 @@
 /*   By: gbonis <gbonis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 18:16:21 by gbonis            #+#    #+#             */
-/*   Updated: 2024/10/05 18:16:35 by gbonis           ###   ########.fr       */
+/*   Updated: 2024/10/05 18:43:54 by gbonis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	event(void)
+{
+	return (0);
+}
 
 void	sig_c(int x)
 {

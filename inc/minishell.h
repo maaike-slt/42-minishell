@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 17:18:41 by msloot            #+#    #+#             */
-/*   Updated: 2024/09/25 19:43:50 by msloot           ###   ########.fr       */
+/*   Updated: 2024/10/05 18:44:39 by gbonis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_signals
 	struct sigaction	sig_slash;
 }t_signals;
 
+// parsing //
 bool	parse(char *prompt);
 
 //	directory functions //
@@ -45,5 +46,6 @@ char	*get_abs_path(char *executable);
 
 // signals //
 int	set_sig_handler(t_signals *signals);
+int	event(void);
 
 #endif
