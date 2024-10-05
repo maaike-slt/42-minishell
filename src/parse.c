@@ -24,32 +24,30 @@ static bool	split_prompt(char *line)
 	return (true);
 }
 
-bool	parse(char *prompt)
+bool	parse(char *cmd_str)
 {
-	char	*line;
+	//char	*line;
 	char	*abs_path;
 
-	line = readline(prompt);
-	if (!line)
+	//line = readline(prompt);
+	//if (!line)
+	//	return (false);
+	add_history(cmd_str);
+	if (!split_prompt(cmd_str))
 		return (false);
-	add_history(line);
-	if (!split_prompt(line))
-		return (false);
-	abs_path = get_abs_path(line);
+	abs_path = get_abs_path(cmd_str);
 	if (!abs_path)
 	{
-		free(line);
-		rl_clear_history();
+		free(cmd_str);
 		return (false);
 	}
 	//get_args()
 	//execve(abs_path, args, environ);
 	if (abs_path)
 	{
-		if (!ft_strchr(line, '/'))			// this is only to free append (so "ls" or "cron", which become "/bin/ls"), otherwise abs_path is in fact line (because if line is "./a.out" and is viable, execve can use this)
+		if (!ft_strchr(cmd_str, '/'))			// this is only to free append (so "ls" or "cron", which become "/bin/ls"), otherwise abs_path is in fact line (because if line is "./a.out" and is viable, execve can use this)
 			free(abs_path);
 	}
-	free(line);
-	rl_clear_history();
+	free(cmd_str);
 	return (true);
 }

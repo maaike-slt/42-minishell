@@ -14,9 +14,17 @@
 
 int	main(void)
 {
-	char	*prompt;
+	char	*cmd_str;
 
-	prompt = "minishell$ ";
-	parse(prompt);
+	while (1)
+	{
+		cmd_str = readline("minishell$ ");
+		if (!cmd_str)
+		{
+			rl_clear_history();
+			break ;
+		}
+		parse(cmd_str);
+	}
 	return (0);
 }
