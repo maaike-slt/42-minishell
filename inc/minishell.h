@@ -24,6 +24,12 @@
 # include <dirent.h>
 # include <termios.h>
 
+typedef struct s_signals
+{
+	struct sigaction	sig_c;
+	struct sigaction	sig_slash;
+}t_signals;
+
 bool	parse(char *prompt);
 
 //	directory functions //
@@ -36,5 +42,8 @@ bool	separate(char ***result, char *executable, int temp);
 
 // path_splitting //
 char	*get_abs_path(char *executable);
+
+// signals //
+int	set_sig_handler(t_signals *signals);
 
 #endif

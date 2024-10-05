@@ -12,10 +12,18 @@
 
 #include "minishell.h"
 
+int	event(void)
+{
+	return (0);
+}
+
 int	main(void)
 {
 	char	*cmd_str;
+	t_signals	signals;
 
+	rl_event_hook = event;
+	set_sig_handler(&signals);
 	while (1)
 	{
 		cmd_str = readline("minishell$ ");

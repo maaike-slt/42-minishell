@@ -32,7 +32,7 @@ bool	parse(char *cmd_str)
 	//line = readline(prompt);
 	//if (!line)
 	//	return (false);
-	add_history(cmd_str);
+	add_history(cmd_str);		// maybe check if !(*cmd_str) in order not to add it in the history
 	if (!split_prompt(cmd_str))
 		return (false);
 	abs_path = get_abs_path(cmd_str);
