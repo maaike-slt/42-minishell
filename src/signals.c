@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signals.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gbonis <gbonis@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/05 18:16:21 by gbonis            #+#    #+#             */
+/*   Updated: 2024/10/05 18:16:35 by gbonis           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	sig_c(int x)
@@ -29,4 +41,3 @@ int	set_sig_handler(t_signals *signals)
 	sigaction(SIGQUIT, &signals->sig_slash, NULL);
 	return (0);
 }
-
