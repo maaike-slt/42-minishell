@@ -46,7 +46,13 @@ bool	get_struct_values(t_values *values)
 
 bool	parse(t_values *v)
 {
+	extern int sig;
 
+	if (sig == 1)
+	{
+		sig = 0;
+		return (false);
+	}
 	if (get_struct_values(v) == false)
 		return (false);
 	execute(v);	

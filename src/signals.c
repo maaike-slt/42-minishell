@@ -19,6 +19,9 @@ int	event(void)			// needed to have the event handler check rl_done in order to 
 
 void	sig_c(int x)
 {
+	extern int sig;
+
+	sig = 1;
 	rl_done = 1;		// do nothing except returning readline (and print ^C in previous line, as in bash)
 	x++;
 }

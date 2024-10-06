@@ -12,6 +12,8 @@
 
 #include "minishell.h"
 
+int sig;
+
 int	main(void)
 {
 	t_values	values;
