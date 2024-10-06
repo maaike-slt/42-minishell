@@ -14,18 +14,19 @@
 
 int	main(void)
 {
-	char	*cmd_str;
+	t_values	values;
 
 	set_sig_handler();
 	while (1)
 	{
-		cmd_str = readline("minishell$ ");
-		if (!cmd_str)
+		values.cmd_str = readline("minishell$ ");
+		if (!values.cmd_str)
 		{
 			rl_clear_history();
 			break ;
 		}
-		parse(cmd_str);
+		add_history(values.cmd_str);
+		parse(&values);
 	}
 	return (0);
 }

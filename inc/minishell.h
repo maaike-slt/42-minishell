@@ -26,8 +26,17 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 
+typedef struct s_values
+{
+	char	*cmd_str;
+	char	*abs_path;
+	char	*exec_name;
+	char	**bin_args;
+	char	*prev_ret_val;
+}t_values;
+
 // parsing //
-bool	parse(char *prompt);
+bool	parse(t_values *values);
 
 //	directory functions //
 char	*search_for_dir(char	**env_paths, char *executable);
