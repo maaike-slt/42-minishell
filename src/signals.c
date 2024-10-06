@@ -12,37 +12,40 @@
 
 #include "minishell.h"
 
-int	event(void)
+int	event(void)			// needed to have the event handler check rl_done in order to return readline on ^C
 {
 	return (0);
 }
 
 void	sig_c(int x)
 {
-	rl_done = 1;
+	rl_done = 1;		// do nothing except returning readline (and print ^C in previous line, as in bash)
 	x++;
 }
 
 void	sig_slash(int x)
 {
 	rl_erase_empty_line = 1;
-	rl_replace_line("  ", 1);
+	rl_replace_line("  ", 1);	// without this "^\" is printed
 	rl_on_new_line();
 	rl_redisplay();
 	rl_erase_empty_line = 0;
-	rl_end -= 2;
+	rl_end -= 2;				// without this, buffer contains "  "
 	x++;
 }
 
-int	set_sig_handler(t_signals *signals)
+int	set_sig_handler(void)
 {
-	signals->sig_c.sa_handler = sig_c;
-	signals->sig_c.sa_flags = SA_RESTART;
-	signals->sig_slash.sa_handler = sig_slash;
-	signals->sig_slash.sa_flags = SA_RESTART;
-	sigemptyset(&signals->sig_c.sa_mask);
-	sigemptyset(&signals->sig_slash.sa_mask);
-	sigaction(SIGINT, &signals->sig_c, NULL);
-	sigaction(SIGQUIT, &signals->sig_slash, NULL);
+	t_signals	signals;
+
+	rl_event_hook = event;		// needed to check for rl_done in signals, to return readline on ^C
+	signals.sig_c.sa_handler = sig_c;
+	signals.sig_c.sa_flags = SA_RESTART;
+	signals.sig_slash.sa_handler = sig_slash;
+	signals.sig_slash.sa_flags = SA_RESTART;
+	sigemptyset(&signals.sig_c.sa_mask);
+	sigemptyset(&signals.sig_slash.sa_mask);
+	sigaction(SIGINT, &signals.sig_c, NULL);
+	sigaction(SIGQUIT, &signals.sig_slash, NULL);
 	return (0);
 }

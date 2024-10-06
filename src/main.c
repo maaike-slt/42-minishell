@@ -15,10 +15,8 @@
 int	main(void)
 {
 	char	*cmd_str;
-	t_signals	signals;
 
-	rl_event_hook = event;		// needed to check for rl_done in signals, to return readline on ^C
-	set_sig_handler(&signals);
+	set_sig_handler();
 	while (1)
 	{
 		cmd_str = readline("minishell$ ");

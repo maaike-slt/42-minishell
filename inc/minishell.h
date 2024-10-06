@@ -47,7 +47,7 @@ bool	separate(char ***result, char *executable, int temp);
 char	*get_abs_path(char *executable);
 
 // signals //
-int	set_sig_handler(t_signals *signals);
+int	set_sig_handler(void);
 int	event(void);
 
 #endif

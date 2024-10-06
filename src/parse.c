@@ -17,7 +17,9 @@ bool	parse(char *cmd_str)
 	char	*abs_path;
 	char	**split_s;
 
-	add_history(cmd_str);		// maybe check if(!(*cmd_str)) in order not to add it in the history
+	
+	add_history(cmd_str);
+//	get_struct_values(values)
 	split_s = ft_split_whitespace(cmd_str);
 	if (!split_s || !split_s[0])		// otherwise segfault if cmd_str is only spaces
 	{
@@ -33,6 +35,8 @@ bool	parse(char *cmd_str)
 		free(cmd_str);
 		return (false);
 	}
+						// perhaps before just have a get_struct_values() ?
+//	execute(values);	// put execve and getting $? in there
 	//get_args()
 	//execve(abs_path, args, environ);			// don't forget NULL terminate args
 	if (abs_path)
