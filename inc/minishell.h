@@ -23,7 +23,7 @@
 # include <readline/history.h>
 # include <dirent.h>
 # include <termios.h>
-# include <sys/type.h>
+# include <sys/types.h>
 
 typedef struct s_signals
 {
