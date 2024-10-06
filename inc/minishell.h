@@ -26,12 +26,6 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 
-typedef struct s_signals
-{
-	struct sigaction	sig_c;
-	struct sigaction	sig_slash;
-}t_signals;
-
 // parsing //
 bool	parse(char *prompt);
 
@@ -48,6 +42,5 @@ char	*get_abs_path(char *executable);
 
 // signals //
 int	set_sig_handler(void);
-int	event(void);
 
 #endif

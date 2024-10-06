@@ -36,16 +36,17 @@ void	sig_slash(int x)
 
 int	set_sig_handler(void)
 {
-	t_signals	signals;
+	struct sigaction s_sig_c;	
+	struct sigaction s_sig_slash;	
 
 	rl_event_hook = event;		// needed to check for rl_done in signals, to return readline on ^C
-	signals.sig_c.sa_handler = sig_c;
-	signals.sig_c.sa_flags = SA_RESTART;
-	signals.sig_slash.sa_handler = sig_slash;
-	signals.sig_slash.sa_flags = SA_RESTART;
-	sigemptyset(&signals.sig_c.sa_mask);
-	sigemptyset(&signals.sig_slash.sa_mask);
-	sigaction(SIGINT, &signals.sig_c, NULL);
-	sigaction(SIGQUIT, &signals.sig_slash, NULL);
+	s_sig_c.sa_handler = sig_c;
+	s_sig_c.sa_flags = SA_RESTART;
+	s_sig_slash.sa_handler = sig_slash;
+	s_sig_slash.sa_flags = SA_RESTART;
+	sigemptyset(&s_sig_c.sa_mask);
+	sigemptyset(&s_sig_slash.sa_mask);
+	sigaction(SIGINT, &s_sig_c, NULL);
+	sigaction(SIGQUIT, &s_sig_slash, NULL);
 	return (0);
 }
