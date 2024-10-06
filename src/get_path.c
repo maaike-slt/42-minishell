@@ -132,7 +132,6 @@ char	*search_for_dir(char	**env_pths, char	*executable)
 		exec_dir = search_abs_path(executable);
 		if (exec_dir == NULL)
 			return (NULL);
-		printf("%s\n", exec_dir);			//for testing
 		return (exec_dir);
 	}
 	else
@@ -143,7 +142,6 @@ char	*search_for_dir(char	**env_pths, char	*executable)
 		if (exec_dir == NULL)
 			return (NULL);
 		append = append_exec_to_path(exec_dir, executable);
-		printf("%s\n", append);				// for testing
 		if (!append)
 			return (NULL);
 		return (append);

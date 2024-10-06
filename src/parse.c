@@ -21,18 +21,15 @@ bool	abs_path_in_values(t_values *values, char **split_str)
 		free(values->cmd_str);
 		return (false);
 	}
-	if (values->abs_path)
-	{
-		if (!ft_strchr(values->cmd_str, '/'))			// this is only to free append (so "ls" or "cron", which become "/bin/ls"), otherwise abs_path is in fact line (because if line is "./a.out" and is viable, execve can use this)
-			free(values->abs_path);
-	}
 	return (true);
 }
 
 bool	get_struct_values(t_values *values)
 {
 	char	**split_str;
+	extern char	**environ;
 
+	values->env = environ;
 	split_str = ft_split_whitespace(values->cmd_str);
 	if (!split_str || !split_str[0])		// otherwise segfault if cmd_str is only spaces
 	{
@@ -52,7 +49,12 @@ bool	parse(t_values *v)
 
 	if (get_struct_values(v) == false)
 		return (false);
-	//execute(v);	
+	execute(v);	
+	if (v->abs_path)
+	{
+		if (!ft_strchr(*v->bin_args, '/'))			// this is only to free append (so "ls" or "cron", which become "/bin/ls"), otherwise abs_path is in fact line (because if line is "./a.out" and is viable, execve can use this)
+			free(v->abs_path);
+	}
 	ft_free_2d((void ***)&v->bin_args, ft_2d_size((const void **)v->bin_args));
 	free(v->cmd_str);
 	return (true);

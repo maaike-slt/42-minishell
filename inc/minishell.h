@@ -28,10 +28,11 @@
 
 typedef struct s_values
 {
+	char	**env;
 	char	*cmd_str;
 	char	*abs_path;
 	char	**bin_args;
-	char	*prev_ret_val;
+	int		prev_ret_val;
 }t_values;
 
 // parsing //
@@ -50,5 +51,8 @@ char	*get_abs_path(char *executable);
 
 // signals //
 int	set_sig_handler(void);
+
+// executing //
+int	execute(t_values *values);
 
 #endif
