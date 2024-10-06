@@ -30,7 +30,6 @@ typedef struct s_values
 {
 	char	*cmd_str;
 	char	*abs_path;
-	char	*exec_name;
 	char	**bin_args;
 	char	*prev_ret_val;
 }t_values;

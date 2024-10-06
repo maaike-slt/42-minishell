@@ -43,16 +43,17 @@ bool	get_struct_values(t_values *values)
 	}
 	if (abs_path_in_values(values, split_str) == false)
 		return (false);
-	ft_free_2d((void ***)&split_str, ft_2d_size((const void **)split_str));
-	free(values->cmd_str);
+	values->bin_args = split_str;				// here execve accept as args the full split_str if it is valid (be careful of segfault in program with bullshit data here, the syscalls will be resilient but maybe not the program)
 	return (true);
 }
 
-bool	parse(t_values *values)
+bool	parse(t_values *v)
 {
 
-	if (get_struct_values(values) == false)
+	if (get_struct_values(v) == false)
 		return (false);
-	//execute(values);	
+	//execute(v);	
+	ft_free_2d((void ***)&v->bin_args, ft_2d_size((const void **)v->bin_args));
+	free(v->cmd_str);
 	return (true);
 }
