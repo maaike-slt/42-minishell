@@ -34,7 +34,7 @@ bool	parse(char *cmd_str)
 		return (false);
 	}
 	//get_args()
-	//execve(abs_path, args, environ);
+	//execve(abs_path, args, environ);			// don't forget NULL terminate args
 	if (abs_path)
 	{
 		if (!ft_strchr(cmd_str, '/'))			// this is only to free append (so "ls" or "cron", which become "/bin/ls"), otherwise abs_path is in fact line (because if line is "./a.out" and is viable, execve can use this)
