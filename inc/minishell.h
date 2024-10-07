@@ -25,6 +25,7 @@
 # include <termios.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <sys/stat.h>
 
 typedef struct s_values
 {
@@ -39,7 +40,7 @@ typedef struct s_values
 bool	parse(t_values *values);
 
 //	directory functions //
-char	*search_for_dir(char	**env_paths, char *executable);
+char	*search_for_dir(t_values *values, char	**env_paths, char *executable);
 
 //  get_path_utils //
 bool	compare_exec_to_entry(char *executable, char *entry, DIR *directory);
@@ -47,7 +48,7 @@ void	free_cut_n_close_dir(char **cut, DIR *directory);
 bool	separate(char ***result, char *executable, int temp);
 
 // path_splitting //
-char	*get_abs_path(char *executable);
+char	*get_abs_path(t_values *values, char *executable);
 
 // signals //
 int	set_sig_handler(void);
