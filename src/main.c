@@ -12,15 +12,17 @@
 
 #include "minishell.h"
 
-int sig;
+int sig;		// use of a global only to manage one edge case: write viable command and then ^C, bash will not execute.
 
 int	main(void)
 {
 	t_values	values;
+	values.prev_ret_val = 0;
 
-	set_sig_handler();
+	set_sig_handler();			// protect
 	while (1)
 	{
+		printf("%d\n", values.prev_ret_val);
 		values.cmd_str = readline("minishell$ ");
 		if (!values.cmd_str)
 		{

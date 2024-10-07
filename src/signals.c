@@ -28,6 +28,9 @@ void	sig_c(int x)
 
 void	sig_slash(int x)
 {
+	extern int sig;
+
+	sig = 2;
 	rl_erase_empty_line = 1;
 	rl_replace_line("  ", 1);	// without this "^\" is printed
 	rl_on_new_line();

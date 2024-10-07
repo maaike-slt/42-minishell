@@ -26,9 +26,8 @@ int	execute(t_values *values)
 	}
 	else 
 	{
-		waitpid(-1, &status, 0);			// je sais pas pq mais -pid ça marchait pas, a checker				// do way more testing for the fork infra, to see if something can fail, and edge cases
+		waitpid(pid, &status, 0);			// je sais pas pq mais -pid ça marchait pas, a checker				// do way more testing for the fork infra, to see if something can fail, and edge cases
 		values->prev_ret_val = WEXITSTATUS(status);
-		printf("%d\n", values->prev_ret_val);
 	}
 	return (0);
 }

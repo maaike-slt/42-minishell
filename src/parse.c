@@ -12,6 +12,15 @@
 
 #include "minishell.h"
 
+void	handle_sig(int	*sig, t_values *v)
+{
+	if (*sig == 1)
+		v->prev_ret_val = 130;
+	if (*sig == 2)
+		v->prev_ret_val = 131;
+	*sig = 0;
+}
+
 bool	abs_path_in_values(t_values *values, char **split_str)
 {
 	values->abs_path = get_abs_path(*split_str);
@@ -48,9 +57,9 @@ bool	parse(t_values *v)
 {
 	extern int sig;
 
-	if (sig == 1)
+	if (sig)
 	{
-		sig = 0;
+		handle_sig(&sig, v);
 		return (false);
 	}
 	if (get_struct_values(v) == false)
@@ -58,10 +67,12 @@ bool	parse(t_values *v)
 	execute(v);	
 	if (v->abs_path)
 	{
-		if (!ft_strchr(*v->bin_args, '/'))			// this is only to free append (so "ls" or "cron", which become "/bin/ls"), otherwise abs_path is in fact line (because if line is "./a.out" and is viable, execve can use this)
+		if (!ft_strchr(*v->bin_args, '/'))			// this is only to free append (so "ls" or "cron", which become "/bin/ls"), otherwise abs_path is in fact *split_tr (because if line is "./a.out" and is viable, execve can use this)
 			free(v->abs_path);
 	}
 	ft_free_2d((void ***)&v->bin_args, ft_2d_size((const void **)v->bin_args));
 	free(v->cmd_str);
+	if (sig)			// need to check on exit also for an edge case (if sig is catch while a bin is running, then a call to readline would fail after and also $? wouldn't be accurate)
+		handle_sig(&sig, v);
 	return (true);
 }
