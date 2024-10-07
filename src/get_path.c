@@ -62,7 +62,7 @@ char	**cut_exec_string(char *executable)
 	return (result);
 }
 
-char	*search_abs_path(char *executable)
+char	*search_abs_path(t_values *values, char *executable)
 {
 	DIR				*directory;
 	struct dirent	*dirent;
@@ -71,7 +71,7 @@ char	*search_abs_path(char *executable)
 	cut = cut_exec_string(executable);
 	if (!cut)
 		return (NULL);
-	directory = opendir(cut[0]);
+	directory = opendir(cut[0]);			// if there is an error there, just dont set prev_ret_val, or to -1 idk
 	if (!directory)
 	{
 		free_cut_n_close_dir(cut, directory);
@@ -83,12 +83,13 @@ char	*search_abs_path(char *executable)
 		if (!ft_strcmp(cut[1], dirent->d_name))
 		{
 			free_cut_n_close_dir(cut, directory);
-			return (executable);
+//			return (executable);						// pareil ici
+			return (check(values, executable));
 		}
 		dirent = readdir(directory);
 	}
 	free_cut_n_close_dir(cut, directory);
-	return (NULL);
+	return (NULL);					///should set prev_ret_val to 127 if nothing found
 }
 
 char	*search_relative_path(char **env_pths, char *executable)
@@ -116,20 +117,20 @@ char	*search_relative_path(char **env_pths, char *executable)
 		closedir(directory);
 		i++;
 	}
-	return (NULL);
+	return (NULL);			///should set prev_ret_val to 127 if nothing found
 }
 
 /// two posibilities: relative path (use PATH), or absolute (cut the ///
 /// dir and then search trough it)									 ///
 
-char	*search_for_dir(char	**env_pths, char	*executable)
+char	*search_for_dir(t_values *values, char	**env_pths, char	*executable)
 {
 	char	*exec_dir;
 	char	*append;
 
 	if (ft_strchr(executable, '/'))
 	{
-		exec_dir = search_abs_path(executable);
+		exec_dir = search_abs_path(values, executable);		// here exec_dir is actually the abs path
 		if (exec_dir == NULL)
 			return (NULL);
 		return (exec_dir);
@@ -141,8 +142,10 @@ char	*search_for_dir(char	**env_pths, char	*executable)
 		exec_dir = search_relative_path(env_pths, executable);
 		if (exec_dir == NULL)
 			return (NULL);
-		append = append_exec_to_path(exec_dir, executable);
-		if (!append)
+		append = append_exec_to_path(exec_dir, executable);					// mettre check ici
+//		if (!append)			// ici je peux faire un truc tricky pour gagner vis a vis de la norme, c'est ne pas protéger ici append, mais le protéger dans check
+//			return (NULL);
+		if (!check(values, append))
 			return (NULL);
 		return (append);
 	}

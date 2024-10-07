@@ -23,7 +23,7 @@ void	handle_sig(int	*sig, t_values *v)
 
 bool	abs_path_in_values(t_values *values, char **split_str)
 {
-	values->abs_path = get_abs_path(*split_str);
+	values->abs_path = get_abs_path(values, *split_str);
 	if (!values->abs_path)
 	{
 		ft_free_2d((void ***)&split_str, ft_2d_size((const void **)split_str));

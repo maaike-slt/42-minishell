@@ -41,6 +41,7 @@ bool	parse(t_values *values);
 
 //	directory functions //
 char	*search_for_dir(t_values *values, char	**env_paths, char *executable);
+char	*check(t_values *values, char *path);
 
 //  get_path_utils //
 bool	compare_exec_to_entry(char *executable, char *entry, DIR *directory);

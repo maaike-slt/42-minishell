@@ -43,7 +43,7 @@ void	sig_slash(int x)
 int	set_sig_handler(void)
 {
 	struct sigaction s_sig_c;	
-	struct sigaction s_sig_slash;	
+	struct sigaction s_sig_slash;
 
 	rl_event_hook = event;		// needed to check for rl_done in signals, to return readline on ^C
 	s_sig_c.sa_handler = sig_c;

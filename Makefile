@@ -64,6 +64,7 @@ SRC_NAME =	main.c\
 			path_splitting.c\
 			signals.c\
 			execute.c\
+			check_match.c\
 
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 

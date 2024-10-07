@@ -30,13 +30,13 @@ static char	**split_env_path(void)
 
 ///  getting absolute path of executable for execve() ///
 
-char	*get_abs_path(char *executable)
+char	*get_abs_path(t_values *values, char *executable)
 {
 	char	**paths;
 	char	*dir;
 
 	paths = split_env_path();					// no protection here, because still need to go to search dir func, protection is there
-	dir = search_for_dir(paths, executable);
+	dir = search_for_dir(values, paths, executable);
 	if (!dir)
 	{
 		ft_free_2d((void ***)&paths, ft_2d_size((const void **)paths));
