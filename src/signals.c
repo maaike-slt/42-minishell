@@ -17,7 +17,7 @@ int	event(void)			// needed to have the event handler check rl_done in order to 
 	return (0);
 }
 
-char	*new_str(char *s)		// test here with a NULL string
+char	*new_str(char *s)
 {
 	char *new;
 	int	size;
@@ -72,7 +72,7 @@ void	sig_slash(int x)
 	rl_redisplay();
 	rl_erase_empty_line = 0;
 	if (sig != -1)
-		rl_line_buffer[ft_strlen(temp) - 2] = 0;				// didnt manage to find another solution for the buffer in history, cause leaks in readline, should we keep it or not ? I dont think there
+		rl_line_buffer[ft_strlen(temp) - 2] = 0;				// hack to have a clean buffer in the history
 	rl_end -= 2;				// without this, buffer contains "  "
 	sig = 2;
 	x++;

@@ -12,6 +12,12 @@
 
 #include "minishell.h"
 
+char	*set_ret_val(t_values *values)
+{
+	values->prev_ret_val = 127;
+	return (NULL);
+}
+
 bool	compare_exec_to_entry(char *executable, char *entry, DIR *directory)
 {
 	if (!ft_strcmp(executable, entry))

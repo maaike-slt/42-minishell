@@ -83,13 +83,12 @@ char	*search_abs_path(t_values *values, char *executable)
 		if (!ft_strcmp(cut[1], dirent->d_name))
 		{
 			free_cut_n_close_dir(cut, directory);
-//			return (executable);						// pareil ici
 			return (check(values, executable));
 		}
 		dirent = readdir(directory);
 	}
 	free_cut_n_close_dir(cut, directory);
-	return (NULL);					///should set prev_ret_val to 127 if nothing found
+	return (set_ret_val(values));					///should set prev_ret_val to 127 if nothing found
 }
 
 char	*search_relative_path(char **env_pths, char *executable)
@@ -132,7 +131,7 @@ char	*search_for_dir(t_values *values, char	**env_pths, char	*executable)
 	{
 		exec_dir = search_abs_path(values, executable);		// here exec_dir is actually the abs path
 		if (exec_dir == NULL)
-			return (NULL);
+			return (NULL);				//func here in the return 
 		return (exec_dir);
 	}
 	else
@@ -141,11 +140,9 @@ char	*search_for_dir(t_values *values, char	**env_pths, char	*executable)
 			return (NULL);
 		exec_dir = search_relative_path(env_pths, executable);
 		if (exec_dir == NULL)
-			return (NULL);
+			return (set_ret_val(values));			// func here in the return to gain some lines ?
 		append = append_exec_to_path(exec_dir, executable);					// mettre check ici
-//		if (!append)			// ici je peux faire un truc tricky pour gagner vis a vis de la norme, c'est ne pas protéger ici append, mais le protéger dans check
-//			return (NULL);
-		if (!check(values, append))
+		if (!check(values, append))				// append is protected in check
 			return (NULL);
 		return (append);
 	}

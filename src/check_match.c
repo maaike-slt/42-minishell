@@ -18,7 +18,6 @@ char	*check(t_values *values, char *path)
 
 	if (!path)
 		return (NULL);
-//	printf("%s\n", path);
 	stat(path, &s_stat);		// protect ?
 	if (!S_ISREG(s_stat.st_mode))				// test avec des print lol
 	{
@@ -32,6 +31,3 @@ char	*check(t_values *values, char *path)
 	}
 	return (path);
 }
-
-
-//    if ((sb.st_mode & S_IFMT) == S_IFREG) 
