@@ -57,7 +57,7 @@ bool	parse(t_values *v)
 {
 	extern int sig;
 
-	if (sig)
+	if (sig == 1 || sig < 0)
 	{
 		handle_sig(&sig, v);
 		return (false);				// return here because if given "ls ^C" ls will be executed, when it shouldnt be

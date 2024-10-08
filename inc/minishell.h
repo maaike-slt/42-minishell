@@ -34,6 +34,7 @@ typedef struct s_values
 	char	*abs_path;
 	char	**bin_args;
 	int		prev_ret_val;
+	char	*val_t;
 }t_values;
 
 // parsing //

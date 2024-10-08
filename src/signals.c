@@ -59,6 +59,7 @@ void	sig_slash(int x)
 	if (sig == -1)
 	{	
 		rl_replace_line("\n", 1);
+		new = NULL;
 	}
 	else
 	{
@@ -70,6 +71,8 @@ void	sig_slash(int x)
 	rl_on_new_line();
 	rl_redisplay();
 	rl_erase_empty_line = 0;
+	if (sig != -1)
+		rl_line_buffer[ft_strlen(temp) - 2] = 0;				// didnt manage to find another solution for the buffer in history, cause leaks in readline, should we keep it or not ? I dont think there
 	rl_end -= 2;				// without this, buffer contains "  "
 	sig = 2;
 	x++;
