@@ -17,6 +17,20 @@ int	event(void)			// needed to have the event handler check rl_done in order to 
 	return (0);
 }
 
+char	*new_str(char *s)		// test here with a NULL string
+{
+	char *new;
+	int	size;
+
+	size = ft_strlen(s);
+	new = malloc(sizeof(char) * (size + 3));
+	ft_strcpy(new, s);
+	new[size] = ' ';
+	new[size + 1] = ' ';
+	new[size + 2] = 0;
+	return (new);
+}
+
 void	sig_c(int x)
 {
 	extern int sig;
@@ -38,6 +52,8 @@ void	sig_c(int x)
 void	sig_slash(int x)
 {
 	extern int sig;
+	char	*temp;
+	char	*new;
 
 	rl_erase_empty_line = 1;
 	if (sig == -1)
@@ -45,7 +61,12 @@ void	sig_slash(int x)
 		rl_replace_line("\n", 1);
 	}
 	else
-		rl_replace_line("  ", 1);	// without this "^\" is printed
+	{
+		temp = rl_line_buffer;	
+		new = new_str(temp);
+		rl_replace_line(new, 1);	// without this "^\" is printed
+		free(new);
+	}
 	rl_on_new_line();
 	rl_redisplay();
 	rl_erase_empty_line = 0;
