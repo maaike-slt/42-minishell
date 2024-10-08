@@ -16,9 +16,10 @@ int	execute(t_values *v)
 {
 	pid_t pid;
 	int status;
+	extern int sig;
 
 	pid = fork();
-	if (pid == -1)
+	if (pid == -1)		// check this for potential mistakes, I did this quickly without trying to have robust code.
 		return (0);
 	else if (pid == 0)
 	{
@@ -37,6 +38,7 @@ int	execute(t_values *v)
 	}
 	else 
 	{
+		sig = -1;		// for signals special cases functions in order to manage cat<enter><signal> adequately
 		waitpid(-1, &status, 0);
 		v->prev_ret_val = WEXITSTATUS(status);
 	}

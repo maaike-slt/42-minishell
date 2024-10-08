@@ -21,8 +21,17 @@ void	sig_c(int x)
 {
 	extern int sig;
 
-	sig = 1;
+	if (sig == -1)
+	{
+		rl_replace_line("\n", 1);
+		rl_on_new_line();
+		rl_redisplay();
+		rl_erase_empty_line = 0;
+		sig = 1;
+		return ;
+	}
 	rl_done = 1;		// do nothing except returning readline (and print ^C in previous line, as in bash)
+	sig = 1;
 	x++;
 }
 
@@ -30,13 +39,18 @@ void	sig_slash(int x)
 {
 	extern int sig;
 
-	sig = 2;
 	rl_erase_empty_line = 1;
-	rl_replace_line("  ", 1);	// without this "^\" is printed
+	if (sig == -1)
+	{	
+		rl_replace_line("\n", 1);
+	}
+	else
+		rl_replace_line("  ", 1);	// without this "^\" is printed
 	rl_on_new_line();
 	rl_redisplay();
 	rl_erase_empty_line = 0;
 	rl_end -= 2;				// without this, buffer contains "  "
+	sig = 2;
 	x++;
 }
 

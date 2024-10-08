@@ -17,7 +17,7 @@ void	handle_sig(int	*sig, t_values *v)
 	if (*sig == 1)
 		v->prev_ret_val = 130;
 	if (*sig == 2)
-		v->prev_ret_val = 131;
+		v->prev_ret_val = 131;				// this is more complicated than that, $? is only 131 when something got interrupted by ^\ otherwise $? isnt set.
 	*sig = 0;
 }
 
@@ -40,7 +40,7 @@ bool	get_struct_values(t_values *values)
 
 	values->env = environ;
 	split_str = ft_split_whitespace(values->cmd_str);
-	if (!split_str || !split_str[0])		// otherwise segfault if cmd_str is only spaces
+	if (!split_str || !split_str[0])		// !split[0] otherwise segfault if cmd_str is only spaces
 	{
 		free(values->cmd_str);
 		if (split_str)
@@ -60,7 +60,7 @@ bool	parse(t_values *v)
 	if (sig)
 	{
 		handle_sig(&sig, v);
-		return (false);
+		return (false);				// return here because if given "ls ^C" ls will be executed, when it shouldnt be
 	}
 	if (get_struct_values(v) == false)
 		return (false);
@@ -72,7 +72,7 @@ bool	parse(t_values *v)
 	}
 	ft_free_2d((void ***)&v->bin_args, ft_2d_size((const void **)v->bin_args));
 	free(v->cmd_str);
-	if (sig)			// need to check on exit also for an edge case (if sig is catch while a bin is running, then a call to readline would fail after and also $? wouldn't be accurate)
+	if (sig)			// need to check on exit also for an edge case (if sig is caught while a bin is running, then a call to readline would fail after and also $? wouldn't be accurate)
 		handle_sig(&sig, v);
 	return (true);
 }
