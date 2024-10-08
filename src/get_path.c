@@ -88,7 +88,7 @@ char	*search_abs_path(t_values *values, char *executable)
 		dirent = readdir(directory);
 	}
 	free_cut_n_close_dir(cut, directory);
-	return (set_ret_val(values));					///should set prev_ret_val to 127 if nothing found
+	return (is_dir(values, executable));					/// problem with /././././././ i should somehow use the check func
 }
 
 char	*search_relative_path(char **env_pths, char *executable)
@@ -133,7 +133,7 @@ char	*search_for_dir(t_values *values, char	**env_pths, char	*executable)
 			return(check(values, executable));
 		exec_dir = search_abs_path(values, executable);		// here exec_dir is actually the abs path
 		if (exec_dir == NULL)
-			return (NULL);				//func here in the return 
+			return (is_dir(values, executable));				//func here in the return 
 		return (exec_dir);
 	}
 	else

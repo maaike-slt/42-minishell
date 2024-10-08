@@ -15,10 +15,11 @@
 char	*check(t_values *values, char *path)
 {
 	struct stat s_stat;
-
+	
 	if (!path)
 		return (NULL);
-	stat(path, &s_stat);		// protect ?
+	if(stat(path, &s_stat))
+		return(NULL);
 	if (!S_ISREG(s_stat.st_mode))				// test avec des print lol
 	{
 		values->prev_ret_val = 126;
@@ -31,3 +32,30 @@ char	*check(t_values *values, char *path)
 	}
 	return (path);
 }
+
+char	*is_dir(t_values *values, char *path)
+{
+	struct stat s_stat;
+
+	if (!path)
+		return (NULL);
+	if(stat(path, &s_stat))
+	{
+		values->prev_ret_val = 127;
+		return(NULL);
+	}
+	if (S_ISREG(s_stat.st_mode))				// need to have this when ./a.out ad no perm to have right $?
+	{
+		values->prev_ret_val = 126;
+		return (NULL);
+	}
+	if (S_ISDIR(s_stat.st_mode))
+	{
+		values->prev_ret_val = 126;
+		return (NULL);
+	}
+	values->prev_ret_val = 127;
+	return (NULL);
+}
+
+// should just check if retrun 126 on /./././././ and 127 on no existing file
