@@ -129,6 +129,8 @@ char	*search_for_dir(t_values *values, char	**env_pths, char	*executable)
 
 	if (ft_strchr(executable, '/'))
 	{
+		if (!ft_strcmp("/", executable))
+			return(check(values, executable));
 		exec_dir = search_abs_path(values, executable);		// here exec_dir is actually the abs path
 		if (exec_dir == NULL)
 			return (NULL);				//func here in the return 
