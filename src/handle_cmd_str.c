@@ -49,7 +49,7 @@ bool	get_struct_values(t_values *values)
 	}
 	if (abs_path_in_values(values, split_str) == false)
 		return (false);
-	values->bin_args = split_str;				// here execve accept as args the full split_str if it is valid (be careful of segfault in program with bullshit data here, the syscalls will be resilient but maybe not the program)
+	values->split_str= split_str;				// here execve accept as args the full split_str if it is valid (be careful of segfault in program with bullshit data here, the syscalls will be resilient but maybe not the program)
 	return (true);
 }
 
@@ -68,10 +68,10 @@ bool	handle_cmd_str(t_values *v)
 	execute(v);	
 	if (v->abs_path)	// should put all this in a handle_parse_exit()
 	{
-		if (!ft_strchr(*v->bin_args, '/'))			// this is only to free append (so "ls" or "cron", which become "/bin/ls"), otherwise abs_path is in fact *split_tr (because if line is "./a.out" and is viable, execve can use this)
+		if (!ft_strchr(*v->split_str, '/'))			// this is only to free append (so "ls" or "cron", which become "/bin/ls"), otherwise abs_path is in fact *split_tr (because if line is "./a.out" and is viable, execve can use this)
 			free(v->abs_path);
 	}
-	ft_free_2d((void ***)&v->bin_args, ft_2d_size((const void **)v->bin_args));
+	ft_free_2d((void ***)&v->split_str, ft_2d_size((const void **)v->split_str));
 	free(v->cmd_str);
 	if (sig)			// need to check on exit also for an edge case (if sig is caught while a bin is running, then a call to readline would fail after and also $? wouldn't be accurate)
 		handle_sig(&sig, v);

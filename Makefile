@@ -59,10 +59,11 @@ INC =		./inc/
 
 SRC_NAME =	main.c\
 			handle_cmd_str.c\
+			signals.c\
 			get_path.c\
 			get_path_utils.c\
 			path_splitting.c\
-			signals.c\
+			parser.c\
 			execute.c\
 			check_match.c\
 

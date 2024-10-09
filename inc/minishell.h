@@ -32,13 +32,15 @@ typedef struct s_values
 	char	**env;
 	char	*cmd_str;
 	char	*abs_path;
-	char	**bin_args;
+	char	**split_str;
+	char	**tokenized_str;
 	int		prev_ret_val;
 	char	*val_t;
 }t_values;
 
 // parsing //
 bool	handle_cmd_str(t_values *values);
+bool	parser(t_values *values);
 
 //	directory functions //
 char	*search_for_dir(t_values *values, char	**env_paths, char *executable);
