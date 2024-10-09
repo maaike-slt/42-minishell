@@ -22,12 +22,12 @@ int	check_quotes(char *s, char type)
 	return (0);
 }
 
-int	manage_s_quote(char **word)
+int	manage_quote(char **word, char type)
 {
 	char *temp;
 	int	size;
 
-	if (!check_quotes(*word, '\''))		// linstant je fais juste le check pour 2 quotes
+	if (!check_quotes(*word, type))		// linstant je fais juste le check pour 2 quotes
 		return (0);							// be careful with the logic of the return
 	temp = *word;
 	size = ft_strlen(*word);
@@ -51,7 +51,9 @@ bool	lexer(t_values *values)
 	i = 0;
 	while(values->split_str[i])				// do i need to check here if 
 	{
-		if (manage_s_quote(&values->split_str[i]))					// probablement devoir avoir un check_quote, puis un check_s_quote et un check_d_quote ou alors un check wich quote
+		if (manage_quote(&values->split_str[i], '\''))					// probablement devoir avoir un check_quote, puis un check_s_quote et un check_d_quote ou alors un check wich quote
+			return (false);
+		if (manage_quote(&values->split_str[i], '\"'))
 			return (false);
 		i++;
 	}
