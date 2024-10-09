@@ -47,9 +47,10 @@ bool	get_struct_values(t_values *values)
 			free(split_str);
 		return (false);
 	}
+	values->split_str= split_str;			// i change the order, this was on line 54 before, maybe the free on error exit wont be accurate anymore// YES CORRECT THIS
+	lexer(values);
 	if (abs_path_in_values(values, split_str) == false)
 		return (false);
-	values->split_str= split_str;				// here execve accept as args the full split_str if it is valid (be careful of segfault in program with bullshit data here, the syscalls will be resilient but maybe not the program)
 	return (true);
 }
 
@@ -64,7 +65,6 @@ bool	handle_cmd_str(t_values *v)
 	}
 	if (get_struct_values(v) == false)
 		return (false);
-//	parser(v);
 	execute(v);	
 	if (v->abs_path)	// should put all this in a handle_parse_exit()
 	{
