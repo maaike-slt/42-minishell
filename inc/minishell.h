@@ -38,7 +38,7 @@ typedef struct s_values
 }t_values;
 
 // parsing //
-bool	parse(t_values *values);
+bool	handle_cmd_str(t_values *values);
 
 //	directory functions //
 char	*search_for_dir(t_values *values, char	**env_paths, char *executable);

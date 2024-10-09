@@ -53,7 +53,7 @@ bool	get_struct_values(t_values *values)
 	return (true);
 }
 
-bool	parse(t_values *v)
+bool	handle_cmd_str(t_values *v)
 {
 	extern int sig;
 
@@ -64,6 +64,7 @@ bool	parse(t_values *v)
 	}
 	if (get_struct_values(v) == false)
 		return (false);
+//	parser(v);
 	execute(v);	
 	if (v->abs_path)	// should put all this in a handle_parse_exit()
 	{

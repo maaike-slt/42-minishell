@@ -30,7 +30,7 @@ int	main(void)
 			break ;
 		}
 		add_history(values.cmd_str);
-		parse(&values);
+		handle_cmd_str(&values);
 	}
 	return (0);
 }

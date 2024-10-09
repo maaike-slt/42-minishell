@@ -58,7 +58,7 @@ OBJ_PATH =	./obj/
 INC =		./inc/
 
 SRC_NAME =	main.c\
-			parse.c\
+			handle_cmd_str.c\
 			get_path.c\
 			get_path_utils.c\
 			path_splitting.c\
