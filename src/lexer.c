@@ -17,6 +17,8 @@ int	check_quotes(char *s, char type)
 	int	size;
 
 	size = ft_strlen(s);
+	if (size == 1)
+		return (0);
 	if (s[0] == type && s[size - 1] == type)
 		return (1);
 	return (0);
@@ -28,13 +30,13 @@ int	manage_quote(char **word, char type)
 	int	size;
 
 	if (!check_quotes(*word, type))		// linstant je fais juste le check pour 2 quotes
-		return (0);							// be careful with the logic of the return
+		return (0);
 	temp = *word;
 	size = ft_strlen(*word);
 	*word = malloc(sizeof(char) * (size - 1));
 	if (!(*word))
 	{
-		*word = temp;		//otherwise this would be a nightmare to free on exit (the big free in handle_cmd_str would double free I think)
+		*word = temp;		//otherwise this would be a nightmare to free on exit (the big free in handle_cmd_str would double free I think) // maybe after refactor i can change this
 		return (-1);
 	}
 	ft_memcpy(*word, &temp[1], sizeof(char) * (size - 2));
@@ -42,7 +44,6 @@ int	manage_quote(char **word, char type)
 	free(temp);
 	return(0);
 }
-
 
 bool	lexer(t_values *values)
 {
