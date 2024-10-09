@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	event_stp(int x)
+void	event_stp(int x)		// used to set a sighandler for ctrl-z, otherwise prog behaviour weird
 {
 	x++;
 	return ;

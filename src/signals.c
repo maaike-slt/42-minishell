@@ -96,6 +96,6 @@ int	set_sig_handler(void)
 	sigemptyset(&s_sig_z.sa_mask);
 	sigaction(SIGINT, &s_sig_c, NULL);
 	sigaction(SIGQUIT, &s_sig_slash, NULL);
-	sigaction(SIGTSTP, &s_sig_z, NULL);
+	sigaction(SIGTSTP, &s_sig_z, NULL);					// sighandler for ctrl-z, otherwise prog behaviour is messy
 	return (0);
 }
