@@ -21,6 +21,8 @@ char	*append_exec_to_path(char *exec_dir, char *executable)
 	int		size_dir;
 	int		size_exec;
 
+	if (!ft_strcmp(".", executable))		// special case, . is a builtin (source), just return this otherwise segfault (won't have the same $? as in bash but this is not required)
+		return (executable);
 	size_dir = ft_strlen(exec_dir);
 	size_exec = ft_strlen(executable);
 	appended = malloc(sizeof(char) * (size_dir + size_exec + 2));

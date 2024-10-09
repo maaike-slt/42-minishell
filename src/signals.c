@@ -35,7 +35,7 @@ void	sig_c(int x)
 {
 	extern int sig;
 
-	if (sig == -1)
+	if (sig == -1)		// everything sig == -1 is to handle signal while a bin is running in a child process, sig -1 is set in execute()
 	{
 		rl_replace_line("\n", 1);
 		rl_on_new_line();

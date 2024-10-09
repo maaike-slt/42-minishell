@@ -17,7 +17,7 @@ void	handle_sig(int	*sig, t_values *v)
 	if (*sig == 1)
 		v->prev_ret_val = 130;
 	if (*sig == 2)
-		v->prev_ret_val = 131;				// this is more complicated than that, $? is only 131 when something got interrupted by ^\ otherwise $? isnt set.
+		v->prev_ret_val = 131;	// 131 set only if ^\ interrupt a binary
 	*sig = 0;
 }
 
@@ -65,7 +65,7 @@ bool	parse(t_values *v)
 	if (get_struct_values(v) == false)
 		return (false);
 	execute(v);	
-	if (v->abs_path)
+	if (v->abs_path)	// should put all this in a handle_parse_exit()
 	{
 		if (!ft_strchr(*v->bin_args, '/'))			// this is only to free append (so "ls" or "cron", which become "/bin/ls"), otherwise abs_path is in fact *split_tr (because if line is "./a.out" and is viable, execve can use this)
 			free(v->abs_path);
