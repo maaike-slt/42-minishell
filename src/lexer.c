@@ -22,8 +22,6 @@ int	check_quotes(char *s, char type)
 	return (0);
 }
 
-
-
 int	manage_s_quote(char **word)
 {
 	char *temp;
@@ -33,13 +31,14 @@ int	manage_s_quote(char **word)
 		return (0);							// be careful with the logic of the return
 	temp = *word;
 	size = ft_strlen(*word);
-	*word = malloc(sizeof(char) * (size - 2));
+	*word = malloc(sizeof(char) * (size - 1));
 	if (!(*word))
 	{
 		*word = temp;		//otherwise this would be a nightmare to free on exit (the big free in handle_cmd_str would double free I think)
 		return (-1);
 	}
 	ft_memcpy(*word, &temp[1], sizeof(char) * (size - 2));
+	(*word)[size - 2] = 0;
 	free(temp);
 	return(0);
 }
