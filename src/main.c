@@ -14,12 +14,23 @@
 
 int sig;		// use of a global only to manage one edge case: write viable command and then ^C, bash will not execute.
 
+void	set_termios(void)
+{
+	struct termios term;
+
+	tcgetattr(STDIN_FILENO, &term);
+	term.c_cc[VSUSP] = _POSIX_VDISABLE;			// this func disables ctrl-V signal otherwise program can have messy behaviour
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
+	return ;
+}
+
 int	main(void)
 {
 	t_values	values;
-	values.prev_ret_val = 0;
 
-	set_sig_handler();			// protect
+	values.prev_ret_val = 0;
+	set_sig_handler();			// protect	?
+	set_termios();
 	while (1)
 	{
 		printf("%d\n", values.prev_ret_val);

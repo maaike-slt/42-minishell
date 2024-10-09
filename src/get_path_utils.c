@@ -12,6 +12,12 @@
 
 #include "minishell.h"
 
+void	event_stp(int x)
+{
+	x++;
+	return ;
+}
+
 char	*set_ret_val(t_values *values)
 {
 	values->prev_ret_val = 127;
