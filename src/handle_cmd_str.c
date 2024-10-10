@@ -47,9 +47,9 @@ bool	get_struct_values(t_values *values)
 			free(split_str);
 		return (false);
 	}
-	values->split_str= split_str;			// i change the order, this was on line 54 before, maybe the free on error exit wont be accurate anymore// YES CORRECT THIS
+	values->split_str= split_str;
 	lexer(values);
-	if (abs_path_in_values(values, split_str) == false)
+	if (abs_path_in_values(values, split_str) == false)			// here if i keep this code i don't need to pass split_str, just values
 		return (false);
 	return (true);
 }
@@ -68,7 +68,7 @@ bool	handle_cmd_str(t_values *v)
 	execute(v);	
 	if (v->abs_path)	// should put all this in a handle_parse_exit()
 	{
-		if (!ft_strchr(*v->split_str, '/'))			// this is only to free append (so "ls" or "cron", which become "/bin/ls"), otherwise abs_path is in fact *split_tr (because if line is "./a.out" and is viable, execve can use this)
+		if (!ft_strchr(*v->split_str, '/'))			// if rel path, needed to append exec to path, so need to free only in this case, otherwise it is freed in split_str later
 			free(v->abs_path);
 	}
 	ft_free_2d((void ***)&v->split_str, ft_2d_size((const void **)v->split_str));

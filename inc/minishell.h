@@ -52,7 +52,6 @@ void	free_cut_n_close_dir(char **cut, DIR *directory);
 bool	separate(char ***result, char *executable, int temp);
 char	*set_ret_val(t_values *values);
 char	*is_dir(t_values *values, char *path);
-void	event_stp(int x);
 
 // path_splitting //
 char	*get_abs_path(t_values *values, char *executable);
