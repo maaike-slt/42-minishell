@@ -34,7 +34,11 @@ char	*new_str(char *s)
 void	sig_c(int x)
 {
 	extern int sig;
-
+	if (sig == -2)				//minishell in minishell signals
+	{
+		sig = -2;
+		return ;
+	}			
 	if (sig == -1)		// everything sig == -1 is to handle signal while a bin is running in a child process, sig -1 is set in execute()
 	{
 		rl_replace_line("\n", 1);
@@ -55,12 +59,12 @@ void	sig_slash(int x)
 	char	*temp;
 	char	*new;
 
-	rl_erase_empty_line = 1;
 	if (sig == -2)				//minishell in minishell signals
 	{
 		sig = -2;
 		return ;
 	}			
+	rl_erase_empty_line = 1;
 	if (sig == -1)
 	{	
 		rl_replace_line("\n", 1);
