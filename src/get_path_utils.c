@@ -12,6 +12,11 @@
 
 #include "minishell.h"
 
+void	handl_z(int x)
+{
+	x++;
+}
+
 char	*set_ret_val(t_values *values)
 {
 	values->prev_ret_val = 127;
