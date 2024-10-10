@@ -56,6 +56,11 @@ void	sig_slash(int x)
 	char	*new;
 
 	rl_erase_empty_line = 1;
+	if (sig == -2)
+	{
+		sig = -2;
+		return ;
+	}			
 	if (sig == -1)
 	{	
 		rl_replace_line("\n", 1);
