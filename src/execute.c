@@ -38,12 +38,12 @@ int	execute(t_values *v)
 	}
 	else 
 	{
-		if (!ft_strcmp(v->abs_path, "./minishell"))
+		if (!ft_strcmp(v->abs_path, "./minishell"))		// signals for minishell in minishell
 			sig = -2;
 		else
-			sig = -1;		// for signals special cases functions in order to manage cat<enter><signal> adequately				// when minishell in minishell, set to -2 and handle differently signals to have right behaviour ?
+			sig = -1;		// for signals special cases functions in order to manage cat<enter><signal> adequately
 		waitpid(-1, &status, 0);
-		if (!ft_strcmp(v->abs_path, "./minishell"))
+		if (!ft_strcmp(v->abs_path, "./minishell"))			// signals for minishell in minishell
 			sig = 0;
 		v->prev_ret_val = WEXITSTATUS(status);
 	}

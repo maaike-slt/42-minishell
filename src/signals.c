@@ -56,7 +56,7 @@ void	sig_slash(int x)
 	char	*new;
 
 	rl_erase_empty_line = 1;
-	if (sig == -2)
+	if (sig == -2)				//minishell in minishell signals
 	{
 		sig = -2;
 		return ;
