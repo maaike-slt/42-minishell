@@ -48,8 +48,39 @@ int	manage_quote(char **word, char type)
 	return(0);
 }
 
-bool	check_right_n_quotes(t_values *values)
+bool	other_quote(char *s, char type)
 {
+	int	i;
+
+	i = 1;				// one here because otherwise it is on the quote if it found it
+	while (s[i])
+	{
+		if(s[i] == type)
+		{	
+			check_quote(&s[++i]);
+			printf("lol\n");
+			return (false);
+		}
+		i++;
+	}
+	return (false);
+}
+
+bool	check_quote(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == '\'' || s[i] == '\"')
+		{
+			other_quote(&s[i], s[i]);
+			return (false);			// careful this false return is only for testing
+		}
+		i++;
+	}
+	return (false);
 }
 
 bool	lexer(t_values *values)
@@ -57,8 +88,8 @@ bool	lexer(t_values *values)
 	int	i;
 
 	i = 0;
-//	if (check_right_n_quotes(values))
-//		return (false);
+	if (check_quote(values->cmd_str) == false)
+		return (false);							// careful built this return for testing, it will always return false in this configuration
 	while(values->split_str[i])
 	{
 		if (manage_quote(&values->split_str[i], '\''))

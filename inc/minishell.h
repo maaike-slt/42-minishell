@@ -42,6 +42,9 @@ typedef struct s_values
 bool	handle_cmd_str(t_values *values);
 bool	lexer(t_values *values);
 
+// quote parsing //
+bool	check_quote(char *s);
+
 //	directory functions //
 char	*search_for_dir(t_values *values, char	**env_paths, char *executable);
 char	*check(t_values *values, char *path);
