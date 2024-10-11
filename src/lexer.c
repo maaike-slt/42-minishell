@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	check_quotes(char *s, char type)
+int	check_two_quotes(char *s, char type)
 {
 	int	size;
 
@@ -29,8 +29,11 @@ int	manage_quote(char **word, char type)
 	char *temp;
 	int	size;
 
-	if (!check_quotes(*word, type))		// linstant je fais juste le check pour 2 quotes
+	if (!check_two_quotes(*word, type))
+	{
+		
 		return (0);
+	}
 	temp = *word;
 	size = ft_strlen(*word);
 	*word = malloc(sizeof(char) * (size - 1));
@@ -45,14 +48,20 @@ int	manage_quote(char **word, char type)
 	return(0);
 }
 
+bool	check_right_n_quotes(t_values *values)
+{
+}
+
 bool	lexer(t_values *values)
 {
 	int	i;
 
 	i = 0;
-	while(values->split_str[i])				// do i need to check here if 
+//	if (check_right_n_quotes(values))
+//		return (false);
+	while(values->split_str[i])
 	{
-		if (manage_quote(&values->split_str[i], '\''))					// probablement devoir avoir un check_quote, puis un check_s_quote et un check_d_quote ou alors un check wich quote
+		if (manage_quote(&values->split_str[i], '\''))
 			return (false);
 		if (manage_quote(&values->split_str[i], '\"'))
 			return (false);

@@ -48,7 +48,11 @@ bool	get_struct_values(t_values *values)
 		return (false);
 	}
 	values->split_str= split_str;
-	lexer(values);
+	if (lexer(values) == false)
+	{
+		ft_free_2d((void ***)&split_str, ft_2d_size((const void **)split_str));
+		return (false);			//for now lexer function isnt protected for a malloc failL
+	}
 	if (abs_path_in_values(values, split_str) == false)			// here if i keep this code i don't need to pass split_str, just values
 		return (false);
 	return (true);
