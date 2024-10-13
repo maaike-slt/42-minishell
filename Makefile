@@ -63,7 +63,7 @@ SRC_NAME =	main.c\
 			get_path.c\
 			get_path_utils.c\
 			path_splitting.c\
-			lexer.c\
+			parser.c\
 			execute.c\
 			check_match.c\
 

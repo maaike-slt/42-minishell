@@ -17,7 +17,7 @@ void	handle_sig(int	*sig, t_values *v)
 	if (*sig == 1)
 		v->prev_ret_val = 130;
 	if (*sig == 2)
-		v->prev_ret_val = 131;	// 131 set only if ^\ interrupt a binary
+		v->prev_ret_val = 131;	// 131 set only if ^\ interrupt a binary (in second if (sig in handle_cmd_str, not the first one)
 	*sig = 0;
 }
 
@@ -48,7 +48,7 @@ bool	get_struct_values(t_values *values)
 		return (false);
 	}
 	values->split_str= split_str;
-	if (lexer(values) == false)
+	if (parser(values) == false)
 	{
 		ft_free_2d((void ***)&split_str, ft_2d_size((const void **)split_str));
 		return (false);			//for now lexer function isnt protected for a malloc failL

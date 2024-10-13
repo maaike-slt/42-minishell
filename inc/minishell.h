@@ -40,7 +40,7 @@ typedef struct s_values
 
 // parsing //
 bool	handle_cmd_str(t_values *values);
-bool	lexer(t_values *values);
+bool	parser(t_values *values);
 
 // quote parsing //
 bool	check_quote(char *s);

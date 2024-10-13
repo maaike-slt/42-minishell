@@ -57,8 +57,8 @@ bool	other_quote(char *s, char type)
 	{
 		if(s[i] == type)
 		{	
-			check_quote(&s[++i]);
-			printf("lol\n");
+			if (check_quote(&s[++i]) == true)
+				return (true);
 			return (false);
 		}
 		i++;
@@ -75,21 +75,22 @@ bool	check_quote(char *s)
 	{
 		if (s[i] == '\'' || s[i] == '\"')
 		{
-			other_quote(&s[i], s[i]);
+			if (other_quote(&s[i], s[i]) == true)
+				return (true);
 			return (false);			// careful this false return is only for testing
 		}
 		i++;
 	}
-	return (false);
+	return (true);				// ouai en fait cette fonction doit retourner true si elle trouve rien (car si ya pas de quote en théorie c'est bon, au sens ou il faut passer ça au path parsing etc)
 }
 
-bool	lexer(t_values *values)
+bool	parser(t_values *values)
 {
 	int	i;
 
 	i = 0;
-	if (check_quote(values->cmd_str) == false)
-		return (false);							// careful built this return for testing, it will always return false in this configuration
+	if (check_quote(values->cmd_str) == false)	// this function check if quotes are valid or not
+		return (false);
 	while(values->split_str[i])
 	{
 		if (manage_quote(&values->split_str[i], '\''))
