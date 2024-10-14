@@ -93,9 +93,9 @@ bool	parser(t_values *values)
 	if (check_quote(values->cmd_str) == false)	// this function check if quotes are valid or not in the whole cmd_str
 		return (false);
 	if (redpip_token_counter(values) == false)
-	{
 		return (false);
-	}
+	if (expand(values) == false)
+		return (false);
 	split_str = ft_split_whitespace(values->cmd_str);
 	if (!split_str || !split_str[0])		// !split[0] otherwise segfault if cmd_str is only spaces
 	{

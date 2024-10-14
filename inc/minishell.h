@@ -42,17 +42,22 @@ typedef struct s_values
 bool	handle_cmd_str(t_values *values);
 bool	parser(t_values *values);
 
-//redir and pipes//
+// expand //
+bool	expand(t_values *v);
+bool	put_in_string(char **s, char *var, int *pos, int s_n_var);
+
+// redir and pipes //
 bool	redpip_token_counter(t_values *values);
+void	quote_redpip(char *s, int	*index);
 
 // quote parsing //
 bool	check_quote(char *s);
 
-//	directory functions //
+//directory functions //
 char	*search_for_dir(t_values *values, char	**env_paths, char *executable);
 char	*check(t_values *values, char *path);
 
-//  get_path_utils //
+// get_path_utils //
 bool	compare_exec_to_entry(char *executable, char *entry, DIR *directory);
 void	free_cut_n_close_dir(char **cut, DIR *directory);
 bool	separate(char ***result, char *executable, int temp);
