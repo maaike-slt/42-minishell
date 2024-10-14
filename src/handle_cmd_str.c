@@ -37,6 +37,8 @@ bool	get_struct_values(t_values *values)
 {
 	char	**split_str;
 
+	if (parser(values) == false)
+		return (false);
 	split_str = ft_split_whitespace(values->cmd_str);
 	if (!split_str || !split_str[0])		// !split[0] otherwise segfault if cmd_str is only spaces
 	{
@@ -46,11 +48,6 @@ bool	get_struct_values(t_values *values)
 		return (false);
 	}
 	values->split_str= split_str;
-	if (parser(values) == false)
-	{
-		ft_free_2d((void ***)&split_str, ft_2d_size((const void **)split_str));
-		return (false);			//for now lexer function isnt protected for a malloc failL
-	}
 	if (abs_path_in_values(values, split_str) == false)			// here if i keep this code i don't need to pass split_str, just values
 		return (false);
 	return (true);

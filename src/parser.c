@@ -91,13 +91,13 @@ bool	parser(t_values *values)
 	i = 0;
 	if (check_quote(values->cmd_str) == false)	// this function check if quotes are valid or not
 		return (false);
-	while(values->split_str[i])
-	{
-		if (manage_quote(&values->split_str[i], '\''))
-			return (false);
-		if (manage_quote(&values->split_str[i], '\"'))
-			return (false);
-		i++;
-	}
+//	while(values->split_str[i])
+//	{
+//		if (manage_quote(&values->split_str[i], '\''))
+//			return (false);
+//		if (manage_quote(&values->split_str[i], '\"'))
+//			return (false);
+//		i++;
+//	}
 	return (true);
 }
