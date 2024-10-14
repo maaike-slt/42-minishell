@@ -21,7 +21,7 @@ void	copy_end(char	*dest, char	*from)
 	{
 		dest[i] = from[i];
 		i++;
-	}
+	}					// put \0 here is better
 }
 
 void	copy_until(char *dest, char *from, int pos)
@@ -52,7 +52,7 @@ bool	put_in_string(char **s, char *var, int *pos, int s_n_var)
 	new = malloc(sizeof(char) * (s_s - (s_n_var + 1) + s_var + 1));
 	copy_until(new, *s, temp_pos);
 	copy_until(&new[temp_pos], var, s_var);
-	copy_end(&new[temp_pos + s_var + 1], &(*s)[temp_pos + s_n_var + 1]);
+	copy_end(&new[temp_pos + s_var], &(*s)[temp_pos + s_n_var + 1]);
 	free(*s);
 	*pos = temp_pos + s_var;
 	new[s_s - (s_n_var + 1) + s_var] = 0;
