@@ -87,10 +87,20 @@ bool	check_quote(char *s)
 bool	parser(t_values *values)
 {
 	int	i;
+	char	**split_str;
 
 	i = 0;
 	if (check_quote(values->cmd_str) == false)	// this function check if quotes are valid or not
 		return (false);
+	split_str = ft_split_whitespace(values->cmd_str);
+	if (!split_str || !split_str[0])		// !split[0] otherwise segfault if cmd_str is only spaces
+	{
+		free(values->cmd_str);
+		if (split_str)
+			free(split_str);
+		return (false);
+	}
+	values->split_str= split_str;
 //	while(values->split_str[i])
 //	{
 //		if (manage_quote(&values->split_str[i], '\''))

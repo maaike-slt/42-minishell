@@ -58,12 +58,12 @@ char	*is_dir(t_values *values, char *path);
 void	handl_z(int x);
 
 // path_splitting //
-char	*get_abs_path(t_values *values, char *executable);
+char	*get_abs_path(t_values *values);
 
 // signals //
 int	set_sig_handler(void);
 
-// executing //
-int	execute(t_values *values);
+// exec //
+int	exec(t_values *values);
 
 #endif

@@ -64,7 +64,7 @@ SRC_NAME =	main.c\
 			get_path_utils.c\
 			path_splitting.c\
 			parser.c\
-			execute.c\
+			exec.c\
 			check_match.c\
 
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
@@ -115,7 +115,7 @@ fclean:		clean
 re:			fclean all
 
 valgrind:
-	valgrind --track-fds=yes --trace-children=yes --leak-check=full --show-leak-kinds=all --log-file=log ./minishell
+	valgrind --track-fds=yes --leak-check=full --show-leak-kinds=all --log-file=log ./minishell
 
 
 .PHONY: all clean fclean re valgrind

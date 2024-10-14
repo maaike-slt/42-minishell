@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	execute(t_values *v)
+int	exec(t_values *v)
 {
 	pid_t pid;
 	int status;

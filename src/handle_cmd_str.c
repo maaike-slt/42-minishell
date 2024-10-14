@@ -21,12 +21,12 @@ void	handle_sig(int	*sig, t_values *v)
 	*sig = 0;
 }
 
-bool	abs_path_in_values(t_values *values, char **split_str)
+bool	abs_path_in_values(t_values *values)
 {
-	values->abs_path = get_abs_path(values, *split_str);
+	values->abs_path = get_abs_path(values);
 	if (!values->abs_path)
 	{
-		ft_free_2d((void ***)&split_str, ft_2d_size((const void **)split_str));
+		ft_free_2d((void ***)&values->split_str, ft_2d_size((const void **)values->split_str));
 		free(values->cmd_str);
 		return (false);
 	}
@@ -35,20 +35,10 @@ bool	abs_path_in_values(t_values *values, char **split_str)
 
 bool	get_struct_values(t_values *values)
 {
-	char	**split_str;
 
 	if (parser(values) == false)
 		return (false);
-	split_str = ft_split_whitespace(values->cmd_str);
-	if (!split_str || !split_str[0])		// !split[0] otherwise segfault if cmd_str is only spaces
-	{
-		free(values->cmd_str);
-		if (split_str)
-			free(split_str);
-		return (false);
-	}
-	values->split_str= split_str;
-	if (abs_path_in_values(values, split_str) == false)			// here if i keep this code i don't need to pass split_str, just values
+	if (abs_path_in_values(values) == false)			// here if i keep this code i don't need to pass split_str, just values
 		return (false);
 	return (true);
 }
@@ -64,7 +54,7 @@ bool	handle_cmd_str(t_values *v)
 	}
 	if (get_struct_values(v) == false)
 		return (false);
-	execute(v);	
+	exec(v);	
 	if (v->abs_path)	// should put all this in a handle_parse_exit()
 	{
 		if (!ft_strchr(*v->split_str, '/'))			// if rel path, needed to append exec to path, so need to free only in this case, otherwise it is freed in split_str later
