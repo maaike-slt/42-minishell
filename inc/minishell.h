@@ -31,16 +31,19 @@ typedef struct s_values
 {
 	char	**env;
 	char	*cmd_str;
-	char	*abs_path;
+	char	*abs_path_bin;
 	char	**split_str;
 	char	**tokenized_str;
 	int		prev_ret_val;
-	char	*val_t;
+	int		redpip_counter;
 }t_values;
 
 // parsing //
 bool	handle_cmd_str(t_values *values);
 bool	parser(t_values *values);
+
+//redir and pipes//
+bool	redpip_token_counter(t_values *values);
 
 // quote parsing //
 bool	check_quote(char *s);

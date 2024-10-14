@@ -23,12 +23,12 @@ int	exec(t_values *v)
 		return (0);
 	else if (pid == 0)
 	{
-		if (execve(v->abs_path, v->split_str, v->env) == -1)
+		if (execve(v->abs_path_bin, v->split_str, v->env) == -1)
 		{
-			if (v->abs_path)
+			if (v->abs_path_bin)
 			{
 				if (!ft_strchr(*v->split_str, '/'))			// all of this is the same "free" code as parse(), it is to protect everything is execve fail (the child proc would still run and mes everything)(happens is given a bin without the perms)
-					free(v->abs_path);
+					free(v->abs_path_bin);
 			}
 			ft_free_2d((void ***)&v->split_str, ft_2d_size((const void **)v->split_str));
 			free(v->cmd_str);
@@ -38,12 +38,12 @@ int	exec(t_values *v)
 	}
 	else 
 	{
-		if (!ft_strcmp(v->abs_path, "./minishell"))		// signals for minishell in minishell
+		if (!ft_strcmp(v->abs_path_bin, "./minishell"))		// signals for minishell in minishell
 			sig = -2;
 		else
 			sig = -1;		// for signals special cases functions in order to manage cat<enter><signal> adequately
 		waitpid(-1, &status, 0);
-		if (!ft_strcmp(v->abs_path, "./minishell"))			// signals for minishell in minishell
+		if (!ft_strcmp(v->abs_path_bin, "./minishell"))			// signals for minishell in minishell
 			sig = 0;
 		v->prev_ret_val = WEXITSTATUS(status);
 	}

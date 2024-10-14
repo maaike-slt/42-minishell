@@ -66,6 +66,7 @@ SRC_NAME =	main.c\
 			parser.c\
 			exec.c\
 			check_match.c\
+			redir_pipes.c\
 
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 

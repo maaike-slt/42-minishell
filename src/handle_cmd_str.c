@@ -23,8 +23,8 @@ void	handle_sig(int	*sig, t_values *v)
 
 bool	abs_path_in_values(t_values *values)
 {
-	values->abs_path = get_abs_path(values);
-	if (!values->abs_path)
+	values->abs_path_bin = get_abs_path(values);
+	if (!values->abs_path_bin)
 	{
 		ft_free_2d((void ***)&values->split_str, ft_2d_size((const void **)values->split_str));
 		free(values->cmd_str);
@@ -55,10 +55,10 @@ bool	handle_cmd_str(t_values *v)
 	if (get_struct_values(v) == false)
 		return (false);
 	exec(v);	
-	if (v->abs_path)	// should put all this in a handle_parse_exit()
+	if (v->abs_path_bin)	// should put all this in a handle_parse_exit()
 	{
 		if (!ft_strchr(*v->split_str, '/'))			// if rel path, needed to append exec to path, so need to free only in this case, otherwise it is freed in split_str later
-			free(v->abs_path);
+			free(v->abs_path_bin);
 	}
 	ft_free_2d((void ***)&v->split_str, ft_2d_size((const void **)v->split_str));
 	free(v->cmd_str);
