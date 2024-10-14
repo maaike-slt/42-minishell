@@ -19,6 +19,25 @@ int	is_redpip(char	c)
 	return (0);
 }
 
+void	quote_redpip(char *s, int	*index)
+{
+	char	type;
+	int		i;
+
+	i = 1;
+	type = s[0];
+	while (s[i])
+	{
+		if (s[i] == type)
+		{
+			*index += i + 1;
+			return ;
+		}
+		i++;
+	}
+	return ;
+}
+
 int	is_redpip_valid(t_values *v, char *s, int *step)
 {
 	int	i;
@@ -53,9 +72,14 @@ bool	redpip_token_counter(t_values *v)
 	int	step;
 
 	i = 0;
-	while(v->cmd_str[i])
+	while(v->cmd_str[i])		// FORGOT TO PARSE FOR QUOTES
 	{
 		step = 0;
+		if (v->cmd_str[i] == '\'' || v->cmd_str[i] == '\"')
+		{
+			quote_redpip(&v->cmd_str[i], &i);
+			continue;	
+		}	
 		if (is_redpip(v->cmd_str[i]))
 		{
 			if (is_redpip_valid(v, &v->cmd_str[i], &step) != -1)
@@ -63,6 +87,7 @@ bool	redpip_token_counter(t_values *v)
 				i += step;
 				continue;
 			}
+			v->redpip_counter = 0;
 			return (false);
 		}
 		i++;

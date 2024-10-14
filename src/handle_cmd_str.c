@@ -55,6 +55,7 @@ bool	handle_cmd_str(t_values *v)
 	if (get_struct_values(v) == false)
 		return (false);
 	exec(v);	
+	v->redpip_counter = 0;
 	if (v->abs_path_bin)	// should put all this in a handle_parse_exit()
 	{
 		if (!ft_strchr(*v->split_str, '/'))			// if rel path, needed to append exec to path, so need to free only in this case, otherwise it is freed in split_str later

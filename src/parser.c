@@ -94,9 +94,12 @@ bool	parser(t_values *values)
 		return (false);
 	if (redpip_token_counter(values) == false)
 	{
+		printf("%d\n", values->redpip_counter);
 		printf("faux\n");
 		return (false);
 	}
+	printf("%d\n", values->redpip_counter);
+	values->redpip_counter = 0;
 	printf("vrai\n");
 	return (false);
 	split_str = ft_split_whitespace(values->cmd_str);
