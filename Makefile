@@ -115,7 +115,7 @@ fclean:		clean
 re:			fclean all
 
 valgrind:
-	valgrind --leak-check=full --show-leak-kinds=all --log-file=log ./minishell
+	valgrind --track-fds=yes --trace-children=yes --leak-check=full --show-leak-kinds=all --log-file=log ./minishell
 
 
 .PHONY: all clean fclean re valgrind

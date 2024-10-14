@@ -14,11 +14,14 @@
 
 int sig;		// use of a global only to manage one edge case: write viable command and then ^C, bash will not execute.
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
 	t_values	values;
+	values.env = envp;
 
 	values.prev_ret_val = 0;
+	argc = 0;
+	argv = NULL;
 	set_sig_handler();			// protect	?
 	while (1)
 	{

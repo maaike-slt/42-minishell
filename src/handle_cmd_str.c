@@ -36,9 +36,7 @@ bool	abs_path_in_values(t_values *values, char **split_str)
 bool	get_struct_values(t_values *values)
 {
 	char	**split_str;
-	extern char	**environ;
 
-	values->env = environ;
 	split_str = ft_split_whitespace(values->cmd_str);
 	if (!split_str || !split_str[0])		// !split[0] otherwise segfault if cmd_str is only spaces
 	{
