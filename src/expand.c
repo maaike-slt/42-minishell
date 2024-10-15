@@ -43,9 +43,9 @@ bool	check_var_exist(t_values *v, char *var, int *index)
 	int	i;
 
 	i = 0;
-	while (v->env[i])
+	while (v->env[i])		// do retval here
 	{
-		if (!ft_strncmp(var, v->env[i], ft_strlen(var)))
+		if (!ft_strncmp(var, v->env[i], get_len_till_eq(v->env[i])))
 		{
 			*index = i;
 			return (true);
@@ -76,15 +76,16 @@ bool	do_expand(t_values *v, char *s, int *i)			// i need to have the index of th
 	int	index;
 	int	size_name_var;
 
-	///// here I have enough space to do an if with retval/$?	
 	var = get_var(&s[1], &size_name_var);		// dont forget to free		en fait faudrait que je chope d'abord l'index d'après la var içi avant de cutter, et de faire des maths pour savoir ou continuer une fois que j'ai cutté et remalloc la string
 	if (!var)
 		return (false);
 	size_name_var = ft_strlen(var);
 	if (check_var_exist(v, var, &index) == false)
 	{
-		free(var);
-		return (false);
+		if (put_in_string(&v->cmd_str, "", i, size_name_var) == false)
+			return (false);
+		free(var);				// i can free var in check_var_exist i think  (to gain lines for norm)
+		return (true);
 	}
 	expand = get_expand(v->env[index]);
 	if (put_in_string(&v->cmd_str, expand, i, size_name_var) == false)				// i is manipulated here
@@ -112,12 +113,12 @@ bool	expand(t_values *v)
 		}
 		if (v->cmd_str[i] == '$')						// do somewhere here the tilde ?
 		{
-			if (do_expand(v, &v->cmd_str[i], &i) == false)			// je fais faire un truc avec manipulation du i via pointeur, je vais switcher la cmd_str et set le i au bon endroit depuis cette fonction
+			if (do_expand(v, &v->cmd_str[i], &i) == false)
 				return (false);
 			continue;
 		}
 		i++;
 	}
+	printf("%s\n", v->cmd_str);
 	return (true);
 }
-		

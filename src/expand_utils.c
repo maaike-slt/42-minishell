@@ -12,6 +12,18 @@
 
 #include "minishell.h"
 
+int		get_len_till_eq(char	*s)
+{
+	int	i;
+
+	if (!s)
+		return (-1);
+	i = 0;
+	while (s[i] != '=')
+		i++;
+	return (i);	
+}	
+
 void	copy_end(char	*dest, char	*from)
 {
 	int	i;
