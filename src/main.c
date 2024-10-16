@@ -35,5 +35,5 @@ int	main(int argc, char **argv, char **envp)
 		add_history(values.cmd_str);
 		handle_cmd_str(&values);
 	}
-	return (0);
+	return (values.prev_ret_val);
 }
