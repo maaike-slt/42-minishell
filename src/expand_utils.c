@@ -12,24 +12,24 @@
 
 #include "minishell.h"
 
-bool	do_retval(t_values *v, char *s, int *i)
+int	do_retval(t_values *v, char *s, int *i)
 {
 	char *c_retval;
 
 	if (s[1] == '?')
 	{
 		c_retval = ft_itoa(v->prev_ret_val);
-		printf("%s\n", c_retval);
 		if (!c_retval)
 			return (false);
 		if (put_in_string(&v->cmd_str, c_retval, i, 1) == false)
 		{
 			free(c_retval);
-			return (false);
+			return (-1);
 		}
 		free(c_retval);
+		return (1);
 	}
-	return (true);
+	return (0);
 }
 
 int		get_len_till_eq(char	*s)

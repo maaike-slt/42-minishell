@@ -109,6 +109,7 @@ bool	do_expand(t_values *v, char *s, int *i)			// i need to have the index of th
 bool	expand(t_values *v)
 {
 	int		i;
+	int		status;
 
 	i = 0;
 	while (v->cmd_str[i])
@@ -120,11 +121,12 @@ bool	expand(t_values *v)
 		}
 		if (v->cmd_str[i] == '$')
 		{
-			if (do_retval(v, &v->cmd_str[i], &i) == true)
+			status = do_retval(v, &v->cmd_str[i], &i);			// on va faire un trick pour proteger malloc
+			if (status == 1)	
 				continue;
-			else
+			if (status == -1)
 				return (false);
-			if (do_expand(v, &v->cmd_str[i], &i) == false)
+			else if (do_expand(v, &v->cmd_str[i], &i) == false)
 				return (false);
 			continue ;
 		}

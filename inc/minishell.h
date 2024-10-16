@@ -45,9 +45,8 @@ bool	parser(t_values *values);
 // expand //
 bool	expand(t_values *v);
 bool	put_in_string(char **s, char *var, int *pos, int s_n_var);
-bool	do_retval(t_values *v, char *s, int *i);
 int		get_len_till_eq(char	*s);
-bool	do_retval(t_values *v, char *s, int *i);
+int		do_retval(t_values *v, char *s, int *i);
 
 // redir and pipes //
 bool	redpip_token_counter(t_values *values);
