@@ -47,6 +47,9 @@ bool	expand(t_values *v);
 bool	put_in_string(char **s, char *var, int *pos, int s_n_var);
 int		get_len_till_eq(char	*s);
 int		do_retval(t_values *v, char *s, int *i);
+bool	do_put_in_string(t_values *v, char *var, int *i, int size_name_var);
+char	*get_expand(char *s);
+bool	check_var_exist(t_values *v, char *var, int *index);
 
 // redir and pipes //
 bool	redpip_token_counter(t_values *values);

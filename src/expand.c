@@ -49,10 +49,12 @@ bool	check_var_exist(t_values *v, char *var, int *index)
 			!ft_strncmp(var, v->env[i], ft_strlen(var)))
 		{
 			*index = i;
+			free(var);
 			return (true);
 		}
 		i++;
 	}
+	free(var);
 	return (false);
 }
 
@@ -73,36 +75,35 @@ char	*get_expand(char *s)
 bool	do_expand(t_values *v, char *s, int *i)			// i need to have the index of the begin of the var before, to double check if i cut at the right place, but i need to be able to manipulate the i of expand loop
 {
 	char *var;
-	char *expand;
-	int	index;
+//	char *expand;
+//	int	index;
 	int	size_name_var;
 
 	var = get_var(&s[1], &size_name_var);		// dont forget to free		en fait faudrait que je chope d'abord l'index d'après la var içi avant de cutter, et de faire des maths pour savoir ou continuer une fois que j'ai cutté et remalloc la string
 	if (!var)
 		return (false);
-	if (!var[0])
+	if (!var[0])			// perhaps i can protect this in get var// no because i need to return true
 	{
 		free(var);
 		(*i)++;
 		return(true);
 	}
-	size_name_var = ft_strlen(var);
-	if (check_var_exist(v, var, &index) == false)
-	{
-		if (put_in_string(&v->cmd_str, "", i, size_name_var) == false)
-			return (false);
-		free(var);				// i can free var in check_var_exist i think  (to gain lines for norm)
-		return (true);
-	}
-	expand = get_expand(v->env[index]);
-	if (put_in_string(&v->cmd_str, expand, i, size_name_var) == false)				// i is manipulated here
-	{
-		free(expand);
-		free(var);
+	size_name_var = ft_strlen(var);			// calculate sizenamevar in put in string
+	if (do_put_in_string(v, var, i, size_name_var) == false)
 		return (false);
-	}
-	free(expand);
-	free(var);
+//	if (check_var_exist(v, var, &index) == false)
+//	{
+//		if (put_in_string(&v->cmd_str, "", i, size_name_var) == false)
+//			return (false);
+//		return (true);
+//	}
+//	expand = get_expand(v->env[index]);
+//	if (put_in_string(&v->cmd_str, expand, i, size_name_var) == false)				// i is manipulated here
+//	{
+//		free(expand);
+//		return (false);
+//	}
+//	free(expand);
 	return (true);
 }
 
@@ -121,7 +122,7 @@ bool	expand(t_values *v)
 		}
 		if (v->cmd_str[i] == '$')
 		{
-			status = do_retval(v, &v->cmd_str[i], &i);			// on va faire un trick pour proteger malloc
+			status = do_retval(v, &v->cmd_str[i], &i);
 			if (status == 1)	
 				continue;
 			if (status == -1)

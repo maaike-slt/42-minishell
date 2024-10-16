@@ -69,6 +69,7 @@ SRC_NAME =	main.c\
 			redir_pipes.c\
 			expand.c\
 			expand_utils.c\
+			do_put_in_string.c\
 
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 
