@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-char	*get_var(char *s, int *size)			// faire l'index ici pour avoir le numéro d'après la variable, pour pouvoir faire les maths 
+char	*get_var(char *s, int *size)
 {
 	char	*var;
 	int		i;
@@ -72,38 +72,23 @@ char	*get_expand(char *s)
 	return (temp);
 }	
 
-bool	do_expand(t_values *v, char *s, int *i)			// i need to have the index of the begin of the var before, to double check if i cut at the right place, but i need to be able to manipulate the i of expand loop
+bool	do_expand(t_values *v, char *s, int *i)
 {
 	char *var;
-//	char *expand;
-//	int	index;
 	int	size_name_var;
 
-	var = get_var(&s[1], &size_name_var);		// dont forget to free		en fait faudrait que je chope d'abord l'index d'après la var içi avant de cutter, et de faire des maths pour savoir ou continuer une fois que j'ai cutté et remalloc la string
+	var = get_var(&s[1], &size_name_var);
 	if (!var)
 		return (false);
-	if (!var[0])			// perhaps i can protect this in get var// no because i need to return true
+	if (!var[0])
 	{
 		free(var);
 		(*i)++;
 		return(true);
 	}
-	size_name_var = ft_strlen(var);			// calculate sizenamevar in put in string
+	size_name_var = ft_strlen(var);
 	if (do_put_in_string(v, var, i, size_name_var) == false)
 		return (false);
-//	if (check_var_exist(v, var, &index) == false)
-//	{
-//		if (put_in_string(&v->cmd_str, "", i, size_name_var) == false)
-//			return (false);
-//		return (true);
-//	}
-//	expand = get_expand(v->env[index]);
-//	if (put_in_string(&v->cmd_str, expand, i, size_name_var) == false)				// i is manipulated here
-//	{
-//		free(expand);
-//		return (false);
-//	}
-//	free(expand);
 	return (true);
 }
 
