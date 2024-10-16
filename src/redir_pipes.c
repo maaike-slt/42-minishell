@@ -55,7 +55,7 @@ int	is_redpip_valid(t_values *v, char *s, int *step)
 		*step = 1;
 		return (1);
 	}
-	if ((s[0] == '<' || s[0] == '>') && s[0] == s[1])		//normalement ici j'ai pas besoin de proteger sur la fin de la string parce que si s[1] c'est la fin je fais pas d'accès au dela
+	if ((s[0] == '<' || s[0] == '>') && s[0] == s[1])		//normaly dont need to protect for acces out of bounds because if s[0] is NULL program wont go in this function
 	{
 		if (is_redpip(s[2]))
 			return (-1);
@@ -72,7 +72,7 @@ bool	redpip_token_counter(t_values *v)
 	int	step;
 
 	i = 0;
-	while(v->cmd_str[i])		// FORGOT TO PARSE FOR QUOTES
+	while(v->cmd_str[i])
 	{
 		step = 0;
 		if (v->cmd_str[i] == '\'' || v->cmd_str[i] == '\"')
@@ -93,4 +93,4 @@ bool	redpip_token_counter(t_values *v)
 		i++;
 	}
 	return (true);
-}							// DONT FORGET TO REINITIALIZE REDPIP COUNTER AFTER EXEC IS DONE
+}

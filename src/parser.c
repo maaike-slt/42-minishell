@@ -81,7 +81,7 @@ bool	check_quote(char *s)
 		}
 		i++;
 	}
-	return (true);				// ouai en fait cette fonction doit retourner true si elle trouve rien (car si ya pas de quote en théorie c'est bon, au sens ou il faut passer ça au path parsing etc)
+	return (true);
 }
 
 bool	parser(t_values *values)
@@ -104,6 +104,7 @@ bool	parser(t_values *values)
 			free(split_str);
 		return (false);
 	}
+	if (do quotes(values)
 	values->split_str= split_str;
 	return (true);
 }

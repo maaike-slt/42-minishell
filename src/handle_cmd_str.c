@@ -35,9 +35,6 @@ bool	abs_path_in_values(t_values *values)
 
 bool	get_struct_values(t_values *values)
 {
-
-	if (parser(values) == false)
-		return (false);
 	if (abs_path_in_values(values) == false)			// here if i keep this code i don't need to pass split_str, just values
 		return (false);
 	return (true);
@@ -52,6 +49,8 @@ bool	handle_cmd_str(t_values *v)
 		handle_sig(&sig, v);
 		return (false);				// return here because if given "ls ^C" ls will be executed, when it shouldnt be
 	}
+	if (parser(v) == false)
+		return (false);
 	if (get_struct_values(v) == false)
 		return (false);
 	exec(v);	
