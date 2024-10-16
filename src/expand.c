@@ -21,8 +21,8 @@ char	*get_var(char *s, int *size)			// faire l'index ici pour avoir le numéro d
 	i = 0;
 	while (ft_isalnum(s[i]))
 		i++;
-//	if (!i)
-//		return (NULL);
+	if(ft_isdigit(s[0]))
+		i = 1;	
 	var = malloc(sizeof(char) * (i + 1));
 	if (!var)
 		return (NULL);
