@@ -12,6 +12,13 @@
 
 #include "minishell.h"
 
+//bool	do_retval(t_values *v, char *s, int *i)
+//{
+//	printf("%fatlol\n");
+//	i += 2;
+//	return (true);
+//}
+
 int		get_len_till_eq(char	*s)
 {
 	int	i;

@@ -21,8 +21,8 @@ char	*get_var(char *s, int *size)			// faire l'index ici pour avoir le numéro d
 	i = 0;
 	while (ft_isalnum(s[i]))
 		i++;
-	if (!i)
-		return (NULL);
+//	if (!i)
+//		return (NULL);
 	var = malloc(sizeof(char) * (i + 1));
 	if (!var)
 		return (NULL);
@@ -45,7 +45,8 @@ bool	check_var_exist(t_values *v, char *var, int *index)
 	i = 0;
 	while (v->env[i])		// do retval here
 	{
-		if (!ft_strncmp(var, v->env[i], get_len_till_eq(v->env[i])))
+		if (!ft_strncmp(var, v->env[i], get_len_till_eq(v->env[i])) && 
+			!ft_strncmp(var, v->env[i], ft_strlen(var)))
 		{
 			*index = i;
 			return (true);
@@ -79,6 +80,12 @@ bool	do_expand(t_values *v, char *s, int *i)			// i need to have the index of th
 	var = get_var(&s[1], &size_name_var);		// dont forget to free		en fait faudrait que je chope d'abord l'index d'après la var içi avant de cutter, et de faire des maths pour savoir ou continuer une fois que j'ai cutté et remalloc la string
 	if (!var)
 		return (false);
+	if (!var[0])
+	{
+		free(var);
+		(*i)++;
+		return(true);
+	}
 	size_name_var = ft_strlen(var);
 	if (check_var_exist(v, var, &index) == false)
 	{
@@ -104,18 +111,18 @@ bool	expand(t_values *v)
 	int		i;
 
 	i = 0;
-	while(v->cmd_str[i])
+	while (v->cmd_str[i])
 	{
 		if (v->cmd_str[i] == '\'' || v->cmd_str[i] == '\"')
 		{
 			quote_redpip(&v->cmd_str[i], &i);
-			continue;	
+			continue ;
 		}
-		if (v->cmd_str[i] == '$')						// do somewhere here the tilde ?
+		if (v->cmd_str[i] == '$')
 		{
 			if (do_expand(v, &v->cmd_str[i], &i) == false)
 				return (false);
-			continue;
+			continue ;
 		}
 		i++;
 	}
