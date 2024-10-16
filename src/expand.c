@@ -43,7 +43,7 @@ bool	check_var_exist(t_values *v, char *var, int *index)
 	int	i;
 
 	i = 0;
-	while (v->env[i])		// do retval here
+	while (v->env[i])
 	{
 		if (!ft_strncmp(var, v->env[i], get_len_till_eq(v->env[i])) && 
 			!ft_strncmp(var, v->env[i], ft_strlen(var)))
@@ -120,12 +120,15 @@ bool	expand(t_values *v)
 		}
 		if (v->cmd_str[i] == '$')
 		{
+			if (do_retval(v, &v->cmd_str[i], &i) == true)
+				continue;
+			else
+				return (false);
 			if (do_expand(v, &v->cmd_str[i], &i) == false)
 				return (false);
 			continue ;
 		}
 		i++;
 	}
-	printf("%s\n", v->cmd_str);
 	return (true);
 }
