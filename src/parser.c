@@ -104,7 +104,7 @@ bool	parser(t_values *values)
 			free(split_str);
 		return (false);
 	}
-	if (do quotes(values)
+//	if (do_quotes(values)
 	values->split_str= split_str;
 	return (true);
 }
