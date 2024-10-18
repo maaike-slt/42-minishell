@@ -54,6 +54,7 @@ bool	check_var_exist(t_values *v, char *var, int *index);
 // redir and pipes //
 bool	redpip_token_counter(t_values *values);
 void	quote_redpip(char *s, int	*index);
+bool	is_redir(t_values *v, char *s, int *step);
 
 // quote parsing //
 bool	check_quote(char *s);

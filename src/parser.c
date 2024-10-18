@@ -105,6 +105,7 @@ bool	parser(t_values *values)
 		return (false);
 	}
 //	if (do_quotes(values)
+//		return (false)
 	values->split_str= split_str;
 	return (true);
 }
