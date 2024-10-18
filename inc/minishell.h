@@ -31,6 +31,7 @@ typedef struct s_values
 {
 	char	**env;
 	char	*cmd_str;
+	char 	*cmd_str_b;
 	char	*abs_path_bin;
 	char	**split_str;
 	char	**tokenized_str;

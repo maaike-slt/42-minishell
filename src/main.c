@@ -14,6 +14,18 @@
 
 int sig;		// use of a global only to manage one edge case: write viable command and then ^C, bash will not execute.
 
+int	copy_cmd_str(t_values *values)
+{
+	if (values->cmd_str)
+	{
+		values->cmd_str_b = ft_strdup(values->cmd_str);
+		if (!values->cmd_str_b)
+			return (-1);
+		return (0);
+	}
+	return(0);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_values	values;
@@ -25,8 +37,9 @@ int	main(int argc, char **argv, char **envp)
 	set_sig_handler();			// protect	?
 	while (1)
 	{
-		printf("%d\n", values.prev_ret_val);
 		values.cmd_str = readline("minishell$ ");
+		if (copy_cmd_str(&values) == -1)
+			return (values.prev_ret_val);	
 		if (!values.cmd_str)
 		{
 			rl_clear_history();
@@ -34,6 +47,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		add_history(values.cmd_str);
 		handle_cmd_str(&values);
+		free(values.cmd_str_b);
 	}
 	return (values.prev_ret_val);
 }
