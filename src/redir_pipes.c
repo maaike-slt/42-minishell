@@ -42,7 +42,7 @@ void	quote_redpip(char *s, int	*index)
 
 int	is_pip(t_values *v, char *s, int *step)
 {
-	if (s[0] == '|')				// oui mais quand il y a que | et pas  de redir ou pip après ?
+	if (s[0] == '|')
 	{
 		if (s[1] == '|')
 		{
@@ -77,13 +77,13 @@ int	is_pip(t_values *v, char *s, int *step)
 
 bool	is_redir(t_values *v, char *s, int *step)
 {
-	if (!(*s))
+	if (!(*s))		//to protect wrong array access when is_pip uses this func
 		return (true);
-	if (s[0] == '<' || s[0] == '>')			// only need to check if !(*s) because of is_pip func, otherwise it cant do a wrong array access
+	if (s[0] == '<' || s[0] == '>')
 	{
-		if (s[0] == s[1])		// non meme ici cette logique fonctionne pas, car si il ya s[2] en redir tok il faut pas que ça fonctionne
+		if (s[0] == s[1])
 		{
-			if (s[1])		// need to check s[1] for NULL in order not to have wrong array access, if check s[2] and s[1] is NULL it is a wrong array access
+			if (s[1])
 			{
 				if (is_redpip(s[2]) == 1)
 					return (false);
@@ -106,15 +106,10 @@ bool	is_redir(t_values *v, char *s, int *step)
 			v->redpip_counter++;
 			return (true);
 		}
-		return (false);			// here it is when <> for example
+		return (false);
 	}
-	return (true);				// ouai mais non parce que si yavait | et que ça passe dans cette func et que après ya | ça va retrun true
+	return (true);
 }
-
-		
-			
-	
-	
 
 int	is_redpip_valid(t_values *v, char *s, int *step)
 {
@@ -127,35 +122,8 @@ int	is_redpip_valid(t_values *v, char *s, int *step)
 		return (1);
 	if (is_redir(v, s, step) == false)
 		return (-1);
-	return (1);				//ah ouai mais non en fait ici le 
+	return (1);
 }
-//
-//	int	i;
-//
-//	i = 0;
-//	if (s[0] == '|' && !is_redpip(s[1]))		//if there is nothing after pipe, I will let the exec handle the error
-//	{
-//		v->redpip_counter++;
-//		*step = 1;
-//		return (1);
-//	}
-//	if ((s[0] == '<' || s[0] == '>') && !is_redpip(s[1]))		// ouai deja ici c'est pas bon parce que je rejette >|
-//	{
-//		v->redpip_counter++;
-//		*step = 1;
-//		return (1);
-//	}
-//	if ((s[0] == '<' || s[0] == '>') && s[0] == s[1])		//normaly dont need to protect for acces out of bounds because if s[0] is NULL program wont go in this function
-//	{
-//		if (is_redpip(s[2]))			// ouai la yavait un wrong access en fait// ouai je pense qu'il y a avait un wrong access ici, mais ce que je faisais c'est que a la moindre detec wrong tok je
-//return le programme, pas bete.
-//			return (-1);
-//		*step = 2;
-//		v->redpip_counter++;
-//		return (1);
-//	}
-//	return (-1);		// I think i need to put -1 here because of <| case
-//}
 
 bool	redpip_token_counter(t_values *v)
 {
