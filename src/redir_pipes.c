@@ -36,11 +36,7 @@ int	is_pip(t_values *v, char *s, int *step)
 	if (s[0] == '|')
 	{
 		if (s[1] == '|')
-		{
-			if (pip_case_s(v, s, step) == -1)
-				return (-1);
-			return (1);
-		}
+			return (-1);
 		if (!ft_strncmp(s, "|>|", 3))
 		{
 			if (is_redpip(s[3]) == 1)

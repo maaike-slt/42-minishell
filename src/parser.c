@@ -93,7 +93,11 @@ bool	parser(t_values *values)
 	if (check_quote(values->cmd_str) == false)	// this function check if quotes are valid or not in the whole cmd_str
 		return (false);
 	if (redpip_token_counter(values) == false)
+	{
+		printf("%d\n", values->redpip_counter);
 		return (false);
+	}
+	printf("%d\n", values->redpip_counter);
 	if (expand(values) == false)
 		return (false);
 	split_str = ft_split_whitespace(values->cmd_str);

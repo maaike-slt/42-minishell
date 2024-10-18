@@ -41,7 +41,7 @@ bool	redir_case_equal(t_values *v, char*s, int *step)
 		if (is_redpip(s[2]) == 1)
 			return (false);
 	}
-	v->redpip_counter += 2;
+	v->redpip_counter += 1;
 	(*step) += 2;
 	return (true);
 }
