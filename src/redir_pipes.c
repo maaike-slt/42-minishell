@@ -12,15 +12,6 @@
 
 #include "minishell.h"
 
-int	is_redpip(char	c)
-{
-	if (!c)
-		return (-1);
-	if (c == '<' || c == '>' || c == '|')
-		return (1);
-	return (0);
-}
-
 void	quote_redpip(char *s, int	*index)
 {
 	char	type;
@@ -46,15 +37,9 @@ int	is_pip(t_values *v, char *s, int *step)
 	{
 		if (s[1] == '|')
 		{
-			if (is_redir(v, &s[2], step) == true)
-			{
-				if (s[2]== '|')
-					return (-1);
-				v->redpip_counter += 2;
-				(*step) += 2;
-				return (1);
-			}
-			return (-1);
+			if (pip_case_s(v, s, step) == -1)
+				return (-1);
+			return (1);
 		}
 		if (!ft_strncmp(s, "|>|", 3))
 		{
@@ -77,27 +62,20 @@ int	is_pip(t_values *v, char *s, int *step)
 
 bool	is_redir(t_values *v, char *s, int *step)
 {
-	if (!(*s))		//to protect wrong array access when is_pip uses this func
+	if (!(*s))				//to protect wrong array access when is_pip uses this func
 		return (true);
 	if (s[0] == '<' || s[0] == '>')
 	{
 		if (s[0] == s[1])
 		{
-			if (s[1])
-			{
-				if (is_redpip(s[2]) == 1)
-					return (false);
-			}
-			v->redpip_counter += 2;
-			(*step) += 2;
+			if (redir_case_equal(v, s, step) == false)
+				return (false);
 			return (true);
 		}
 		if (s[0] == '>' && s[1]== '|')
 		{
-			if (is_redpip(s[2]) == 1)
+			if (redir_case_r_n_s(v, s, step) == false)
 				return (false);
-			(*step) += 2;
-			v->redpip_counter += 2;
 			return (true);
 		}
 		if (!is_redpip(s[1]) || is_redpip(s[1]) == -1)

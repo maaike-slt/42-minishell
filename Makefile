@@ -67,6 +67,7 @@ SRC_NAME =	main.c\
 			exec.c\
 			check_match.c\
 			redir_pipes.c\
+			redir_pipes_utils.c\
 			expand.c\
 			expand_utils.c\
 			do_put_in_string.c\

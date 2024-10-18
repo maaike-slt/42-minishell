@@ -55,6 +55,10 @@ bool	check_var_exist(t_values *v, char *var, int *index);
 bool	redpip_token_counter(t_values *values);
 void	quote_redpip(char *s, int	*index);
 bool	is_redir(t_values *v, char *s, int *step);
+int		is_redpip(char	c);
+int		pip_case_s(t_values *v, char *s, int *step);
+bool	redir_case_equal(t_values *v, char*s, int *step);
+bool	redir_case_r_n_s(t_values *v, char *s, int *step);
 
 // quote parsing //
 bool	check_quote(char *s);
