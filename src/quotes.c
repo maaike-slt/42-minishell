@@ -42,7 +42,7 @@ int	count_q_expand(char *s)
 	return (count);
 }
 
-int	put_in_counter(t_values *v, char *s, int *i, int *tab)
+bool	put_in_counter(t_values *v, char *s, int *i, int *tab)
 {
 	char *var;
 	int	index;
@@ -120,7 +120,6 @@ bool	get_counter(t_values *v, int **tab)
 bool	do_quotes(t_values *values)
 {
 	int	*tab;
-	int	i = 0;
 
 	tab = NULL;
 	if (values->isquote == 0)
