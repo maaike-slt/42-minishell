@@ -29,6 +29,7 @@
 
 typedef struct s_values
 {
+	int		isquote;
 	char	**env;
 	char	*cmd_str;
 	char 	*cmd_str_b;
@@ -45,6 +46,7 @@ bool	parser(t_values *values);
 
 // expand //
 bool	expand(t_values *v);
+char	*get_var(char *s, int *size);
 bool	put_in_string(char **s, char *var, int *pos, int s_n_var);
 int		get_len_till_eq(char	*s);
 int		do_retval(t_values *v, char *s, int *i);
@@ -62,7 +64,10 @@ bool	redir_case_equal(t_values *v, char*s, int *step);
 bool	redir_case_r_n_s(t_values *v, char *s, int *step);
 
 // quote parsing //
-bool	check_quote(char *s);
+bool	check_quote(t_values *values, char *s);
+
+// quote resolving //
+bool	do_quotes(t_values *values);
 
 //directory functions //
 char	*search_for_dir(t_values *values, char	**env_paths, char *executable);

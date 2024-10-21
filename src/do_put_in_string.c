@@ -24,6 +24,8 @@ bool	do_put_in_string(t_values *v, char *var, int *i, int size_name_var)
 		return (true);
 	}
 	expand = get_expand(v->env[index]);
+	if (!expand)
+		return (false);
 	if (put_in_string(&v->cmd_str, expand, i, size_name_var) == false)				// i is manipulated here
 	{
 		free(expand);

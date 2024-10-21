@@ -48,7 +48,7 @@
 //	return(0);
 //}
 
-bool	other_quote(char *s, char type)
+bool	other_quote(t_values *v, char *s, char type)
 {
 	int	i;
 
@@ -57,8 +57,11 @@ bool	other_quote(char *s, char type)
 	{
 		if(s[i] == type)
 		{	
-			if (check_quote(&s[++i]) == true)
+			if (check_quote(v, &s[++i]) == true)
+			{
+				v->isquote = 1;
 				return (true);
+			}
 			return (false);
 		}
 		i++;
@@ -66,7 +69,7 @@ bool	other_quote(char *s, char type)
 	return (false);
 }
 
-bool	check_quote(char *s)
+bool	check_quote(t_values *v, char *s)
 {
 	int	i;
 
@@ -75,7 +78,7 @@ bool	check_quote(char *s)
 	{
 		if (s[i] == '\'' || s[i] == '\"')
 		{
-			if (other_quote(&s[i], s[i]) == true)
+			if (other_quote(v, &s[i], s[i]) == true)
 				return (true);
 			return (false);			// careful this false return is only for testing
 		}
@@ -90,7 +93,7 @@ bool	parser(t_values *values)
 	char	**split_str;
 
 	i = 0;
-	if (check_quote(values->cmd_str) == false)	// this function check if quotes are valid or not in the whole cmd_str
+	if (check_quote(values, values->cmd_str) == false)	// this function check if quotes are valid or not in the whole cmd_str
 		return (false);
 	if (redpip_token_counter(values) == false)
 		return (false);
@@ -104,8 +107,8 @@ bool	parser(t_values *values)
 			free(split_str);
 		return (false);
 	}
-//	if (do_quotes(values)
-//		return (false)
+	if (do_quotes(values) == false)
+		return (false);
 	values->split_str= split_str;
 	return (true);
 }

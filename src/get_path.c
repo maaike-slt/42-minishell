@@ -70,7 +70,6 @@ char	*search_abs_path(t_values *values, char *executable)
 	struct dirent	*dirent;
 	char			**cut;
 
-	printf("%s\n", executable);
 	cut = cut_exec_string(executable);
 	if (!cut)
 		return (NULL);
