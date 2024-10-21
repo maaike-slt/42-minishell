@@ -107,8 +107,10 @@ bool	parser(t_values *values)
 			free(split_str);
 		return (false);
 	}
+	values->split_str= split_str;
 	if (do_quotes(values) == false)
 		return (false);
-	values->split_str= split_str;
+//	if (tokenise_redpip(values) == false)
+//		return (false);
 	return (true);
 }

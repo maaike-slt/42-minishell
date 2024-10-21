@@ -126,6 +126,8 @@ bool	do_quotes(t_values *values)
 		return (true);
 	if (get_counter(values, &tab) == false)
 		return (false);
+	if (quote_parsing(values, tab) == false)
+		return (false);
 	free(tab);
 	values->isquote = 0;
 	return (true);
