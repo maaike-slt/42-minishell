@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbonis <gbonis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 15:31:54 by gbonis            #+#    #+#             */
-/*   Updated: 2024/10/09 15:31:56 by gbonis           ###   ########.fr       */
+/*   Updated: 2024/10/23 21:15:13 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,8 @@ bool	check_quote(t_values *v, char *s)
 
 bool	parser(t_values *values)
 {
-	int	i;
 	char	**split_str;
 
-	i = 0;
 	if (check_quote(values, values->cmd_str) == false)	// this function check if quotes are valid or not in the whole cmd_str
 		return (false);
 	if (redpip_token_counter(values) == false)

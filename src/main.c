@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 13:45:45 by gbonis            #+#    #+#             */
-/*   Updated: 2024/10/05 18:43:54 by gbonis           ###   ########.fr       */
+/*   Updated: 2024/10/23 21:13:56 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int	main(int argc, char **argv, char **envp)
 	values.env = envp;
 
 	values.prev_ret_val = 0;
-	argc = 0;
-	argv = NULL;
+	(void)argc;
+	(void)argv;
 	set_sig_handler();			// protect	?
 	while (1)
 	{
