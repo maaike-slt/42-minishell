@@ -40,7 +40,7 @@ int	get_right_pos(t_values *v, int count, char type)
 	return (i);
 }
 
-int	get_outside_q_size(t_values *v, int x, char type)
+int	get_outside_q_size(t_values *v, int x, char type)		// to explain this func, i use the split tokens to get the char that could be attached to the string, can use cmd-str_b because if there is an expand I need to use it and not the expand name, so it is easier to use split tokens
 {
 	int	i;
 	int y;
@@ -62,7 +62,7 @@ int	get_outside_q_size(t_values *v, int x, char type)
 				else
 				{
 					betw_q = 0;
-					end = 1;
+					end = 1;				// here i need to get the x, and perhaps the y also, in order to be able to copy everything without recalculating everything again
 					y++;
 					continue ;
 				}
@@ -98,24 +98,50 @@ int	get_size(t_values *v, int x, char type, int count)
 
 	out_size = get_outside_q_size(v, x, type);
 	in_size = get_inside_q_size(v, type, count);
-	return (out_size + in_size);						// should i protect for ovrflow in this function ?
+	return (out_size + in_size + 1);						// should i protect for ovrflow in this function ?
 }
 bool	manage_q_tok(t_values *v, int x, char type, int count)		// this func, we arrived at the right split token with the first quote, and now we do the string magic to have a valdi token with quotes
 {
-//	char *s;
+	char *new_tok;
 	int	size;
 
 	size = get_size(v, x, type, count);		//for malloc
-	printf("%d\n", size);
+	new_tok = malloc(sizeof(char) * size);
+	if (!new_tok)
+		return (false);
+	copy_in_tok(v, new_tok, x, type, count);
+//	manage_rest_tok;
 	return (true);
 }
 
-// probablement si je met count dans la boucle avant manage_q_tok je pense que ça regle le probleme de call plusieurs fois de suite avec un cmd_str avec des quotes
+
+
+// make a token for the quote
+// integrate the token in the split
+// manipulate and free the rest of the tokens
+
+// there will be be probably a problem when trying to free the split str at exit of readline loop pass, probably will need to do some kind of if (split[i]) -> free
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 	
-//	ok, so now count doesn't work as intended, because between different cmd_str count is not set to zero and then messes everything up.
 
 
 
