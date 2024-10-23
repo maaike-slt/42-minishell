@@ -36,19 +36,22 @@ bool	quote_parsing(t_values *v, int	*tab)
 	int	x;
 	int	y;
 	int	z; 
+	int	count;
 
 	x = 0;
 	z = 0;
+	count = 0;
 	while(v->split_str[x])
 	{
 		y = 0;
 		while(v->split_str[x][y])
 		{
-			if (check_if_pass(v->split_str[x][y], &tab[z], &z)	== false)			//ouai ici je vais de voir manipuler les indices dans les fonctions je pense
+			if (check_if_pass(v->split_str[x][y], &tab[z], &z)	== false)
 			{
-				printf("%s\n", &v->split_str[x][y]);
-//				if (manage_q_tok(v, x, v->split_str[x][y]) == false)
-//					return (false);
+//				printf("%s\n", &v->split_str[x][y]);
+				if (manage_q_tok(v, x, v->split_str[x][y], count) == false)
+					return (false);
+				count++;
 				break ;
 			}
 			y++;

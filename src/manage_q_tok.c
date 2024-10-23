@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	get_right_pos(t_values *v, int count)
+int	get_right_pos(t_values *v, int count, char type)
 {
 	int	i;
 	int	sec_q;
@@ -21,11 +21,13 @@ int	get_right_pos(t_values *v, int count)
 	sec_q = 0;
 	while (v->cmd_str_b[i])
 	{
-		if (v->cmd_str_b[i] == type && count == 0)
+		if (v->cmd_str_b[i] == type && count == 0)		//   0 not right here
+		{
 			return (i);
+		}
 		if (v->cmd_str_b[i] == type)
 		{
-			if (sec_q = 0)
+			if (sec_q == 0)
 				sec_q = 1;
 			else
 			{
@@ -45,8 +47,9 @@ int	get_outside_q_size(t_values *v, int x, char type)
 	int	betw_q;
 	int	end;
 
-	count = 0;
 	end = 0;
+	i = 0;
+	betw_q = 0;
 	while (v->split_str[x])
 	{
 		y= 0;
@@ -76,45 +79,43 @@ int	get_outside_q_size(t_values *v, int x, char type)
 	return (i);   // ah ouai mais comme ça j'ai pas la size, il me faut aussi la size entre les quotes, et aussi -2 pour enlever les quotes, +1 pour null term
 }
 
-int	get_inside_q_size(t_values *v, char type, count)
+int	get_inside_q_size(t_values *v, char type, int count)
 {
 	int	i;
 	int	size;
 
 	size = 0;
-	i = get_right_pos(v, count);
+	i = get_right_pos(v, count, type);
 	while (v->cmd_str_b[++i] != type)
-	{
-		size ++;
-		i++;
-	}
-	return (i);
+		size++;
+	return (size);
 }
-		
-		
-	
-	
 
-int	get_size(t_values *v, int x, char type)
+int	get_size(t_values *v, int x, char type, int count)
 {
 	int	out_size;
 	int	in_size;
 
 	out_size = get_outside_q_size(v, x, type);
-	in_size = get_inside_q_size(v, type, count);	
-	
-
-bool	manage_q_tok(t_values *v, int x, char type)
+	in_size = get_inside_q_size(v, type, count);
+	return (out_size + in_size);						// should i protect for ovrflow in this function ?
+}
+bool	manage_q_tok(t_values *v, int x, char type, int count)		// this func, we arrived at the right split token with the first quote, and now we do the string magic to have a valdi token with quotes
 {
-	static int count;
-	char *s;
+//	char *s;
 	int	size;
 
 	size = get_size(v, x, type, count);		//for malloc
-	count++;
+	printf("%d\n", size);
 	return (true);
 }
+
+// probablement si je met count dans la boucle avant manage_q_tok je pense que ça regle le probleme de call plusieurs fois de suite avec un cmd_str avec des quotes
+
+
+
 	
+//	ok, so now count doesn't work as intended, because between different cmd_str count is not set to zero and then messes everything up.
 
 
 
@@ -122,9 +123,6 @@ bool	manage_q_tok(t_values *v, int x, char type)
 
 
 
-
-// je vais peut etre avoir besoin de savoir le nombre de quotes, non j'ai juste besoin d'un int statique je pense, c'est juste pour pas remanager 
-// la meme quote quand je rerentre dans la fonction.
 
 
 

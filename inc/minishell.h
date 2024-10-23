@@ -69,6 +69,7 @@ bool	quote_parsing(t_values *values, int	*tab);
 
 // quote resolving //
 bool	do_quotes(t_values *values);
+bool	manage_q_tok(t_values *v, int x, char type, int count);
 
 //directory functions //
 char	*search_for_dir(t_values *values, char	**env_paths, char *executable);
