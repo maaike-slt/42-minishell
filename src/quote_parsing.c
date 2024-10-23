@@ -48,7 +48,6 @@ bool	quote_parsing(t_values *v, int	*tab)
 		{
 			if (check_if_pass(v->split_str[x][y], &tab[z], &z)	== false)
 			{
-//				printf("%s\n", &v->split_str[x][y]);
 				if (manage_q_tok(v, x, v->split_str[x][y], count) == false)
 					return (false);
 				count++;

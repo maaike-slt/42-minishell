@@ -75,6 +75,7 @@ SRC_NAME =	main.c\
 			quote_parsing.c\
 			manage_q_tok.c\
 			manage_q_tok_utils.c\
+			manage_rest_tok.c\
 
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 

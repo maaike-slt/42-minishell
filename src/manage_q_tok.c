@@ -52,7 +52,7 @@ int	get_outside_q_size(t_values *v, int x, char type)		// to explain this func, 
 	betw_q = 0;
 	while (v->split_str[x])
 	{
-		y= 0;
+		y = 0;
 		while(v->split_str[x][y])
 		{
 			if (v->split_str[x][y] == type)			// put all of this if in an helper func for norm
@@ -62,11 +62,12 @@ int	get_outside_q_size(t_values *v, int x, char type)		// to explain this func, 
 				else
 				{
 					betw_q = 0;
-					end = 1;				// here i need to get the x, and perhaps the y also, in order to be able to copy everything without recalculating everything again
+					end = 1;
 					y++;
 					continue ;
 				}
 				y++;
+				continue;
 			}
 			if (betw_q == 0)
 				i++;
@@ -74,9 +75,9 @@ int	get_outside_q_size(t_values *v, int x, char type)		// to explain this func, 
 		}
 		if (end)
 			break;
-		x++;			// need a way to not got to the end of the split but only last split token after second quote 
+		x++;
 	}
-	return (i);   // ah ouai mais comme ça j'ai pas la size, il me faut aussi la size entre les quotes, et aussi -2 pour enlever les quotes, +1 pour null term
+	return (i);
 }
 
 int	get_inside_q_size(t_values *v, char type, int count)
@@ -89,7 +90,6 @@ int	get_inside_q_size(t_values *v, char type, int count)
 	i++;
 	while (v->cmd_str_b[i] != type)
 	{
-		printf("lol\n");
 		size++;
 		i++;
 	}
@@ -105,6 +105,7 @@ int	get_size(t_values *v, int x, char type, int count)
 	in_size = get_inside_q_size(v, type, count);
 	return (out_size + in_size + 1);						// should i protect for ovrflow in this function ?
 }
+
 bool	manage_q_tok(t_values *v, int x, char type, int count)		// this func, we arrived at the right split token with the first quote, and now we do the string magic to have a valdi token with quotes
 {
 	char *new_tok;
@@ -115,8 +116,7 @@ bool	manage_q_tok(t_values *v, int x, char type, int count)		// this func, we ar
 	if (!new_tok)
 		return (false);
 	copy_in_tok(v, new_tok, x, type, count);
-	return (false);
-//	manage_rest_tok;
+	manage_rest_tok(v, x, new_tok, type);
 	return (true);
 }
 

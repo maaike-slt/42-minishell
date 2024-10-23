@@ -45,7 +45,6 @@ void	do_copy(char *cmd_str, char *s, int *y, char type)
 	}
 	return ;
 }
-	
 
 void	copy_in_cmd_str(t_values *v, char *s, int *y, int count, char type)
 {
@@ -69,11 +68,6 @@ void	copy_in_cmd_str(t_values *v, char *s, int *y, int count, char type)
 	}
 	return ;
 }
-			
-		
-
-	
-	
 
 void copy_in_tok(t_values *v, char *s, int x, char type, int count)
 {
@@ -97,8 +91,6 @@ void copy_in_tok(t_values *v, char *s, int x, char type, int count)
 		y++;
 	}
 	s[y] = 0;
-	printf("%s\n", s);
-	free(s);
 	return ;
 }
 	
