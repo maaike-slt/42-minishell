@@ -85,7 +85,6 @@ void copy_in_tok(t_values *v, char *s, int x, char type, int count)
 	while (v->split_str[x][i] != type)
 	{
 		s[y] = v->split_str[x][i];
-		printf("%c\n", s[y]);
 		i++;
 		y++;
 	}

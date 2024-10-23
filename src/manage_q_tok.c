@@ -86,8 +86,13 @@ int	get_inside_q_size(t_values *v, char type, int count)
 
 	size = 0;
 	i = get_right_pos(v, count, type);
-	while (v->cmd_str_b[++i] != type)
+	i++;
+	while (v->cmd_str_b[i] != type)
+	{
+		printf("lol\n");
 		size++;
+		i++;
+	}
 	return (size);
 }
 
@@ -110,6 +115,7 @@ bool	manage_q_tok(t_values *v, int x, char type, int count)		// this func, we ar
 	if (!new_tok)
 		return (false);
 	copy_in_tok(v, new_tok, x, type, count);
+	return (false);
 //	manage_rest_tok;
 	return (true);
 }
@@ -141,7 +147,9 @@ bool	manage_q_tok(t_values *v, int x, char type, int count)		// this func, we ar
 
 
 
+
 	
+
 
 
 
