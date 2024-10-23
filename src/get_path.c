@@ -121,7 +121,7 @@ char	*search_relative_path(char **env_pths, char *executable)
 	return (NULL);			///should set prev_ret_val to 127 if nothing found
 }
 
-/// two posibilities: relative path (use PATH), or absolute (cut the ///
+/// two possibilities: relative path (use PATH), or absolute (cut the ///
 /// dir and then search trough it)									 ///
 
 char	*search_for_dir(t_values *values, char	**env_pths, char	*executable)
