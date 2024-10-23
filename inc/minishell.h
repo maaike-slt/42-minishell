@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 17:18:41 by msloot            #+#    #+#             */
-/*   Updated: 2024/10/05 18:44:39 by gbonis           ###   ########.fr       */
+/*   Updated: 2024/10/23 21:24:44 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_values
 	int		isquote;
 	char	**env;
 	char	*cmd_str;
-	char 	*cmd_str_b;
+	char	*cmd_str_b;		// ASK: what does "b" stand for?
 	char	*abs_path_bin;
 	char	**split_str;
 	char	**tokenized_str;

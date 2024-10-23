@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 15:31:54 by gbonis            #+#    #+#             */
-/*   Updated: 2024/10/23 21:15:13 by msloot           ###   ########.fr       */
+/*   Updated: 2024/10/23 21:55:55 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 //
 //	if (!check_two_quotes(*word, type))
 //	{
-//		
+//
 //		return (0);
 //	}
 //	temp = *word;
@@ -56,7 +56,7 @@ bool	other_quote(t_values *v, char *s, char type)
 	while (s[i])
 	{
 		if(s[i] == type)
-		{	
+		{
 			if (check_quote(v, &s[++i]) == true)
 			{
 				v->isquote = 1;

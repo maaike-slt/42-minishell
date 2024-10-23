@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbonis <gbonis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:28:34 by gbonis            #+#    #+#             */
-/*   Updated: 2024/10/17 15:28:37 by gbonis           ###   ########.fr       */
+/*   Updated: 2024/10/23 21:56:16 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ bool	put_in_counter(t_values *v, char *s, int *i, int *tab)
 	int	index;
 	char *expand;
 	int		size_name_var;
-	
+
 	var = get_var(&s[1], &size_name_var);
 	if (!var)
 		return (false);

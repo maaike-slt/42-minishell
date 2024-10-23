@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 13:45:45 by gbonis            #+#    #+#             */
-/*   Updated: 2024/10/23 21:13:56 by msloot           ###   ########.fr       */
+/*   Updated: 2024/10/23 21:26:02 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int	copy_cmd_str(t_values *values)
 int	main(int argc, char **argv, char **envp)
 {
 	t_values	values;
-	values.env = envp;
 
+	values.env = envp;
 	values.prev_ret_val = 0;
 	(void)argc;
 	(void)argv;
@@ -39,7 +39,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		values.cmd_str = readline("minishell$ ");
 		if (copy_cmd_str(&values) == -1)
-			return (values.prev_ret_val);	
+			return (values.prev_ret_val);
 		if (!values.cmd_str)
 		{
 			rl_clear_history();

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   handle_cmd_str.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 17:05:10 by gbonis            #+#    #+#             */
-/*   Updated: 2024/10/05 18:48:26 by gbonis           ###   ########.fr       */
+/*   Updated: 2024/10/23 21:47:45 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ bool	abs_path_in_values(t_values *values)
 	values->abs_path_bin = get_abs_path(values);
 	if (!values->abs_path_bin)
 	{
-		ft_free_2d((void ***)&values->split_str, ft_2d_size((const void **)values->split_str));
+		ft_free_2d((void ***)&values->split_str,
+			ft_2d_size((const void **)values->split_str));
 		free(values->cmd_str);
 		return (false);
 	}
@@ -42,7 +43,7 @@ bool	get_struct_values(t_values *values)
 
 bool	handle_cmd_str(t_values *v)
 {
-	extern int sig;
+	extern int	sig;
 
 	if (sig == 1 || sig < 0)
 	{

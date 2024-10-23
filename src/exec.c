@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute.c                                          :+:      :+:    :+:   */
+/*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbonis <gbonis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 14:39:26 by gbonis            #+#    #+#             */
-/*   Updated: 2024/10/06 14:39:41 by gbonis           ###   ########.fr       */
+/*   Updated: 2024/10/23 21:49:31 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	exec(t_values *v)
 {
-	pid_t pid;
-	int status;
-	extern int sig;
+	pid_t		pid;
+	int			status;
+	extern int	sig;
 
 	pid = fork();
 	if (pid == -1)		// check this for potential mistakes, I did this quickly without trying to have robust code.
@@ -30,13 +30,14 @@ int	exec(t_values *v)
 				if (!ft_strchr(*v->split_str, '/'))			// all of this is the same "free" code as parse(), it is to protect everything is execve fail (the child proc would still run and mes everything)(happens is given a bin without the perms)
 					free(v->abs_path_bin);
 			}
-			ft_free_2d((void ***)&v->split_str, ft_2d_size((const void **)v->split_str));
+			ft_free_2d((void ***)&v->split_str,
+				ft_2d_size((const void **)v->split_str));
 			free(v->cmd_str);
 		}
 		rl_clear_history();
 		exit (0);
 	}
-	else 
+	else
 	{
 		if (!ft_strcmp(v->abs_path_bin, "./minishell"))		// signals for minishell in minishell
 			sig = -2;
