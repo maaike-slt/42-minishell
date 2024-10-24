@@ -78,7 +78,6 @@ void	manage_rest_tok(t_values *v, int x, char *new_tok, char type)
 	v->split_str[temp] = NULL;
 	while (v->split_str[last_viable_tok])
 	{
-		printf("%s\n", v->split_str[last_viable_tok]);
 		free(v->split_str[last_viable_tok]);
 		last_viable_tok++;
 	}
