@@ -3,29 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbonis <gbonis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 18:16:21 by gbonis            #+#    #+#             */
-/*   Updated: 2024/10/05 18:43:54 by gbonis           ###   ########.fr       */
+/*   Updated: 2024/10/23 21:54:19 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	event(void)			// needed to have the event handler check rl_done in order to return readline on ^C
+int	event(void)		// needed to have the event handler check rl_done in order to return readline on ^C
 {
 	return (0);
 }
 
 char	*new_str(char *s)
 {
-	char *new;
-	int	size;
+	char	*new;
+	size_t	size;
 
 	size = ft_strlen(s);
 	new = malloc(sizeof(char) * (size + 3));
 	ft_strcpy(new, s);
-	new[size] = ' ';
+	new[size] = ' ';		// ASK: why do we add two spaces?
 	new[size + 1] = ' ';
 	new[size + 2] = 0;
 	return (new);
@@ -33,13 +33,13 @@ char	*new_str(char *s)
 
 void	sig_c(int x)
 {
-	extern int sig;
+	extern int	sig;
 
 	if (sig == -2)				//minishell in minishell signals
 	{
-		sig = -2;
+		sig = -2;		// ASK: seems unnecessary, is this on purpose?
 		return ;
-	}			
+	}
 	if (sig == -1)		// everything sig == -1 is to handle signal while a bin is running in a child process, sig -1 is set in execute()
 	{
 		rl_replace_line("\n", 1);
@@ -51,14 +51,14 @@ void	sig_c(int x)
 	}
 	rl_done = 1;		// do nothing except returning readline (and print ^C in previous line, as in bash)
 	sig = 1;
-	x++;
+	x++;		// ASK: what is 'x' and what does it do in this function and the next?
 }
 
-void	sig_slash(int x)
+void	sig_slash(int x)		// ASK: is sigquit maybe a better option? (how it's usually represented)
 {
-	extern int sig;
-	char	*temp;
-	char	*new;
+	extern int	sig;
+	char		*temp;
+	char		*new;
 
 	if (sig == -2)				//minishell in minishell signals
 	{
@@ -73,7 +73,7 @@ void	sig_slash(int x)
 	}
 	else
 	{
-		temp = rl_line_buffer;	
+		temp = rl_line_buffer;
 		new = new_str(temp);
 		rl_replace_line(new, 1);	// without this "^\" is printed
 		free(new);
@@ -82,11 +82,14 @@ void	sig_slash(int x)
 	rl_redisplay();
 	rl_erase_empty_line = 0;
 	if (sig != -1)
-		rl_line_buffer[ft_strlen(temp) - 2] = 0;				// hack to have a clean buffer in the history
+		rl_line_buffer[ft_strlen(temp) - 2] = 0;	// hack to have a clean buffer in the history
 	rl_end -= 2;				// without this, buffer contains "  "
 	sig = 2;
 	x++;
 }
+
+
+// ASK: incomplete type "struct sigaction" is not allowed
 
 int	set_sig_handler(void)
 {

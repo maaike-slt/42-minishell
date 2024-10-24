@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manage_rest_tok.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbonis <gbonis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:15:35 by gbonis            #+#    #+#             */
-/*   Updated: 2024/10/23 17:15:36 by gbonis           ###   ########.fr       */
+/*   Updated: 2024/10/23 21:16:15 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,8 @@ int	is_there_type(char *s, char type)
 
 int	free_useless_tok(t_values *v, int x, char type)
 {
-	int	i;
 	int result;
 
-	i = 0;
 	x++;
 	result = is_there_type(v->split_str[x], type);
 	while (result != -1 && result != 1)
@@ -48,9 +46,6 @@ int	free_useless_tok(t_values *v, int x, char type)
 
 int		move_tokens(t_values *v, int x, int sec_q_tok)
 {
-	int	i;
-
-	i = 0;
 	sec_q_tok++;
 	x++;
 	if (!(v->split_str[x]))
