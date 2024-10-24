@@ -12,20 +12,6 @@
 
 #include "minishell.h"
 
-//bool	isquote(char *s)
-//{
-//	int	i;
-//
-//	i = 0;
-//	while (s[i])
-//	{
-//		if (s[i] == '\'' || s[i] == '\"')
-//			return (true);
-//		i++;
-//	}
-//	return (false);
-//}
-
 int	count_q_expand(char *s)
 {
 	int	i;

@@ -76,7 +76,7 @@ void copy_in_tok(t_values *v, char *s, int x, char type, int count)
 
 	i = 0;
 	y = 0;
-	while (v->split_str[x][i] != type)
+	while (v->split_str[x][i] != type)			// fail on ls '''', perhaps because I didnt do anything to integrate count in this, yes because quotes are in the same token. No this is because i dont manage case where several quotes in one split token
 	{
 		s[y] = v->split_str[x][i];
 		i++;
@@ -86,6 +86,8 @@ void copy_in_tok(t_values *v, char *s, int x, char type, int count)
 	go_to_next_q(v, &x, &i, type);
 	while(v->split_str[x][i])
 	{
+		if (v->split_str[x][i] == '\'' || v->split_str[x][i] == '\"')		// for case ls '''''''' or ls ''""''""''""
+			break;
 		s[y] = v->split_str[x][i];
 		i++;
 		y++;

@@ -25,7 +25,7 @@ char	*new_str(char *s)
 	size = ft_strlen(s);
 	new = malloc(sizeof(char) * (size + 3));
 	ft_strcpy(new, s);
-	new[size] = ' ';		// ASK: why do we add two spaces?
+	new[size] = ' ';		// ASK: why do we add two spaces?	//ANS: everything about signals is very tricky and took me a lot of hours, to be short: to hide 2 characters.
 	new[size + 1] = ' ';
 	new[size + 2] = 0;
 	return (new);
@@ -37,7 +37,7 @@ void	sig_c(int x)
 
 	if (sig == -2)				//minishell in minishell signals
 	{
-		sig = -2;		// ASK: seems unnecessary, is this on purpose?
+		sig = -2;		// ASK: seems unnecessary, is this on purpose?			// ANS: yes, not needed prob, i tested so many things on those functions, I planned to clean up everything but I need to run all the tests in order to be sure, this is why I need do touch this.
 		return ;
 	}
 	if (sig == -1)		// everything sig == -1 is to handle signal while a bin is running in a child process, sig -1 is set in execute()
@@ -51,10 +51,10 @@ void	sig_c(int x)
 	}
 	rl_done = 1;		// do nothing except returning readline (and print ^C in previous line, as in bash)
 	sig = 1;
-	x++;		// ASK: what is 'x' and what does it do in this function and the next?
+	x++;		// ASK: what is 'x' and what does it do in this function and the next?		// ANS: for the norm, did this quickly and forgot about it (you cant declare void func(void))
 }
 
-void	sig_slash(int x)		// ASK: is sigquit maybe a better option? (how it's usually represented)
+void	sig_slash(int x)		// ASK: is sigquit maybe a better option? (how it's usually represented) //ANS: if this is about the name, yes.
 {
 	extern int	sig;
 	char		*temp;
@@ -89,7 +89,7 @@ void	sig_slash(int x)		// ASK: is sigquit maybe a better option? (how it's usual
 }
 
 
-// ASK: incomplete type "struct sigaction" is not allowed
+// ASK: incomplete type "struct sigaction" is not allowed		// ANS: I don't understand, is this about some compiler warning ?
 
 int	set_sig_handler(void)
 {

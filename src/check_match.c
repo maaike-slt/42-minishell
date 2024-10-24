@@ -20,7 +20,7 @@ char	*check(t_values *values, char *path)
 		return (NULL);
 	if(stat(path, &s_stat))
 		return(NULL);
-	if (!S_ISREG(s_stat.st_mode))				// test avec des print lol
+	if (!S_ISREG(s_stat.st_mode))
 	{
 		values->prev_ret_val = 126;
 		return (NULL);

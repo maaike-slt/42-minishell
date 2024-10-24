@@ -32,7 +32,7 @@ typedef struct s_values
 	int		isquote;
 	char	**env;
 	char	*cmd_str;
-	char	*cmd_str_b;		// ASK: what does "b" stand for?
+	char	*cmd_str_b;		// ASK: what does "b" stand for?		// not a good name, it means backup, for complicated reason I need to dup the readline string, I meant to change this name to something like original_cmd_str
 	char	*abs_path_bin;
 	char	**split_str;
 	char	**tokenized_str;

@@ -17,7 +17,7 @@ bool	check_if_pass(char c, int *tab, int *z)
 	
 	if (c == '\'' || c == '\"')
 	{
-		if (*tab == 0)			// ouai la ya un probleme ici, je dois aller a l'autre quote somehow
+		if (*tab == 0)
 		{
 			(*z)++;
 			return (false);
