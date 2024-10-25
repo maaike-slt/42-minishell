@@ -86,7 +86,7 @@ int	get_inside_q_size(t_values *v, char type, int count)
 	int	size;
 
 	size = 0;
-	i = get_right_pos(v, count, type);
+	i = get_right_pos(v, count, type);		// when ls '' "" i is wrong for some reason  // ok i got it, it is because count has to be incremented by the type of quote, i need to do some struct with count for single and doube quote
 	i++;
 	while (v->cmd_str_b[i] != type)
 	{

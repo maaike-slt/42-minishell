@@ -114,8 +114,8 @@ void	manage_rest_tok(t_values *v, int x, char *new_tok, char type)
 		free(v->split_str[last_viable_tok]);
 		last_viable_tok++;
 	}
-	printf("%s\n", v->split_str[0]);
-	printf("%s\n", v->split_str[1]);
-	printf("%s\n", v->split_str[2]);
+//	printf("%s\n", v->split_str[0]);
+//	printf("%s\n", v->split_str[1]);
+//	printf("%s\n", v->split_str[2]);
 	return ;
 }
