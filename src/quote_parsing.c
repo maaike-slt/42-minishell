@@ -43,6 +43,7 @@ bool	quote_parsing(t_values *v, int	*tab)					// here i need to do a struct with
 	int	y;
 	int	z; 
 	int	count[50];
+	char type;
 
 	x = 0;
 	z = 0;
@@ -50,13 +51,18 @@ bool	quote_parsing(t_values *v, int	*tab)					// here i need to do a struct with
 	while(v->split_str[x])
 	{
 		y = 0;
+//		printf("%d\n", tab['\'']);
+//		printf("%d\n", tab['\"']);
 		while(v->split_str[x][y])
 		{
 			if (check_if_pass(v->split_str[x][y], &tab[z], &z)	== false)
 			{
+				type = v->split_str[x][y];
 				if (manage_q_tok(v, x, v->split_str[x][y], count) == false)
 					return (false);
-//				count[++;							// je peux peut etre faire une fonction ici pour incrémenter le bon type, ça prendrais qu'une seule ligne
+				printf("%d\n", count[(int)type]);
+				(count[(int)type])++;							// je peux peut etre faire une fonction ici pour incrémenter le bon type, ça prendrais qu'une seule ligne
+				printf("%d\n", count[(int)type]);
 				break ;
 			}
 			y++;

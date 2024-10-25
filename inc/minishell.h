@@ -12,7 +12,7 @@
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
+//# define _XOPEN_SOURCE 700
 # include "../libft/inc/libft.h"
 
 # include <unistd.h>

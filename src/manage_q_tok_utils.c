@@ -49,13 +49,16 @@ void	do_copy(char *cmd_str, char *s, int *y, char type)
 void	copy_in_cmd_str(t_values *v, char *s, int *y, int *count, char type)
 {
 	int	i;
+	int	temp;
 
 	i = 0;
+	temp = count[(int)type];
 	count[(int)type] *= 2;
 	while(v->cmd_str_b[i])
 	{
 		if (v->cmd_str_b[i] == type && count[(int)type] == 0)
 		{
+			count[(int)type] = temp;
 			do_copy(&v->cmd_str_b[i + 1], s, y, type);
 			return ;
 		}
@@ -66,6 +69,7 @@ void	copy_in_cmd_str(t_values *v, char *s, int *y, int *count, char type)
 		}
 		i++;
 	}
+	count[(int)type] = temp;
 	return ;
 }
 

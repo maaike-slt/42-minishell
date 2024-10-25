@@ -31,7 +31,7 @@ char	*new_str(char *s)
 	return (new);
 }
 
-void	sig_c(int x)
+void	sig_int(int x)
 {
 	extern int	sig;
 
@@ -54,7 +54,7 @@ void	sig_c(int x)
 	x++;		// ASK: what is 'x' and what does it do in this function and the next?		// ANS: for the norm, did this quickly and forgot about it (you cant declare void func(void))
 }
 
-void	sig_slash(int x)		// ASK: is sigquit maybe a better option? (how it's usually represented) //ANS: if this is about the name, yes.
+void	sig_quit(int x)		// ASK: is sigquit maybe a better option? (how it's usually represented) //ANS: if this is about the name, yes.
 {
 	extern int	sig;
 	char		*temp;
@@ -94,21 +94,21 @@ void	sig_slash(int x)		// ASK: is sigquit maybe a better option? (how it's usual
 int	set_sig_handler(void)
 {
 	struct sigaction s_sig_c;	
-	struct sigaction s_sig_slash;
+	struct sigaction s_sig_quit;
 	struct sigaction s_sig_z;
 
 	rl_event_hook = event;		// needed to check for rl_done in signals, to return readline on ^C
-	s_sig_c.sa_handler = sig_c;
+	s_sig_c.sa_handler = sig_int;
 	s_sig_c.sa_flags = SA_RESTART;
-	s_sig_slash.sa_handler = sig_slash;
-	s_sig_slash.sa_flags = SA_RESTART;
+	s_sig_quit.sa_handler = sig_quit;
+	s_sig_quit.sa_flags = SA_RESTART;
 	s_sig_z.sa_handler = handl_z;
 	s_sig_z.sa_flags = SA_RESTART;
 	sigemptyset(&s_sig_c.sa_mask);
-	sigemptyset(&s_sig_slash.sa_mask);
+	sigemptyset(&s_sig_quit.sa_mask);
 	sigemptyset(&s_sig_z.sa_mask);
 	sigaction(SIGINT, &s_sig_c, NULL);
-	sigaction(SIGQUIT, &s_sig_slash, NULL);
-	sigaction(SIGTSTP, &s_sig_slash, NULL);
+	sigaction(SIGQUIT, &s_sig_quit, NULL);
+	sigaction(SIGTSTP, &s_sig_quit, NULL);
 	return (0);
 }

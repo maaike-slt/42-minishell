@@ -16,13 +16,16 @@ int	get_right_pos(t_values *v, int *count, char type)
 {
 	int	i;
 	int	sec_q;
+	int	temp;
 
 	i = 0;
 	sec_q = 0;
+	temp = count[(int)type];
 	while (v->cmd_str_b[i])
 	{
 		if (v->cmd_str_b[i] == type && count[(int)type] == 0)		//   0 not right here
 		{
+			count[(int)type] = temp;
 			return (i);
 		}
 		if (v->cmd_str_b[i] == type)
@@ -37,6 +40,7 @@ int	get_right_pos(t_values *v, int *count, char type)
 		}
 		i++;
 	}
+	count[(int)type] = temp;
 	return (i);
 }
 
@@ -117,7 +121,7 @@ bool	manage_q_tok(t_values *v, int x, char type, int *count)		// this func, we a
 		return (false);
 	copy_in_tok(v, new_tok, x, type, count);
 	manage_rest_tok(v, x, new_tok, type);
-	(count[(int)type])++;
+//	(count[(int)type])++;
 	return (true);
 }
 
