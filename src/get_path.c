@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 19:03:10 by gbonis            #+#    #+#             */
-/*   Updated: 2024/09/25 19:52:46 by msloot           ###   ########.fr       */
+/*   Updated: 2024/10/25 16:56:20 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 /// when relative path, need to append exec name to dir if exec ///
 /// found in a dir.											    ///
 
-char	*append_exec_to_path(char *exec_dir, char *executable)
+static char	*append_exec_to_path(char *exec_dir, char *executable)
 {
 	char	*appended;
-	int		size_dir;
-	int		size_exec;
+	size_t	size_dir;
+	size_t	size_exec;
 
 	if (!ft_strcmp(".", executable))		// special case, . is a builtin (source), just return this otherwise segfault (won't have the same $? as in bash but this is not required)
 		return (executable);
@@ -37,34 +37,34 @@ char	*append_exec_to_path(char *exec_dir, char *executable)
 
 /// cut the dir part of the string (../../.),from the exec name ///
 
-char	**cut_exec_string(char *executable)
+static char	**cut_exec_string(char *executable)
 {
 	char	**result;
-	int		temp;
-	int		i;
+	ssize_t	tmp;
+	size_t	i;
 
 	i = 0;
-	temp = -1;
+	tmp = -1;
 	result = malloc(sizeof(char *) * 2);
 	if (!result)
 		return (NULL);
 	while (executable[i])
 	{
 		if (executable[i] == '/')
-			temp = i;
+			tmp = i;
 		i++;
 	}
-	if (temp == -1)
+	if (tmp == -1)
 	{
 		free(result);
 		return (NULL);
 	}
-	if (!separate(&result, executable, temp))
+	if (!separate(&result, executable, tmp))
 		return (NULL);
 	return (result);
 }
 
-char	*search_abs_path(t_values *values, char *executable)
+static char	*search_abs_path(t_values *values, char *executable)
 {
 	DIR				*directory;
 	struct dirent	*dirent;
@@ -93,11 +93,11 @@ char	*search_abs_path(t_values *values, char *executable)
 	return (is_dir(values, executable));					/// problem with /././././././ i should somehow use the check func
 }
 
-char	*search_relative_path(char **env_pths, char *executable)
+static char	*search_relative_path(char **env_pths, char *executable)
 {
 	DIR				*directory;
 	struct dirent	*dirent;
-	int				i;
+	size_t			i;
 
 	i = 0;
 	while (env_pths[i])
@@ -132,10 +132,10 @@ char	*search_for_dir(t_values *values, char	**env_pths, char	*executable)
 	if (ft_strchr(executable, '/'))
 	{
 		if (!ft_strcmp("/", executable))
-			return(check(values, executable));
+			return (check(values, executable));
 		exec_dir = search_abs_path(values, executable);		// here exec_dir is actually the abs path
 		if (exec_dir == NULL)
-			return (is_dir(values, executable));				//func here in the return 
+			return (is_dir(values, executable));				//func here in the return
 		return (exec_dir);
 	}
 	else

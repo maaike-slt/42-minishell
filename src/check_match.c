@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_match.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbonis <gbonis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:36:38 by gbonis            #+#    #+#             */
-/*   Updated: 2024/10/07 18:36:38 by gbonis           ###   ########.fr       */
+/*   Updated: 2024/10/25 17:14:09 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 
 char	*check(t_values *values, char *path)
 {
-	struct stat s_stat;
-	
+	struct stat	s_stat;
 	if (!path)
 		return (NULL);
-	if(stat(path, &s_stat))
-		return(NULL);
+	if (stat(path, &s_stat))
+		return (NULL);
 	if (!S_ISREG(s_stat.st_mode))
 	{
 		values->prev_ret_val = 126;
@@ -35,14 +34,14 @@ char	*check(t_values *values, char *path)
 
 char	*is_dir(t_values *values, char *path)
 {
-	struct stat s_stat;
+	struct stat	s_stat;
 
 	if (!path)
 		return (NULL);
-	if(stat(path, &s_stat))
+	if (stat(path, &s_stat))
 	{
 		values->prev_ret_val = 127;
-		return(NULL);
+		return (NULL);
 	}
 	if (S_ISREG(s_stat.st_mode))				// need to have this when ./a.out ad no perm to have right $?
 	{

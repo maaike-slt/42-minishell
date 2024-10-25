@@ -14,16 +14,16 @@
 
 int sig;		// use of a global only to manage one edge case: write viable command and then ^C, bash will not execute.
 
-int	copy_cmd_str(t_values *values)
+static bool	copy_cmd_str(t_values *values)
 {
 	if (values->cmd_str)
 	{
 		values->cmd_str_b = ft_strdup(values->cmd_str);
 		if (!values->cmd_str_b)
-			return (-1);
-		return (0);
+			return (false);
+		return (true);
 	}
-	return(0);
+	return (true);
 }
 
 int	main(int argc, char **argv, char **envp)

@@ -6,13 +6,13 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 15:31:31 by gbonis            #+#    #+#             */
-/*   Updated: 2024/10/25 16:38:03 by msloot           ###   ########.fr       */
+/*   Updated: 2024/10/25 16:46:06 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	go_to_next_q(t_values *v, int *x, int *i, char type)
+static void	go_to_next_q(t_values *v, int *x, int *i, char type)
 {
 	(*i)++;
 	while (v->split_str[(*x)])
@@ -32,9 +32,9 @@ void	go_to_next_q(t_values *v, int *x, int *i, char type)
 	return ;
 }
 
-void	do_copy(char *cmd_str, char *s, int *y, char type)
+static void	do_copy(char *cmd_str, char *s, int *y, char type)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (cmd_str[i] != type)
@@ -46,13 +46,13 @@ void	do_copy(char *cmd_str, char *s, int *y, char type)
 	return ;
 }
 
-void	copy_in_cmd_str(t_values *v, char *s, int *y, int *count, char type)
+static void	copy_in_cmd_str(t_values *v, char *s, int *y, int *count, char type)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	count[(int)type] *= 2;
-	while(v->cmd_str_b[i])
+	while (v->cmd_str_b[i])
 	{
 		if (v->cmd_str_b[i] == type && count[(int)type] == 0)
 		{
@@ -71,8 +71,8 @@ void	copy_in_cmd_str(t_values *v, char *s, int *y, int *count, char type)
 
 void copy_in_tok(t_values *v, char *s, int x, char type, int *count)
 {
-	int	i;
-	int	y;
+	size_t	i;
+	size_t	y;
 
 	i = 0;
 	y = 0;
@@ -84,10 +84,10 @@ void copy_in_tok(t_values *v, char *s, int x, char type, int *count)
 	}
 	copy_in_cmd_str(v, s, &y, count, type);
 	go_to_next_q(v, &x, &i, type);
-	while(v->split_str[x][i])
+	while (v->split_str[x][i])
 	{
 		if (v->split_str[x][i] == '\'' || v->split_str[x][i] == '\"')		// for case ls '''''''' or ls ''""''""''""
-			break;
+			break ;
 		s[y] = v->split_str[x][i];
 		i++;
 		y++;
@@ -95,7 +95,6 @@ void copy_in_tok(t_values *v, char *s, int x, char type, int *count)
 	s[y] = 0;
 	return ;
 }
-	
 
 
 

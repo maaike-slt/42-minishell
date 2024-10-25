@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 17:18:41 by msloot            #+#    #+#             */
-/*   Updated: 2024/10/25 16:04:33 by msloot           ###   ########.fr       */
+/*   Updated: 2024/10/25 16:41:03 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
 # include <sys/stat.h>
 
 # define _XOPEN_SOURCE 700
-# define _DEFAULT_SOURCE
 
 typedef struct s_values
 {
