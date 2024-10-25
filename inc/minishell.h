@@ -6,13 +6,12 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 17:18:41 by msloot            #+#    #+#             */
-/*   Updated: 2024/10/23 21:24:44 by msloot           ###   ########.fr       */
+/*   Updated: 2024/10/25 15:48:21 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-//# define _XOPEN_SOURCE 700
 # include "../libft/inc/libft.h"
 
 # include <unistd.h>
@@ -26,6 +25,9 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
+
+# define _XOPEN_SOURCE 700
+//# define _DEFAULT_SOURCE
 
 typedef struct s_values
 {
@@ -42,7 +44,8 @@ typedef struct s_values
 
 // parsing //
 bool	handle_cmd_str(t_values *values);
-bool	parser(t_values *values);
+bool	parse(t_values *values);
+bool	check_quote(t_values *v, char *s);
 
 // expand //
 bool	expand(t_values *v);
@@ -58,19 +61,18 @@ bool	check_var_exist(t_values *v, char *var, int *index);
 bool	redpip_token_counter(t_values *values);
 void	quote_redpip(char *s, int	*index);
 bool	is_redir(t_values *v, char *s, int *step);
-int		is_redpip(char	c);
+int		is_redpip(char c);
 int		pip_case_s(t_values *v, char *s, int *step);
 bool	redir_case_equal(t_values *v, char*s, int *step);
 bool	redir_case_r_n_s(t_values *v, char *s, int *step);
 
 // quote parsing //
-bool	check_quote(t_values *values, char *s);
 bool	quote_parsing(t_values *values, int	*tab);
 
 // quote resolving //
 bool	do_quotes(t_values *values);
 bool	manage_q_tok(t_values *v, int x, char type, int *count);
-void	 copy_in_tok(t_values *v, char *s, int x, char type, int *count);
+void	copy_in_tok(t_values *v, char *s, int x, char type, int *count);
 void	manage_rest_tok(t_values *v, int x, char *new_tok, char type);
 
 //directory functions //
@@ -89,9 +91,9 @@ void	handl_z(int x);
 char	*get_abs_path(t_values *values);
 
 // signals //
-int	set_sig_handler(void);
+int		set_sig_handler(void);
 
 // exec //
-int	exec(t_values *values);
+int		exec(t_values *values);
 
 #endif

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/09 15:31:54 by gbonis            #+#    #+#             */
-/*   Updated: 2024/10/23 21:55:55 by msloot           ###   ########.fr       */
+/*   Created: 2024/10/25 15:46:48 by msloot            #+#    #+#             */
+/*   Updated: 2024/10/25 15:48:13 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	other_quote(t_values *v, char *s, char type)
+static bool	other_quote(t_values *v, char *s, char type)
 {
 	int	i;
 
@@ -51,7 +51,7 @@ bool	check_quote(t_values *v, char *s)
 	return (true);
 }
 
-bool	parser(t_values *values)
+bool	parse(t_values *values)
 {
 	char	**split_str;
 
