@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:25:05 by gbonis            #+#    #+#             */
-/*   Updated: 2024/10/25 16:16:37 by msloot           ###   ########.fr       */
+/*   Updated: 2024/10/25 17:47:47 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ bool	quote_parsing(t_values *v, int	*tab)		// here i need to do a struct with co
 	x = 0;
 	z = 0;
 	init_count(count);
-	while(v->split_str[x])
+	while (v->split_str[x])
 	{
 		y = 0;
-		while(v->split_str[x][y])
+		while (v->split_str[x][y])
 		{
 			if (pass_check(v->split_str[x][y], &tab[z], &z)	== false)
 			{

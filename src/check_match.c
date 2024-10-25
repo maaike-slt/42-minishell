@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:36:38 by gbonis            #+#    #+#             */
-/*   Updated: 2024/10/25 17:14:09 by msloot           ###   ########.fr       */
+/*   Updated: 2024/10/25 17:49:28 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 char	*check(t_values *values, char *path)
 {
 	struct stat	s_stat;
+
 	if (!path)
 		return (NULL);
 	if (stat(path, &s_stat))
