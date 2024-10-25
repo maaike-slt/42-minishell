@@ -46,22 +46,22 @@ void	do_copy(char *cmd_str, char *s, int *y, char type)
 	return ;
 }
 
-void	copy_in_cmd_str(t_values *v, char *s, int *y, int count, char type)
+void	copy_in_cmd_str(t_values *v, char *s, int *y, int *count, char type)
 {
 	int	i;
 
 	i = 0;
-	count *= 2;
+	count[(int)type] *= 2;
 	while(v->cmd_str_b[i])
 	{
-		if (v->cmd_str_b[i] == type && count == 0)
+		if (v->cmd_str_b[i] == type && count[(int)type] == 0)
 		{
 			do_copy(&v->cmd_str_b[i + 1], s, y, type);
 			return ;
 		}
 		if (v->cmd_str_b[i] == type)
 		{
-			count--;
+			(count[(int)type])--;
 			i++;
 		}
 		i++;
@@ -69,7 +69,7 @@ void	copy_in_cmd_str(t_values *v, char *s, int *y, int count, char type)
 	return ;
 }
 
-void copy_in_tok(t_values *v, char *s, int x, char type, int count)
+void copy_in_tok(t_values *v, char *s, int x, char type, int *count)
 {
 	int	i;
 	int	y;

@@ -31,16 +31,22 @@ bool	check_if_pass(char c, int *tab, int *z)
 	return (true);
 }
 
+void	init_count(int *count)
+{
+	count['\''] = 0;
+	count['\"'] = 0;
+}
+
 bool	quote_parsing(t_values *v, int	*tab)					// here i need to do a struct with count to have count->single or something like this
 {
 	int	x;
 	int	y;
 	int	z; 
-	int	count;
+	int	count[50];
 
 	x = 0;
 	z = 0;
-	count = 0;
+	init_count(count);
 	while(v->split_str[x])
 	{
 		y = 0;
@@ -50,7 +56,7 @@ bool	quote_parsing(t_values *v, int	*tab)					// here i need to do a struct with
 			{
 				if (manage_q_tok(v, x, v->split_str[x][y], count) == false)
 					return (false);
-				count++;							// je peux peut etre faire une fonction ici pour incrémenter le bon type, ça prendrais qu'une seule ligne
+//				count[++;							// je peux peut etre faire une fonction ici pour incrémenter le bon type, ça prendrais qu'une seule ligne
 				break ;
 			}
 			y++;

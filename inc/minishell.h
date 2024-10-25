@@ -69,8 +69,8 @@ bool	quote_parsing(t_values *values, int	*tab);
 
 // quote resolving //
 bool	do_quotes(t_values *values);
-bool	manage_q_tok(t_values *v, int x, char type, int count);
-void	 copy_in_tok(t_values *v, char *s, int x, char type, int count);
+bool	manage_q_tok(t_values *v, int x, char type, int *count);
+void	 copy_in_tok(t_values *v, char *s, int x, char type, int *count);
 void	manage_rest_tok(t_values *v, int x, char *new_tok, char type);
 
 //directory functions //

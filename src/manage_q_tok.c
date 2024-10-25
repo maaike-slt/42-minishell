@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	get_right_pos(t_values *v, int count, char type)
+int	get_right_pos(t_values *v, int *count, char type)
 {
 	int	i;
 	int	sec_q;
@@ -21,7 +21,7 @@ int	get_right_pos(t_values *v, int count, char type)
 	sec_q = 0;
 	while (v->cmd_str_b[i])
 	{
-		if (v->cmd_str_b[i] == type && count == 0)		//   0 not right here
+		if (v->cmd_str_b[i] == type && count[(int)type] == 0)		//   0 not right here
 		{
 			return (i);
 		}
@@ -32,7 +32,7 @@ int	get_right_pos(t_values *v, int count, char type)
 			else
 			{
 				sec_q = 0;					// will this be accurate with different quotes ? I think so, it doesnt matter for count which type of quotes it is, as long as quotes are valid, i think
-				count--;
+				(count[(int)type])--;
 			}
 		}
 		i++;
@@ -80,7 +80,7 @@ int	get_outside_q_size(t_values *v, int x, char type)		// to explain this func, 
 	return (i);
 }
 
-int	get_inside_q_size(t_values *v, char type, int count)
+int	get_inside_q_size(t_values *v, char type, int *count)
 {
 	int	i;
 	int	size;
@@ -96,7 +96,7 @@ int	get_inside_q_size(t_values *v, char type, int count)
 	return (size);
 }
 
-int	get_size(t_values *v, int x, char type, int count)
+int	get_size(t_values *v, int x, char type, int *count)
 {
 	int	out_size;
 	int	in_size;
@@ -106,7 +106,7 @@ int	get_size(t_values *v, int x, char type, int count)
 	return (out_size + in_size + 1);						// should i protect for ovrflow in this function ?
 }
 
-bool	manage_q_tok(t_values *v, int x, char type, int count)		// this func, we arrived at the right split token with the first quote, and now we do the string magic to have a valdi token with quotes
+bool	manage_q_tok(t_values *v, int x, char type, int *count)		// this func, we arrived at the right split token with the first quote, and now we do the string magic to have a valdi token with quotes
 {
 	char *new_tok;
 	int	size;
@@ -117,6 +117,7 @@ bool	manage_q_tok(t_values *v, int x, char type, int count)		// this func, we ar
 		return (false);
 	copy_in_tok(v, new_tok, x, type, count);
 	manage_rest_tok(v, x, new_tok, type);
+	(count[(int)type])++;
 	return (true);
 }
 
