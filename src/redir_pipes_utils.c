@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   redir_pipes_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbonis <gbonis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 12:06:55 by gbonis            #+#    #+#             */
-/*   Updated: 2024/10/18 12:06:55 by gbonis           ###   ########.fr       */
+/*   Updated: 2024/10/25 15:58:30 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_redpip(char	c)
+int	is_redpip(char c)
 {
 	if (!c)
 		return (-1);
@@ -21,11 +21,11 @@ int	is_redpip(char	c)
 	return (0);
 }
 
-int	pip_case_s(t_values *v, char *s, int *step)
+static int	pip_case_s(t_values *v, char *s, int *step)
 {
 	if (is_redir(v, &s[2], step) == true)
 	{
-		if (s[2]== '|')
+		if (s[2] == '|')
 			return (-1);
 		v->redpip_counter += 2;
 		(*step) += 2;

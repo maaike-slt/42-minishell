@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_pipes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbonis <gbonis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 12:18:00 by gbonis            #+#    #+#             */
-/*   Updated: 2024/10/14 12:18:16 by gbonis           ###   ########.fr       */
+/*   Updated: 2024/10/25 15:56:27 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	quote_redpip(char *s, int	*index)
 	return ;
 }
 
-int	is_pip(t_values *v, char *s, int *step)
+static int	is_pip(t_values *v, char *s, int *step)
 {
 	if (s[0] == '|')
 	{
@@ -85,7 +85,7 @@ bool	is_redir(t_values *v, char *s, int *step)
 	return (true);
 }
 
-int	is_redpip_valid(t_values *v, char *s, int *step)
+static ssize_t	is_redpip_valid(t_values *v, char *s, int *step)
 {
 	int	status;
 
@@ -105,20 +105,20 @@ bool	redpip_token_counter(t_values *v)
 	int	step;
 
 	i = 0;
-	while(v->cmd_str[i])
+	while (v->cmd_str[i])
 	{
 		step = 0;
 		if (v->cmd_str[i] == '\'' || v->cmd_str[i] == '\"')
 		{
 			quote_redpip(&v->cmd_str[i], &i);
-			continue;	
-		}	
+			continue ;
+		}
 		if (is_redpip(v->cmd_str[i]))
 		{
 			if (is_redpip_valid(v, &v->cmd_str[i], &step) != -1)
 			{
 				i += step;
-				continue;
+				continue ;
 			}
 			v->redpip_counter = 0;
 			return (false);

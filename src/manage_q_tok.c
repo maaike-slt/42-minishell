@@ -3,28 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   manage_q_tok.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbonis <gbonis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 17:52:04 by gbonis            #+#    #+#             */
-/*   Updated: 2024/10/21 17:52:09 by gbonis           ###   ########.fr       */
+/*   Updated: 2024/10/25 16:37:24 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	get_right_pos(t_values *v, int *count, char type)
+static size_t	get_right_pos(t_values *v, int *count, char type)
 {
-	int	i;
-	int	sec_q;
+	size_t	i;
+	size_t	sec_q;
 
 	i = 0;
 	sec_q = 0;
 	while (v->cmd_str_b[i])
 	{
 		if (v->cmd_str_b[i] == type && count[(int)type] == 0)		//   0 not right here
-		{
 			return (i);
-		}
 		if (v->cmd_str_b[i] == type)
 		{
 			if (sec_q == 0)
@@ -40,50 +38,50 @@ int	get_right_pos(t_values *v, int *count, char type)
 	return (i);
 }
 
-int	get_outside_q_size(t_values *v, int x, char type)		// to explain this func, i use the split tokens to get the char that could be attached to the string, can use cmd-str_b because if there is an expand I need to use it and not the expand name, so it is easier to use split tokens
+static size_t	get_outside_q_size(t_values *v, int x, char type)		// to explain this func, i use the split tokens to get the char that could be attached to the string, can use cmd-str_b because if there is an expand I need to use it and not the expand name, so it is easier to use split tokens
 {
-	int	i;
-	int y;
-	int	betw_q;
-	int	end;
+	size_t	i;
+	size_t	y;
+	bool	betw_q;
+	bool	end;
 
-	end = 0;
-	i = 0;
-	betw_q = 0;
+	end = false;
+	betw_q = false;
 	while (v->split_str[x])
 	{
+		i = 0;
 		y = 0;
-		while(v->split_str[x][y])
+		while (v->split_str[x][y])
 		{
 			if (v->split_str[x][y] == type)			// put all of this if in an helper func for norm
 			{
-				if (betw_q == 0)
-					betw_q = 1;
+				if (betw_q == false)
+					betw_q = true;
 				else
 				{
-					betw_q = 0;
-					end = 1;
+					betw_q = false;
+					end = true;
 					y++;
 					continue ;
 				}
 				y++;
-				continue;
+				continue ;
 			}
-			if (betw_q == 0)
+			if (betw_q == false)
 				i++;
 			y++;
 		}
 		if (end)
-			break;
+			break ;
 		x++;
 	}
 	return (i);
 }
 
-int	get_inside_q_size(t_values *v, char type, int *count)
+static size_t	get_inside_q_size(t_values *v, char type, int *count)
 {
-	int	i;
-	int	size;
+	size_t	i;
+	size_t	size;
 
 	size = 0;
 	i = get_right_pos(v, count, type);		// when ls '' "" i is wrong for some reason  // ok i got it, it is because count has to be incremented by the type of quote, i need to do some struct with count for single and doube quote
@@ -96,10 +94,10 @@ int	get_inside_q_size(t_values *v, char type, int *count)
 	return (size);
 }
 
-int	get_size(t_values *v, int x, char type, int *count)
+static size_t	get_size(t_values *v, int x, char type, int *count)
 {
-	int	out_size;
-	int	in_size;
+	size_t	out_size;
+	size_t	in_size;
 
 	out_size = get_outside_q_size(v, x, type);
 	in_size = get_inside_q_size(v, type, count);
@@ -108,8 +106,8 @@ int	get_size(t_values *v, int x, char type, int *count)
 
 bool	manage_q_tok(t_values *v, int x, char type, int *count)		// this func, we arrived at the right split token with the first quote, and now we do the string magic to have a valdi token with quotes
 {
-	char *new_tok;
-	int	size;
+	char	*new_tok;
+	size_t	size;
 
 	size = get_size(v, x, type, count);		//for malloc
 	new_tok = malloc(sizeof(char) * size);
@@ -127,7 +125,7 @@ bool	manage_q_tok(t_values *v, int x, char type, int *count)		// this func, we a
 // integrate the token in the split
 // manipulate and free the rest of the tokens
 
-// there will be be probably a problem when trying to free the split str at exit of readline loop pass, probably will need to do some kind of if (split[i]) -> free
+// there will probably be a problem when trying to free the split str at exit of readline loop pass, probably will need to do some kind of if (split[i]) -> free
 
 
 

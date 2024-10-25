@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 18:16:21 by gbonis            #+#    #+#             */
-/*   Updated: 2024/10/25 15:49:52 by msloot           ###   ########.fr       */
+/*   Updated: 2024/10/25 15:52:49 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,12 @@ char	*new_str(char *s)
 	return (new);
 }
 
-void	sig_c(int x)
+static void	sig_c(int x)
 {
 	extern int	sig;
 
-	if (sig == -2)				//minishell in minishell signals
-	{
-		sig = -2;		// ASK: seems unnecessary, is this on purpose?			// ANS: yes, not needed prob, i tested so many things on those functions, I planned to clean up everything but I need to run all the tests in order to be sure, this is why I need do touch this.
+	if (sig == -2)		//minishell in minishell signals
 		return ;
-	}
 	if (sig == -1)		// everything sig == -1 is to handle signal while a bin is running in a child process, sig -1 is set in execute()
 	{
 		rl_replace_line("\n", 1);
@@ -54,7 +51,7 @@ void	sig_c(int x)
 	x++;		// ASK: what is 'x' and what does it do in this function and the next?		// ANS: for the norm, did this quickly and forgot about it (you cant declare void func(void))
 }
 
-void	sig_slash(int x)		// ASK: is sigquit maybe a better option? (how it's usually represented) //ANS: if this is about the name, yes.
+static void	sig_slash(int x)		// ASK: is sigquit maybe a better option? (how it's usually represented) //ANS: if this is about the name, yes.
 {
 	extern int	sig;
 	char		*temp;

@@ -3,18 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   quote_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbonis <gbonis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:25:05 by gbonis            #+#    #+#             */
-/*   Updated: 2024/10/21 16:25:07 by gbonis           ###   ########.fr       */
+/*   Updated: 2024/10/25 16:16:37 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	check_if_pass(char c, int *tab, int *z)
+static bool	pass_check(char c, int *tab, int *z)
 {
-	
 	if (c == '\'' || c == '\"')
 	{
 		if (*tab == 0)
@@ -31,17 +30,17 @@ bool	check_if_pass(char c, int *tab, int *z)
 	return (true);
 }
 
-void	init_count(int *count)
+static void	init_count(int *count)
 {
 	count['\''] = 0;
 	count['\"'] = 0;
 }
 
-bool	quote_parsing(t_values *v, int	*tab)					// here i need to do a struct with count to have count->single or something like this
+bool	quote_parsing(t_values *v, int	*tab)		// here i need to do a struct with count to have count->single or something like this
 {
 	int	x;
 	int	y;
-	int	z; 
+	int	z;
 	int	count[50];
 
 	x = 0;
@@ -52,7 +51,7 @@ bool	quote_parsing(t_values *v, int	*tab)					// here i need to do a struct with
 		y = 0;
 		while(v->split_str[x][y])
 		{
-			if (check_if_pass(v->split_str[x][y], &tab[z], &z)	== false)
+			if (pass_check(v->split_str[x][y], &tab[z], &z)	== false)
 			{
 				if (manage_q_tok(v, x, v->split_str[x][y], count) == false)
 					return (false);

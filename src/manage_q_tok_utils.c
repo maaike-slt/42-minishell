@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manage_q_tok_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbonis <gbonis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 15:31:31 by gbonis            #+#    #+#             */
-/*   Updated: 2024/10/23 15:31:34 by gbonis           ###   ########.fr       */
+/*   Updated: 2024/10/25 16:38:03 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	go_to_next_q(t_values *v, int *x, int *i, char type)
 {
-	(*i)++;	
+	(*i)++;
 	while (v->split_str[(*x)])
 	{
-		while(v->split_str[(*x)][(*i)])
+		while (v->split_str[(*x)][(*i)])
 		{
 			if (v->split_str[(*x)][(*i)] == type)
 			{

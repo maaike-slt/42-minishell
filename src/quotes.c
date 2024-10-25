@@ -6,13 +6,13 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:28:34 by gbonis            #+#    #+#             */
-/*   Updated: 2024/10/23 21:56:16 by msloot           ###   ########.fr       */
+/*   Updated: 2024/10/25 16:12:57 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	count_q_expand(char *s)
+static size_t	count_q_expand(char *s)
 {
 	int	i;
 	int	count;
@@ -28,20 +28,20 @@ int	count_q_expand(char *s)
 	return (count);
 }
 
-bool	put_in_counter(t_values *v, char *s, int *i, int *tab)
+static bool	put_in_counter(t_values *v, char *s, size_t *i, int *tab)
 {
-	char *var;
-	int	index;
-	char *expand;
-	int		size_name_var;
+	char	*var;
+	size_t	index;
+	char	*expand;
+	size_t	name_size;
 
-	var = get_var(&s[1], &size_name_var);
+	var = get_var(&s[1], &name_size);
 	if (!var)
 		return (false);
 	if (check_var_exist(v, var, &index) == false)
 	{
 		(*i)++;
-		return (true);				// je return true pour que le loop dans la func davant continue, false only for malloc fail
+		return (true);		// return false only for malloc fail
 	}
 	expand = get_expand(v->env[index]);
 	if (!expand)
@@ -51,38 +51,38 @@ bool	put_in_counter(t_values *v, char *s, int *i, int *tab)
 	return (true);
 }
 
-bool	allocate_tab(t_values *v, int **tab)
+static bool	allocate_tab(t_values *v, int **tab)
 {
-	int	i;
-	int	tab_counter;
+	size_t	i;
+	size_t	tab_amt;
 
 	i = 0;
-	tab_counter = 1;
+	tab_amt = 1;
 	while (v->cmd_str_b[i])
 	{
 		if (v->cmd_str_b[i] == '\'' || v->cmd_str_b[i] == '\"')
 		{
 			quote_redpip(&v->cmd_str_b[i], &i);
-			tab_counter++;
+			tab_amt++;
 			continue ;
 		}
 		i++;
 	}
-	*tab = malloc(sizeof(int) * (tab_counter + 1));
+	*tab = malloc(sizeof(int) * (tab_amt + 1));
 	if (!(*tab))
 		return (false);
-	ft_bzero(*tab, sizeof(int) * tab_counter);
-	(*tab)[tab_counter] = -1;
+	ft_bzero(*tab, sizeof(int) * tab_amt);
+	(*tab)[tab_amt] = -1;
 	return (true);
 }
 
-bool	get_counter(t_values *v, int **tab)
+static bool	get_counter(t_values *v, int **tab)
 {
-	int	i;
-	int	ind_tab;
+	size_t	i;
+	size_t	i_tab;
 
 	i = 0;
-	ind_tab = 0;
+	i_tab = 0;
 	if (allocate_tab(v, tab) == false)
 		return (false);
 	while (v->cmd_str_b[i])
@@ -90,12 +90,12 @@ bool	get_counter(t_values *v, int **tab)
 		if (v->cmd_str_b[i] == '\'' || v->cmd_str_b[i] == '\"')
 		{
 			quote_redpip(&v->cmd_str_b[i], &i);
-			ind_tab++;
+			i_tab++;
 			continue ;
 		}
 		if (v->cmd_str_b[i] == '$')			//je dois juste regarder si ya des quotes dans les env var et leurs nombres
 		{
-			if (put_in_counter(v, &v->cmd_str_b[i], &i, &(*tab)[ind_tab]) == false)
+			if (!put_in_counter(v, &v->cmd_str_b[i], &i, &(*tab)[i_tab]))
 				return (false);
 		}
 		i++;

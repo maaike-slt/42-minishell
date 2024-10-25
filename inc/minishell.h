@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 17:18:41 by msloot            #+#    #+#             */
-/*   Updated: 2024/10/25 15:48:21 by msloot           ###   ########.fr       */
+/*   Updated: 2024/10/25 16:04:33 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ bool	redpip_token_counter(t_values *values);
 void	quote_redpip(char *s, int	*index);
 bool	is_redir(t_values *v, char *s, int *step);
 int		is_redpip(char c);
-int		pip_case_s(t_values *v, char *s, int *step);
 bool	redir_case_equal(t_values *v, char*s, int *step);
 bool	redir_case_r_n_s(t_values *v, char *s, int *step);
 
