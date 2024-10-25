@@ -6,7 +6,7 @@
 #    By: msloot <msloot@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 19:19:04 by msloot            #+#    #+#              #
-#    Updated: 2024/10/02 20:12:32 by msloot           ###   ########.fr        #
+#    Updated: 2024/10/25 15:49:52 by msloot           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,7 @@ SRC_NAME =	main.c\
 			get_path.c\
 			get_path_utils.c\
 			path_splitting.c\
-			parser.c\
+			parse.c\
 			exec.c\
 			check_match.c\
 			redir_pipes.c\

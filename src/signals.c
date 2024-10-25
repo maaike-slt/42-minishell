@@ -6,13 +6,13 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 18:16:21 by gbonis            #+#    #+#             */
-/*   Updated: 2024/10/23 21:54:19 by msloot           ###   ########.fr       */
+/*   Updated: 2024/10/25 15:49:52 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	event(void)		// needed to have the event handler check rl_done in order to return readline on ^C
+static int	event(void)		// needed to have the event handler check rl_done in order to return readline on ^C
 {
 	return (0);
 }
@@ -61,13 +61,10 @@ void	sig_slash(int x)		// ASK: is sigquit maybe a better option? (how it's usual
 	char		*new;
 
 	if (sig == -2)				//minishell in minishell signals
-	{
-		sig = -2;
 		return ;
-	}			
 	rl_erase_empty_line = 1;
 	if (sig == -1)
-	{	
+	{
 		rl_replace_line("\n", 1);
 		new = NULL;
 	}
@@ -93,9 +90,9 @@ void	sig_slash(int x)		// ASK: is sigquit maybe a better option? (how it's usual
 
 int	set_sig_handler(void)
 {
-	struct sigaction s_sig_c;	
-	struct sigaction s_sig_slash;
-	struct sigaction s_sig_z;
+	struct sigaction	s_sig_c;
+	struct sigaction	s_sig_slash;
+	struct sigaction	s_sig_z;
 
 	rl_event_hook = event;		// needed to check for rl_done in signals, to return readline on ^C
 	s_sig_c.sa_handler = sig_c;
