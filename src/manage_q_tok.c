@@ -90,7 +90,7 @@ int	get_inside_q_size(t_values *v, char type, int *count)
 	int	size;
 
 	size = 0;
-	i = get_right_pos(v, count, type);		// when ls '' "" i is wrong for some reason  // ok i got it, it is because count has to be incremented by the type of quote, i need to do some struct with count for single and doube quote
+	i = get_right_pos(v, count, type);
 	i++;
 	while (v->cmd_str_b[i] != type)
 	{
@@ -123,64 +123,3 @@ bool	manage_q_tok(t_values *v, int x, char type, int *count)		// this func, we a
 	manage_rest_tok(v, x, new_tok, type);
 	return (true);
 }
-
-
-
-// make a token for the quote
-// integrate the token in the split
-// manipulate and free the rest of the tokens
-
-// there will be be probably a problem when trying to free the split str at exit of readline loop pass, probably will need to do some kind of if (split[i]) -> free
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-
-
-
-
-
-
-
-
-
-
-
-
-// pour le truc d'avoir aussi les charactères qui viennent avant la quote potentiellement, et après. Ouai en fait je peux faire avec les token de split
-// en fait ce sera beaucoup plus simple je pense, genre je compte jusqu'au whitespace après la deuxième quote et je pense qu'on est bon, meme avec les
-// expand et tout, simplement grace au fait qu'on doit laisser les trous dans les expands, donc avec la quote je vais jusqu'au trou et c'est bon
-// -> tester
-// oui, a premiere vue ça fonctionne comme ça, donc c'est encore plus simple que ce que j'imaginais comme parsing
-
-
-// d'abord choper la len du malloc, ensuite copier tout ça, puis manager les char *
-
-
-
-
-
-// ah ouai mais je vais avoir un probleme, j'ai pas les whitespaces dans les splits, et donc si je fais pas avec la cmd_str_b j'aurais pas les bons
-// whitespace si quelqu'un a mis un tab, mais d'un autre coté si je fais totalement avec la cmd_str_b j'aurais pas les expand.
-// probablement ce que je peux faire c'est que je fais avec le split tant que je suis pas dans les quotes, et je fais avec la cmd_str_b dès que je suis
-//dans les quotes, et dès que je sors des quotes je reregarder dans les split et je continue si il y a quelque chose après, expand ou autre, parce que 
-// de toute manière ce que je dois préservé ce sont les whitespaces a l'intérieur des quotes, normalement une fois qu'on est en dehors si j'ai bien 
-// compris 
