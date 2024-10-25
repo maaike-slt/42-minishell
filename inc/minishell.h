@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 17:18:41 by msloot            #+#    #+#             */
-/*   Updated: 2024/10/25 15:48:21 by msloot           ###   ########.fr       */
+/*   Updated: 2024/10/25 17:37:56 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 # include <sys/stat.h>
 
 # define _XOPEN_SOURCE 700
-//# define _DEFAULT_SOURCE
 
 typedef struct s_values
 {
@@ -49,31 +48,31 @@ bool	check_quote(t_values *v, char *s);
 
 // expand //
 bool	expand(t_values *v);
-char	*get_var(char *s, int *size);
-bool	put_in_string(char **s, char *var, int *pos, int s_n_var);
-int		get_len_till_eq(char	*s);
-int		do_retval(t_values *v, char *s, int *i);
-bool	do_put_in_string(t_values *v, char *var, int *i, int size_name_var);
+char	*get_var(char *s, size_t *size);
+bool	put_in_string(char **s, char *var, size_t *pos, int s_n_var);
+size_t	get_len_till_eq(char *s);
+int		do_retval(t_values *v, char *s, size_t *i);
+bool	do_put_in_string(t_values *v, char *var, size_t *i, int size_name_var);
 char	*get_expand(char *s);
-bool	check_var_exist(t_values *v, char *var, int *index);
+bool	check_var_exist(t_values *v, char *var, size_t *index);
 
 // redir and pipes //
 bool	redpip_token_counter(t_values *values);
-void	quote_redpip(char *s, int	*index);
-bool	is_redir(t_values *v, char *s, int *step);
+void	quote_redpip(char *s, size_t *index);
+bool	is_redir(t_values *v, char *s, size_t *step);
 int		is_redpip(char c);
-int		pip_case_s(t_values *v, char *s, int *step);
-bool	redir_case_equal(t_values *v, char*s, int *step);
-bool	redir_case_r_n_s(t_values *v, char *s, int *step);
+bool	redir_case_equal(t_values *v, char*s, size_t *step);
+bool	redir_case_r_n_s(t_values *v, char *s, size_t *step);
 
 // quote parsing //
 bool	quote_parsing(t_values *values, int	*tab);
+bool	check_quote(t_values *v, char *s);
 
 // quote resolving //
 bool	do_quotes(t_values *values);
 bool	manage_q_tok(t_values *v, int x, char type, int *count);
 void	copy_in_tok(t_values *v, char *s, int x, char type, int *count);
-void	manage_rest_tok(t_values *v, int x, char *new_tok, char type);
+void	manage_rest_tok(t_values *v, size_t x, char *new_tok, char type);
 
 //directory functions //
 char	*search_for_dir(t_values *values, char	**env_paths, char *executable);

@@ -6,15 +6,15 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:15:35 by gbonis            #+#    #+#             */
-/*   Updated: 2024/10/23 21:16:15 by msloot           ###   ########.fr       */
+/*   Updated: 2024/10/25 16:26:58 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_there_type(char *s, char type)
+static int	has_type(char *s, char type)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	if (!s)
@@ -28,10 +28,10 @@ int	is_there_type(char *s, char type)
 	return (0);
 }
 
-int	is_there_two_type(char *s, char type)
+static int	has_two_types(char *s, char type)
 {
-	int	i;
-	int	count;
+	size_t	i;
+	size_t	count;
 
 	i = 0;
 	count = 0;
@@ -51,23 +51,23 @@ int	is_there_two_type(char *s, char type)
 	return (0);
 }
 
-int	free_useless_tok(t_values *v, int x, char type)
+static size_t	free_useless_tok(t_values *v, size_t x, char type)
 {
-	int result;
+	int	res;
 
 	x++;
-	result = is_there_type(v->split_str[x], type);
-	while (result != -1 && result != 1)						// here why not result ==0 ?			// this loop likely is not correct // no it is correct i think
+	res = has_type(v->split_str[x], type);
+	while (res != -1 && res != 1)						// here why not result ==0 ?			// this loop likely is not correct // no it is correct i think
 	{
 		free(v->split_str[x]);
 		x++;
-		result = is_there_type(v->split_str[x], type);
+		res = has_type(v->split_str[x], type);
 	}
 	free(v->split_str[x]);
 	return (x);
 }
 
-int		move_tokens(t_values *v, int x, int sec_q_tok)
+static size_t	move_tokens(t_values *v, size_t x, size_t sec_q_tok)
 {
 	sec_q_tok++;
 	x++;
@@ -82,16 +82,16 @@ int		move_tokens(t_values *v, int x, int sec_q_tok)
 	return (x);
 }
 
-void	manage_rest_tok(t_values *v, int x, char *new_tok, char type)
+void	manage_rest_tok(t_values *v, size_t x, char *new_tok, char type)
 {
-	int	sec_q_tok;
-	int	last_viable_tok;
-	int	temp;
-	char *old_tok;
+	size_t	sec_q_tok;
+	size_t	last_viable_tok;
+	size_t	tmp;
+	char	*old_tok;
 
 	old_tok = v->split_str[x];
 	v->split_str[x] = new_tok;
-	if (is_there_two_type(old_tok, type))
+	if (has_two_types(old_tok, type))
 	{
 		free(old_tok);
 		return ;
@@ -99,8 +99,8 @@ void	manage_rest_tok(t_values *v, int x, char *new_tok, char type)
 	free(old_tok);
 	sec_q_tok = free_useless_tok(v, x, type);
 	last_viable_tok = move_tokens(v, x, sec_q_tok);
-	temp = last_viable_tok;
-	v->split_str[temp] = NULL;
+	tmp = last_viable_tok;
+	v->split_str[tmp] = NULL;
 	while (v->split_str[last_viable_tok])
 	{
 		free(v->split_str[last_viable_tok]);

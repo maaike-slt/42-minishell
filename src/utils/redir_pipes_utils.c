@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   redir_pipes_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbonis <gbonis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 12:06:55 by gbonis            #+#    #+#             */
-/*   Updated: 2024/10/18 12:06:55 by gbonis           ###   ########.fr       */
+/*   Updated: 2024/10/25 17:21:44 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_redpip(char	c)
+int	is_redpip(char c)
 {
 	if (!c)
 		return (-1);
@@ -21,11 +21,12 @@ int	is_redpip(char	c)
 	return (0);
 }
 
-int	pip_case_s(t_values *v, char *s, int *step)
+// this function is unused
+int	pip_case_s(t_values *v, char *s, size_t *step)
 {
 	if (is_redir(v, &s[2], step) == true)
 	{
-		if (s[2]== '|')
+		if (s[2] == '|')
 			return (-1);
 		v->redpip_counter += 2;
 		(*step) += 2;
@@ -34,7 +35,7 @@ int	pip_case_s(t_values *v, char *s, int *step)
 	return (-1);
 }
 
-bool	redir_case_equal(t_values *v, char*s, int *step)
+bool	redir_case_equal(t_values *v, char*s, size_t *step)
 {
 	if (s[1])
 	{
@@ -46,7 +47,7 @@ bool	redir_case_equal(t_values *v, char*s, int *step)
 	return (true);
 }
 
-bool	redir_case_r_n_s(t_values *v, char *s, int *step)
+bool	redir_case_r_n_s(t_values *v, char *s, size_t *step)
 {
 	if (is_redpip(s[2]) == 1)
 		return (false);

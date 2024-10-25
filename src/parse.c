@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 15:46:48 by msloot            #+#    #+#             */
-/*   Updated: 2024/10/25 15:48:13 by msloot           ###   ########.fr       */
+/*   Updated: 2024/10/25 17:20:26 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 static bool	other_quote(t_values *v, char *s, char type)
 {
-	int	i;
+	size_t	i;
 
 	i = 1;				// one here because otherwise it is on the quote if it found it
 	while (s[i])
 	{
-		if(s[i] == type)
+		if (s[i] == type)
 		{
 			if (check_quote(v, &s[++i]) == true)
 			{
@@ -35,7 +35,7 @@ static bool	other_quote(t_values *v, char *s, char type)
 
 bool	check_quote(t_values *v, char *s)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (s[i])
@@ -70,7 +70,7 @@ bool	parse(t_values *values)
 			free(split_str);
 		return (false);
 	}
-	values->split_str= split_str;
+	values->split_str = split_str;
 	if (do_quotes(values) == false)
 		return (false);
 //	if (tokenise_redpip(values) == false)
