@@ -121,7 +121,6 @@ bool	manage_q_tok(t_values *v, int x, char type, int *count)		// this func, we a
 		return (false);
 	copy_in_tok(v, new_tok, x, type, count);
 	manage_rest_tok(v, x, new_tok, type);
-//	(count[(int)type])++;
 	return (true);
 }
 

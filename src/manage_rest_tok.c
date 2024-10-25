@@ -55,8 +55,6 @@ int	free_useless_tok(t_values *v, int x, char type)
 {
 	int result;
 
-//	if (is_there_two_type(old_tok, type))
-//		return (-1);
 	x++;
 	result = is_there_type(v->split_str[x], type);
 	while (result != -1 && result != 1)						// here why not result ==0 ?			// this loop likely is not correct // no it is correct i think
@@ -99,13 +97,7 @@ void	manage_rest_tok(t_values *v, int x, char *new_tok, char type)
 		return ;
 	}
 	free(old_tok);
-//	free(v->split_str[x]);
 	sec_q_tok = free_useless_tok(v, x, type);
-//	if (sec_q_tok == -1)
-//	{
-//		free(old_tok);
-//		return ;
-//	}
 	last_viable_tok = move_tokens(v, x, sec_q_tok);
 	temp = last_viable_tok;
 	v->split_str[temp] = NULL;
@@ -114,8 +106,5 @@ void	manage_rest_tok(t_values *v, int x, char *new_tok, char type)
 		free(v->split_str[last_viable_tok]);
 		last_viable_tok++;
 	}
-//	printf("%s\n", v->split_str[0]);
-//	printf("%s\n", v->split_str[1]);
-//	printf("%s\n", v->split_str[2]);
 	return ;
 }
