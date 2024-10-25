@@ -6,7 +6,7 @@
 #    By: msloot <msloot@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 19:19:04 by msloot            #+#    #+#              #
-#    Updated: 2024/10/25 15:49:52 by msloot           ###   ########.fr        #
+#    Updated: 2024/10/25 17:18:32 by msloot           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,20 +61,20 @@ SRC_NAME =	main.c\
 			handle_cmd_str.c\
 			signals.c\
 			get_path.c\
-			get_path_utils.c\
+			utils/get_path_utils.c\
 			path_splitting.c\
 			parse.c\
 			exec.c\
 			check_match.c\
 			redir_pipes.c\
-			redir_pipes_utils.c\
+			utils/redir_pipes_utils.c\
 			expand.c\
-			expand_utils.c\
+			utils/expand_utils.c\
 			do_put_in_string.c\
 			quotes.c\
 			quote_parsing.c\
 			manage_q_tok.c\
-			manage_q_tok_utils.c\
+			utils/manage_q_tok_utils.c\
 			manage_rest_tok.c\
 
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))

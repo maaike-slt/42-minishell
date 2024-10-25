@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 15:12:53 by gbonis            #+#    #+#             */
-/*   Updated: 2024/10/25 17:04:38 by msloot           ###   ########.fr       */
+/*   Updated: 2024/10/25 17:31:23 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ char	*get_expand(char *s)
 	return (temp);
 }
 
-static bool	do_expand(t_values *v, char *s, int *i)
+static bool	do_expand(t_values *v, char *s, size_t *i)
 {
 	char	*var;
 	size_t	size_name_var;

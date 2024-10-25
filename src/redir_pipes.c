@@ -6,13 +6,13 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 12:18:00 by gbonis            #+#    #+#             */
-/*   Updated: 2024/10/25 15:56:27 by msloot           ###   ########.fr       */
+/*   Updated: 2024/10/25 17:29:06 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	quote_redpip(char *s, int	*index)
+void	quote_redpip(char *s, size_t *index)
 {
 	char	type;
 	int		i;
@@ -31,7 +31,7 @@ void	quote_redpip(char *s, int	*index)
 	return ;
 }
 
-static int	is_pip(t_values *v, char *s, int *step)
+static int	is_pip(t_values *v, char *s, size_t *step)
 {
 	if (s[0] == '|')
 	{
@@ -56,7 +56,7 @@ static int	is_pip(t_values *v, char *s, int *step)
 	return (0);
 }
 
-bool	is_redir(t_values *v, char *s, int *step)
+bool	is_redir(t_values *v, char *s, size_t *step)
 {
 	if (!(*s))				//to protect wrong array access when is_pip uses this func
 		return (true);
@@ -85,7 +85,7 @@ bool	is_redir(t_values *v, char *s, int *step)
 	return (true);
 }
 
-static ssize_t	is_redpip_valid(t_values *v, char *s, int *step)
+static ssize_t	is_redpip_valid(t_values *v, char *s, size_t *step)
 {
 	int	status;
 
@@ -101,8 +101,8 @@ static ssize_t	is_redpip_valid(t_values *v, char *s, int *step)
 
 bool	redpip_token_counter(t_values *v)
 {
-	int	i;
-	int	step;
+	size_t	i;
+	size_t	step;
 
 	i = 0;
 	while (v->cmd_str[i])

@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 15:46:48 by msloot            #+#    #+#             */
-/*   Updated: 2024/10/25 16:18:48 by msloot           ###   ########.fr       */
+/*   Updated: 2024/10/25 17:20:26 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static bool	other_quote(t_values *v, char *s, char type)
 	return (false);
 }
 
-static bool	check_quote(t_values *v, char *s)
+bool	check_quote(t_values *v, char *s)
 {
 	size_t	i;
 

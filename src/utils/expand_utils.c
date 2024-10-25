@@ -6,13 +6,13 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 16:56:31 by gbonis            #+#    #+#             */
-/*   Updated: 2024/10/25 17:09:40 by msloot           ###   ########.fr       */
+/*   Updated: 2024/10/25 17:34:47 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	do_retval(t_values *v, char *s, int *i)
+int	do_retval(t_values *v, char *s, size_t *i)
 {
 	char	*c_retval;
 
@@ -32,7 +32,7 @@ int	do_retval(t_values *v, char *s, int *i)
 	return (0);
 }
 
-size_t	get_len_till_eq(char	*s)
+size_t	get_len_till_eq(char *s)
 {
 	size_t	i;
 
@@ -69,7 +69,7 @@ static void	copy_until(char *dest, char *from, size_t pos)
 	}
 }
 
-bool	put_in_string(char **s, char *var, int *pos, int s_n_var)
+bool	put_in_string(char **s, char *var, size_t *pos, int s_n_var)
 {
 	char	*new;
 	size_t	s_var;

@@ -6,13 +6,13 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 15:31:31 by gbonis            #+#    #+#             */
-/*   Updated: 2024/10/25 16:46:06 by msloot           ###   ########.fr       */
+/*   Updated: 2024/10/25 17:37:17 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	go_to_next_q(t_values *v, int *x, int *i, char type)
+static void	go_to_next_q(t_values *v, int *x, size_t *i, char type)
 {
 	(*i)++;
 	while (v->split_str[(*x)])
@@ -32,7 +32,7 @@ static void	go_to_next_q(t_values *v, int *x, int *i, char type)
 	return ;
 }
 
-static void	do_copy(char *cmd_str, char *s, int *y, char type)
+static void	do_copy(char *cmd_str, char *s, size_t *y, char type)
 {
 	size_t	i;
 
@@ -46,7 +46,7 @@ static void	do_copy(char *cmd_str, char *s, int *y, char type)
 	return ;
 }
 
-static void	copy_in_cmd_str(t_values *v, char *s, int *y, int *count, char type)
+static void	copy_in_cmd_str(t_values *v, char *s, size_t *y, int *count, char type)
 {
 	size_t	i;
 

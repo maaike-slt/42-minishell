@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 13:45:45 by gbonis            #+#    #+#             */
-/*   Updated: 2024/10/23 21:26:02 by msloot           ###   ########.fr       */
+/*   Updated: 2024/10/25 17:19:22 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		values.cmd_str = readline("minishell$ ");
-		if (copy_cmd_str(&values) == -1)
+		if (!copy_cmd_str(&values))
 			return (values.prev_ret_val);
 		if (!values.cmd_str)
 		{

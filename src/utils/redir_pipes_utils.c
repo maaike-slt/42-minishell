@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 12:06:55 by gbonis            #+#    #+#             */
-/*   Updated: 2024/10/25 15:58:30 by msloot           ###   ########.fr       */
+/*   Updated: 2024/10/25 17:21:44 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	is_redpip(char c)
 	return (0);
 }
 
-static int	pip_case_s(t_values *v, char *s, int *step)
+// this function is unused
+int	pip_case_s(t_values *v, char *s, int *step)
 {
 	if (is_redir(v, &s[2], step) == true)
 	{
