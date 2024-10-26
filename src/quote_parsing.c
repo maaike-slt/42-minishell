@@ -30,39 +30,45 @@ static bool	pass_check(char c, int *tab, int *z)
 	return (true);
 }
 
-static void	init_count(int *count)
+static void	init_quote(t_quote *q, int *tab)
 {
-	count['\''] = 0;
-	count['\"'] = 0;
+	q->x = 0;
+	q->y = 0;
+	q->z = 0;
+	q->type = 0;
+	q->tab = tab;
+	q->count['\''] = 0;
+	q->count['\"'] = 0;
 }
 
 bool	quote_parsing(t_values *v, int	*tab)		// here i need to do a struct with count to have count->single or something like this
 {
-	int	x;
-	int	y;
-	int	z;
-	int	count[50];
-	char type;
+//	int	x;
+//	int	y;
+//	int	z;
+//	int	count[50];
+//	char type;
+	t_quote q;
+//	x = 0;
+//	z = 0;
 
-	x = 0;
-	z = 0;
-	init_count(count);
-	while (v->split_str[x])
+	init_quote(&q, tab);
+	while (v->split_str[q.x])
 	{
-		y = 0;
-		while (v->split_str[x][y])
+		q.y = 0;
+		while (v->split_str[q.x][q.y])
 		{
-			if (pass_check(v->split_str[x][y], &tab[z], &z)	== false)
+			if (pass_check(v->split_str[q.x][q.y], &tab[q.z], &q.z)	== false)
 			{
-				type = v->split_str[x][y];
-				if (manage_q_tok(v, x, v->split_str[x][y], count) == false)
+				q.type = v->split_str[q.x][q.y];
+				if (manage_q_tok(v, &q) == false)
 					return (false);
-				(count[(int)type])++;							// je peux peut etre faire une fonction ici pour incrémenter le bon type, ça prendrais qu'une seule ligne
+				(q.count[(int)q.type])++;							// je peux peut etre faire une fonction ici pour incrémenter le bon type, ça prendrais qu'une seule ligne
 				break ;
 			}
-			y++;
+			q.y++;
 		}
-		x++;
+		q.x++;
 	}
 	return (true);
 }

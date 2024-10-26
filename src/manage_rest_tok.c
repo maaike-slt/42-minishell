@@ -81,24 +81,24 @@ static size_t	move_tokens(t_values *v, size_t x, size_t sec_q_tok)
 	}
 	return (x);
 }
-
-void	manage_rest_tok(t_values *v, size_t x, char *new_tok, char type)
+//t_quote *q
+void	manage_rest_tok(t_values *v, char *new_tok, t_quote *q)
 {
 	size_t	sec_q_tok;
 	size_t	last_viable_tok;
 	size_t	tmp;
 	char	*old_tok;
 
-	old_tok = v->split_str[x];
-	v->split_str[x] = new_tok;
-	if (has_two_types(old_tok, type))
+	old_tok = v->split_str[q->x];
+	v->split_str[q->x] = new_tok;
+	if (has_two_types(old_tok, q->type))
 	{
 		free(old_tok);
 		return ;
 	}
 	free(old_tok);
-	sec_q_tok = free_useless_tok(v, x, type);
-	last_viable_tok = move_tokens(v, x, sec_q_tok);
+	sec_q_tok = free_useless_tok(v, q->x, q->type);
+	last_viable_tok = move_tokens(v, q->x, sec_q_tok);
 	tmp = last_viable_tok;
 	v->split_str[tmp] = NULL;
 	while (v->split_str[last_viable_tok])

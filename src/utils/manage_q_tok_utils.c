@@ -46,48 +46,49 @@ static void	do_copy(char *cmd_str, char *s, size_t *y, char type)
 	return ;
 }
 
-static void	copy_in_cmd_str(t_values *v, char *s, size_t *y, int *count, char type)
+//static void	copy_in_cmd_str(t_values *v, char *s, size_t *y, int *count, char type)
+static void	copy_in_cmd_str(t_values *v, char *s, size_t *y, t_quote *q)
 {
 	int	temp;
 	size_t	i;
 
 	i = 0;
-	temp = count[(int)type];
-	count[(int)type] *= 2;
+	temp = q->count[(int)q->type];
+	q->count[(int)q->type] *= 2;
 	while (v->cmd_str_b[i])
 	{
-		if (v->cmd_str_b[i] == type && count[(int)type] == 0)
+		if (v->cmd_str_b[i] == q->type && q->count[(int)q->type] == 0)
 		{
-			count[(int)type] = temp;
-			do_copy(&v->cmd_str_b[i + 1], s, y, type);
+			q->count[(int)q->type] = temp;
+			do_copy(&v->cmd_str_b[i + 1], s, y, q->type);
 			return ;
 		}
-		if (v->cmd_str_b[i] == type)
+		if (v->cmd_str_b[i] == q->type)
 		{
-			(count[(int)type])--;
+			(q->count[(int)q->type])--;
 			i++;
 		}
 		i++;
 	}
-	count[(int)type] = temp;
+	q->count[(int)q->type] = temp;
 	return ;
 }
 
-void copy_in_tok(t_values *v, char *s, int x, char type, int *count)
+void copy_in_tok(t_values *v, char *s, int x, t_quote *q)	
 {
 	size_t	i;
 	size_t	y;
 
 	i = 0;
 	y = 0;
-	while (v->split_str[x][i] != type)			// fail on ls '''', perhaps because I didnt do anything to integrate count in this, yes because quotes are in the same token. No this is because i dont manage case where several quotes in one split token
+	while (v->split_str[x][i] != q->type)
 	{
 		s[y] = v->split_str[x][i];
 		i++;
 		y++;
 	}
-	copy_in_cmd_str(v, s, &y, count, type);
-	go_to_next_q(v, &x, &i, type);
+	copy_in_cmd_str(v, s, &y, q);
+	go_to_next_q(v, &x, &i, q->type);  //continue here
 	while (v->split_str[x][i])
 	{
 		if (v->split_str[x][i] == '\'' || v->split_str[x][i] == '\"')		// for case ls '''''''' or ls ''""''""''""

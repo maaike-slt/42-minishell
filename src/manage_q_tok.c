@@ -14,15 +14,9 @@
 
 static size_t	get_right_pos(t_values *v, int *count, char type)
 {
-//<<<<<<< HEAD
-//	int	i;
-//	int	sec_q;
-//	int	temp;
-//=======
 	size_t	i;
 	size_t	sec_q;
 	int	temp;
-//>>>>>>> refs/remotes/origin/main
 
 	i = 0;
 	sec_q = 0;
@@ -116,16 +110,19 @@ static size_t	get_size(t_values *v, int x, char type, int *count)
 	return (out_size + in_size + 1);						// should i protect for ovrflow in this function ?
 }
 
-bool	manage_q_tok(t_values *v, int x, char type, int *count)		// this func, we arrived at the right split token with the first quote, and now we do the string magic to have a valdi token with quotes
+//bool	manage_q_tok(t_values *v, int x, char type, int *count)		// this func, we arrived at the right split token with the first quote, and now we do the string magic to have a valdi token with quotes
+bool	manage_q_tok(t_values *v, t_quote *q)
 {
 	char	*new_tok;
 	size_t	size;
 
-	size = get_size(v, x, type, count);		//for malloc
+	size = get_size(v, q->x, q->type, q->count);		//for malloc
 	new_tok = malloc(sizeof(char) * size);
 	if (!new_tok)
 		return (false);
-	copy_in_tok(v, new_tok, x, type, count);
-	manage_rest_tok(v, x, new_tok, type);
+//	copy_in_tok(v, new_tok, x, type, count);
+	copy_in_tok(v, new_tok, q->x, q);			// I pass x to use pass by value and not pointer
+//	manage_rest_tok(v, x, new_tok, type);
+	manage_rest_tok(v, new_tok, q);
 	return (true);
 }

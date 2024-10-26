@@ -28,12 +28,22 @@
 
 # define _XOPEN_SOURCE 700
 
+typedef struct s_quote
+{
+	int	x;
+	int	y;
+	int	z;
+	int count[50];
+	char type;
+	int *tab;
+}t_quote;
+
 typedef struct s_values
 {
 	int		isquote;
 	char	**env;
 	char	*cmd_str;
-	char	*cmd_str_b;		// ASK: what does "b" stand for?		// not a good name, it means backup, for complicated reason I need to dup the readline string, I meant to change this name to something like original_cmd_str
+	char	*cmd_str_b;		// ASK: what does "b" stand for?		//it means backup 
 	char	*abs_path_bin;
 	char	**split_str;
 	char	**tokenized_str;
@@ -70,9 +80,9 @@ bool	check_quote(t_values *v, char *s);
 
 // quote resolving //
 bool	do_quotes(t_values *values);
-bool	manage_q_tok(t_values *v, int x, char type, int *count);
-void	copy_in_tok(t_values *v, char *s, int x, char type, int *count);
-void	manage_rest_tok(t_values *v, size_t x, char *new_tok, char type);
+bool	manage_q_tok(t_values *v, t_quote *q);
+void	copy_in_tok(t_values *v, char *s, int x, t_quote *q);
+void	manage_rest_tok(t_values *v, char *new_tok, t_quote *q);
 
 //directory functions //
 char	*search_for_dir(t_values *values, char	**env_paths, char *executable);
