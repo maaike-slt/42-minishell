@@ -12,13 +12,15 @@
 
 #include "minishell.h"
 
-static bool	pass_check(char c, int *tab, int *z)
+//static bool	if_pass_check(char c, int *tab, int *z)
+static bool	if_pass_check(char c, int *tab, t_quote *q)
 {
 	if (c == '\'' || c == '\"')
 	{
 		if (*tab == 0)
 		{
-			(*z)++;
+			(q->z)++;
+			q->pos = q->y;
 			return (false);
 		}
 		else
@@ -37,11 +39,12 @@ static void	init_quote(t_quote *q, int *tab)
 	q->z = 0;
 	q->type = 0;
 	q->tab = tab;
+	q->pos = 0;
 	q->count['\''] = 0;
 	q->count['\"'] = 0;
 }
 
-bool	quote_parsing(t_values *v, int	*tab)		// here i need to do a struct with count to have count->single or something like this
+bool	quote_parsing(t_values *v, int	*tab)
 {
 	t_quote q;
 
@@ -51,12 +54,20 @@ bool	quote_parsing(t_values *v, int	*tab)		// here i need to do a struct with co
 		q.y = 0;
 		while (v->split_str[q.x][q.y])
 		{
-			if (pass_check(v->split_str[q.x][q.y], &tab[q.z], &q.z)	== false)
+//			if (if_pass_check(v->split_str[q.x][q.y], &tab[q.z], &q.z)	== false)
+			if (if_pass_check(v->split_str[q.x][q.y], &tab[q.z], &q)	== false)
 			{
+				int lol= 0;
+				while (v->split_str[lol])
+				{
+					printf("%s\n", v->split_str[lol]);
+					lol++;
+				}
+				printf("STOP\n");
 				q.type = v->split_str[q.x][q.y];
 				if (manage_q_tok(v, &q) == false)
 					return (false);
-				(q.count[(int)q.type])++;							// je peux peut etre faire une fonction ici pour incrémenter le bon type, ça prendrais qu'une seule ligne
+				(q.count[(int)q.type])++;
 				break ;
 			}
 			q.y++;

@@ -91,9 +91,13 @@ static size_t	get_inside_q_size(t_values *v, char type, int *count)
 
 	size = 0;
 	i = get_right_pos(v, count, type);
+//	printf("%zu\n", i);
 	i++;
+//	printf("%s\n", &v->cmd_str[i]);
+//	printf("%c\n",type); 
 	while (v->cmd_str_b[i] != type)
 	{
+//		printf("lo\n");
 		size++;
 		i++;
 	}

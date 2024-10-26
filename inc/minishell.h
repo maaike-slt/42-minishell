@@ -36,6 +36,7 @@ typedef struct s_quote
 	int count[50];
 	char type;
 	int *tab;
+	int pos;
 }t_quote;
 
 typedef struct s_values
