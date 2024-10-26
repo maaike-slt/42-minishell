@@ -43,14 +43,7 @@ static void	init_quote(t_quote *q, int *tab)
 
 bool	quote_parsing(t_values *v, int	*tab)		// here i need to do a struct with count to have count->single or something like this
 {
-//	int	x;
-//	int	y;
-//	int	z;
-//	int	count[50];
-//	char type;
 	t_quote q;
-//	x = 0;
-//	z = 0;
 
 	init_quote(&q, tab);
 	while (v->split_str[q.x])
@@ -72,15 +65,3 @@ bool	quote_parsing(t_values *v, int	*tab)		// here i need to do a struct with co
 	}
 	return (true);
 }
-
-
-
-
-
-// ouai non en fait ya pas besoin de checker pour la deuxieme quote, on fera la cuisine sur exit du managing de char * de split, genre je fais ma copie, puis
-// je free les split jusqu' l'autre quote du meme type et puis on continue
-
-
-
-// ce qu'il faudrait c'est que lorsque j'arrive au split que je dois manager, je devrais faire en sorte en revenant dans la boucle que je continue juste dans
-// split d'après, meme si je suis au milieu d'un split ou ya une quote, car normalement j'aurais managé tout ça. 

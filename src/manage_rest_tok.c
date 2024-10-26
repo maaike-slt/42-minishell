@@ -81,7 +81,6 @@ static size_t	move_tokens(t_values *v, size_t x, size_t sec_q_tok)
 	}
 	return (x);
 }
-//t_quote *q
 void	manage_rest_tok(t_values *v, char *new_tok, t_quote *q)
 {
 	size_t	sec_q_tok;

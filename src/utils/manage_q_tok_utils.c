@@ -46,7 +46,6 @@ static void	do_copy(char *cmd_str, char *s, size_t *y, char type)
 	return ;
 }
 
-//static void	copy_in_cmd_str(t_values *v, char *s, size_t *y, int *count, char type)
 static void	copy_in_cmd_str(t_values *v, char *s, size_t *y, t_quote *q)
 {
 	int	temp;
@@ -100,16 +99,3 @@ void copy_in_tok(t_values *v, char *s, int x, t_quote *q)
 	s[y] = 0;
 	return ;
 }
-
-
-
-
-
-// will probably need in this function outside and inside size in order to copy the right things ?
-
-
-// yes i will need to do the same thing 
-
-
-
-// comme j'ai deja la size pour chaque truc, si je chope le x du premier token et celui de la deuxieme quote j'ai pas besoin de faire de gros calculs
