@@ -89,8 +89,9 @@ void	manage_rest_tok(t_values *v, char *new_tok, t_quote *q)
 	char	*old_tok;
 
 	old_tok = v->split_str[q->x];
+//	old_tok_pos = &v->split_str[q->x][q->pos];
 	v->split_str[q->x] = new_tok;
-	if (has_two_types(old_tok, q->type))
+	if (has_two_types(&old_tok[q->pos], q->type))
 	{
 		free(old_tok);
 		return ;

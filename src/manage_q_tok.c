@@ -44,7 +44,7 @@ static size_t	get_right_pos(t_values *v, int *count, char type)
 	return (i);
 }
 
-static size_t	get_outside_q_size(t_values *v, int x, char type)		// to explain this func, i use the split tokens to get the char that could be attached to the string, can use cmd-str_b because if there is an expand I need to use it and not the expand name, so it is easier to use split tokens
+static size_t	get_outside_q_size(t_values *v, int x, t_quote *q)		// to explain this func, i use the split tokens to get the char that could be attached to the string, can use cmd-str_b because if there is an expand I need to use it and not the expand name, so it is easier to use split tokens
 {
 	size_t	i;
 	size_t	y;
@@ -59,7 +59,8 @@ static size_t	get_outside_q_size(t_values *v, int x, char type)		// to explain t
 		y = 0;
 		while (v->split_str[x][y])
 		{
-			if (v->split_str[x][y] == type)			// put all of this if in an helper func for norm
+//			if (v->split_str[x][y] == q->type)			// put all of this if in an helper func for norm
+			if (y == q->pos)			// put all of this if in an helper func for norm
 			{
 				if (betw_q == false)
 					betw_q = true;
@@ -91,26 +92,22 @@ static size_t	get_inside_q_size(t_values *v, char type, int *count)
 
 	size = 0;
 	i = get_right_pos(v, count, type);
-//	printf("%zu\n", i);
 	i++;
-//	printf("%s\n", &v->cmd_str[i]);
-//	printf("%c\n",type); 
 	while (v->cmd_str_b[i] != type)
 	{
-//		printf("lo\n");
 		size++;
 		i++;
 	}
 	return (size);
 }
 
-static size_t	get_size(t_values *v, int x, char type, int *count)
+static size_t	get_size(t_values *v, t_quote *q)
 {
 	size_t	out_size;
 	size_t	in_size;
 
-	out_size = get_outside_q_size(v, x, type);
-	in_size = get_inside_q_size(v, type, count);
+	out_size = get_outside_q_size(v, q->x, q);		// don't touch q access , sometimes pass by value needed, sometimes pointer
+	in_size = get_inside_q_size(v, q->type, q->count);
 	return (out_size + in_size + 1);						// should i protect for ovrflow in this function ?
 }
 
@@ -119,7 +116,8 @@ bool	manage_q_tok(t_values *v, t_quote *q)
 	char	*new_tok;
 	size_t	size;
 
-	size = get_size(v, q->x, q->type, q->count);		//for malloc
+//	size = get_size(v, q->x, q->type, q->count);		//for malloc
+	size = get_size(v, q);		//for malloc
 	new_tok = malloc(sizeof(char) * size);
 	if (!new_tok)
 		return (false);

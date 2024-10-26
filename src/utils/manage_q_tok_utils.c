@@ -80,7 +80,8 @@ void copy_in_tok(t_values *v, char *s, int x, t_quote *q)
 
 	i = 0;
 	y = 0;
-	while (v->split_str[x][i] != q->type)
+//	while (v->split_str[x][i] != q->type)
+	while (i != q->pos)
 	{
 		s[y] = v->split_str[x][i];
 		i++;

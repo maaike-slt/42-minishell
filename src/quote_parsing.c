@@ -57,13 +57,6 @@ bool	quote_parsing(t_values *v, int	*tab)
 //			if (if_pass_check(v->split_str[q.x][q.y], &tab[q.z], &q.z)	== false)
 			if (if_pass_check(v->split_str[q.x][q.y], &tab[q.z], &q)	== false)
 			{
-				int lol= 0;
-				while (v->split_str[lol])
-				{
-					printf("%s\n", v->split_str[lol]);
-					lol++;
-				}
-				printf("STOP\n");
 				q.type = v->split_str[q.x][q.y];
 				if (manage_q_tok(v, &q) == false)
 					return (false);
