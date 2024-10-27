@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 17:18:41 by msloot            #+#    #+#             */
-/*   Updated: 2024/10/27 14:01:42 by msloot           ###   ########.fr       */
+/*   Updated: 2024/10/27 18:18:54 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
+# include <sysexits.h>
 
 typedef struct s_quote
 {
@@ -106,5 +107,8 @@ int		set_sig_handler(void);
 
 // exec //
 int		exec(t_values *values);
+
+// builtins //
+int		echo(size_t argc, char **argv, char **envp);
 
 #endif

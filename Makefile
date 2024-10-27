@@ -6,7 +6,7 @@
 #    By: msloot <msloot@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 19:19:04 by msloot            #+#    #+#              #
-#    Updated: 2024/10/25 17:18:32 by msloot           ###   ########.fr        #
+#    Updated: 2024/10/27 14:56:38 by msloot           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,25 +57,26 @@ SRC_PATH =	./src/
 OBJ_PATH =	./obj/
 INC =		./inc/
 
-SRC_NAME =	main.c\
-			handle_cmd_str.c\
-			signals.c\
-			get_path.c\
-			utils/get_path_utils.c\
-			path_splitting.c\
-			parse.c\
-			exec.c\
-			check_match.c\
-			redir_pipes.c\
-			utils/redir_pipes_utils.c\
-			expand.c\
-			utils/expand_utils.c\
-			do_put_in_string.c\
-			quotes.c\
-			quote_parsing.c\
-			manage_q_tok.c\
-			utils/manage_q_tok_utils.c\
-			manage_rest_tok.c\
+SRC_NAME =	main.c \
+			parse.c \
+			handle_cmd_str.c \
+			signals.c \
+			get_path.c \
+			utils/get_path_utils.c \
+			path_splitting.c \
+			exec.c \
+			check_match.c \
+			redir_pipes.c \
+			utils/redir_pipes_utils.c \
+			expand.c \
+			utils/expand_utils.c \
+			do_put_in_string.c \
+			quotes.c \
+			quote_parsing.c \
+			manage_q_tok.c \
+			utils/manage_q_tok_utils.c \
+			manage_rest_tok.c \
+			builtin/echo.c \
 
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 
