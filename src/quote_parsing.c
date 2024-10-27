@@ -12,7 +12,6 @@
 
 #include "minishell.h"
 
-//static bool	if_pass_check(char c, int *tab, int *z)
 static bool	if_pass_check(char c, int *tab, t_quote *q)
 {
 	if (c == '\'' || c == '\"')
@@ -54,7 +53,6 @@ bool	quote_parsing(t_values *v, int	*tab)
 		q.y = 0;
 		while (v->split_str[q.x][q.y])
 		{
-//			if (if_pass_check(v->split_str[q.x][q.y], &tab[q.z], &q.z)	== false)
 			if (if_pass_check(v->split_str[q.x][q.y], &tab[q.z], &q)	== false)
 			{
 				q.type = v->split_str[q.x][q.y];
