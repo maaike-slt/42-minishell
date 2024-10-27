@@ -6,12 +6,15 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 17:18:41 by msloot            #+#    #+#             */
-/*   Updated: 2024/10/25 17:37:56 by msloot           ###   ########.fr       */
+/*   Updated: 2024/10/27 14:01:42 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+# define _XOPEN_SOURCE 700
+
 # include "../libft/inc/libft.h"
 
 # include <unistd.h>
@@ -26,17 +29,15 @@
 # include <sys/wait.h>
 # include <sys/stat.h>
 
-# define _XOPEN_SOURCE 700
-
 typedef struct s_quote
 {
-	int	x;
-	int	y;
-	int	z;
-	int count[50];
-	char type;
-	int *tab;
-	size_t pos;
+	int		x;
+	int		y;
+	int		z;
+	int		count[50];
+	char	type;
+	int		*tab;
+	size_t	pos;
 }t_quote;
 
 typedef struct s_values
@@ -44,7 +45,7 @@ typedef struct s_values
 	int		isquote;
 	char	**env;
 	char	*cmd_str;
-	char	*cmd_str_b;		// ASK: what does "b" stand for?		//it means backup 
+	char	*cmd_str_b;
 	char	*abs_path_bin;
 	char	**split_str;
 	char	**tokenized_str;
