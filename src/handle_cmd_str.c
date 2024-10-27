@@ -36,7 +36,7 @@ static bool	abs_path_in_values(t_values *values)
 
 static bool	get_struct_values(t_values *values)
 {
-	if (abs_path_in_values(values) == false)			// here if i keep this code i don't need to pass split_str, just values
+	if (abs_path_in_values(values) == false)
 		return (false);
 	return (true);
 }

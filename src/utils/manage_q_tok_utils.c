@@ -87,7 +87,7 @@ void copy_in_tok(t_values *v, char *s, int x, t_quote *q)
 		y++;
 	}
 	copy_in_cmd_str(v, s, &y, q);
-	go_to_next_q(v, &x, &i, q->type);  //continue here
+	go_to_next_q(v, &x, &i, q->type);
 	while (v->split_str[x][i])
 	{
 		if (v->split_str[x][i] == '\'' || v->split_str[x][i] == '\"')		// for case ls '''''''' or ls ''""''""''""

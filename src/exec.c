@@ -27,7 +27,7 @@ int	exec(t_values *v)
 		{
 			if (v->abs_path_bin)
 			{
-				if (!ft_strchr(*v->split_str, '/'))			// all of this is the same "free" code as parse(), it is to protect everything is execve fail (the child proc would still run and mes everything)(happens is given a bin without the perms)
+				if (!ft_strchr(*v->split_str, '/'))			// all of this is the same "free" code as parse(), it is to protect everything is execve fail (the child proc would still run and mess everything)(happens is given a bin without the perms)
 					free(v->abs_path_bin);
 			}
 			ft_free_2d((void ***)&v->split_str,

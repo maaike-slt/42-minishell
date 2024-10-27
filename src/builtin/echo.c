@@ -47,7 +47,6 @@ static void	write_echo(size_t argc, char **argv)
 			i++;
 		}
 	}
-	i = 1;
 	while (i < argc)
 	{
 		ft_putstr_fd(argv[i], STDOUT_FILENO);
