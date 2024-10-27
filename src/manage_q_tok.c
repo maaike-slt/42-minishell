@@ -53,14 +53,14 @@ static size_t	get_outside_q_size(t_values *v, int x, t_quote *q)		// to explain 
 
 	end = false;
 	betw_q = false;
+	i = 0;						// DON'T CHANGE THIS, you introduced a bug here, i has to be incremented even if x changes, if you put i in the loop when x changes size will not be accurate
 	while (v->split_str[x])
 	{
-		i = 0;
 		y = 0;
 		while (v->split_str[x][y])
 		{
 //			if (v->split_str[x][y] == q->type)			// put all of this if in an helper func for norm
-			if (y == q->pos)			// put all of this if in an helper func for norm
+			if (y == q->pos)
 			{
 				if (betw_q == false)
 					betw_q = true;
@@ -74,6 +74,8 @@ static size_t	get_outside_q_size(t_values *v, int x, t_quote *q)		// to explain 
 				y++;
 				continue ;
 			}
+			if (v->split_str[x][y] == q->type)		// change is here for ls aaaa'    'aaaa see if other tests pass
+				betw_q = false;
 			if (betw_q == false)
 				i++;
 			y++;
