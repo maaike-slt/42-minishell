@@ -23,7 +23,7 @@ static size_t	get_right_pos(t_values *v, int *count, char type)
 	temp = count[(int)type];
 	while (v->cmd_str_b[i])
 	{
-		if (v->cmd_str_b[i] == type && count[(int)type] == 0)		//   0 not right here
+		if (v->cmd_str_b[i] == type && count[(int)type] == 0)
 		{
 			count[(int)type] = temp;
 			return (i);
@@ -34,7 +34,7 @@ static size_t	get_right_pos(t_values *v, int *count, char type)
 				sec_q = 1;
 			else
 			{
-				sec_q = 0;					// will this be accurate with different quotes ? I think so, it doesnt matter for count which type of quotes it is, as long as quotes are valid, i think
+				sec_q = 0;
 				(count[(int)type])--;
 			}
 		}
@@ -44,7 +44,7 @@ static size_t	get_right_pos(t_values *v, int *count, char type)
 	return (i);
 }
 
-static size_t	get_outside_q_size(t_values *v, int x, t_quote *q)		// to explain this func, i use the split tokens to get the char that could be attached to the string, can use cmd-str_b because if there is an expand I need to use it and not the expand name, so it is easier to use split tokens
+static size_t	get_outside_q_size(t_values *v, int x, t_quote *q)
 {
 	size_t	i;
 	size_t	y;
@@ -53,14 +53,13 @@ static size_t	get_outside_q_size(t_values *v, int x, t_quote *q)		// to explain 
 
 	end = false;
 	betw_q = false;
+	i = 0;						// DON'T CHANGE THIS, you introduced a bug here, i has to be incremented even if x changes, if you put i in the loop when x changes size will not be accurate
 	while (v->split_str[x])
 	{
-		i = 0;
 		y = 0;
 		while (v->split_str[x][y])
 		{
-//			if (v->split_str[x][y] == q->type)			// put all of this if in an helper func for norm
-			if (y == q->pos)			// put all of this if in an helper func for norm
+			if (y == q->pos)
 			{
 				if (betw_q == false)
 					betw_q = true;
@@ -74,6 +73,8 @@ static size_t	get_outside_q_size(t_values *v, int x, t_quote *q)		// to explain 
 				y++;
 				continue ;
 			}
+			if (v->split_str[x][y] == q->type)			//this probably won't work with ls aaa'test'$envvarwithquotes'test'aaa
+				betw_q = false;
 			if (betw_q == false)
 				i++;
 			y++;
@@ -108,7 +109,7 @@ static size_t	get_size(t_values *v, t_quote *q)
 
 	out_size = get_outside_q_size(v, q->x, q);		// don't touch q access , sometimes pass by value needed, sometimes pointer
 	in_size = get_inside_q_size(v, q->type, q->count);
-	return (out_size + in_size + 1);						// should i protect for ovrflow in this function ?
+	return (out_size + in_size + 1);
 }
 
 bool	manage_q_tok(t_values *v, t_quote *q)
@@ -116,12 +117,11 @@ bool	manage_q_tok(t_values *v, t_quote *q)
 	char	*new_tok;
 	size_t	size;
 
-//	size = get_size(v, q->x, q->type, q->count);		//for malloc
-	size = get_size(v, q);		//for malloc
+	size = get_size(v, q);
 	new_tok = malloc(sizeof(char) * size);
 	if (!new_tok)
 		return (false);
-	copy_in_tok(v, new_tok, q->x, q);			// I pass x to use pass by value and not pointer
+	copy_in_tok(v, new_tok, q->x, q);			// x pass by value needed, don't change
 	manage_rest_tok(v, new_tok, q);
 	return (true);
 }

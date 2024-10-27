@@ -57,7 +57,7 @@ static size_t	free_useless_tok(t_values *v, size_t x, char type)
 
 	x++;
 	res = has_type(v->split_str[x], type);
-	while (res != -1 && res != 1)						// here why not result ==0 ?			// this loop likely is not correct // no it is correct i think
+	while (res != -1 && res != 1)
 	{
 		free(v->split_str[x]);
 		x++;
@@ -71,7 +71,7 @@ static size_t	move_tokens(t_values *v, size_t x, size_t sec_q_tok)
 {
 	sec_q_tok++;
 	x++;
-	if (!(v->split_str[x]))		// no this is not right		// yes, is some case this can point to a freed token  // I think v->split_str[sec_q_tok] in the check ws a good idea // i think this protec is meaningless // have to redo all of this function
+	if (!(v->split_str[x]))
 		return (x);
 	while (v->split_str[sec_q_tok])
 	{
@@ -89,7 +89,6 @@ void	manage_rest_tok(t_values *v, char *new_tok, t_quote *q)
 	char	*old_tok;
 
 	old_tok = v->split_str[q->x];
-//	old_tok_pos = &v->split_str[q->x][q->pos];
 	v->split_str[q->x] = new_tok;
 	if (has_two_types(&old_tok[q->pos], q->type))
 	{
