@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 18:16:21 by gbonis            #+#    #+#             */
-/*   Updated: 2024/10/25 15:52:49 by msloot           ###   ########.fr       */
+/*   Updated: 2024/10/27 14:06:33 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	sig_int(int x)
 {
 	extern int	sig;
 
+	(void)x;
 	if (sig == -2)		//minishell in minishell signals
 		return ;
 	if (sig == -1)		// everything sig == -1 is to handle signal while a bin is running in a child process, sig -1 is set in execute()
@@ -48,15 +49,15 @@ void	sig_int(int x)
 	}
 	rl_done = 1;		// do nothing except returning readline (and print ^C in previous line, as in bash)
 	sig = 1;
-	x++;		// ASK: what is 'x' and what does it do in this function and the next?		// ANS: for the norm, did this quickly and forgot about it (you cant declare void func(void))
 }
 
-void	sig_quit(int x)		// ASK: is sigquit maybe a better option? (how it's usually represented) //ANS: if this is about the name, yes.
+void	sig_quit(int x)
 {
 	extern int	sig;
 	char		*temp;
 	char		*new;
 
+	(void)x;
 	if (sig == -2)				//minishell in minishell signals
 		return ;
 	rl_erase_empty_line = 1;
@@ -79,29 +80,25 @@ void	sig_quit(int x)		// ASK: is sigquit maybe a better option? (how it's usuall
 		rl_line_buffer[ft_strlen(temp) - 2] = 0;	// hack to have a clean buffer in the history
 	rl_end -= 2;				// without this, buffer contains "  "
 	sig = 2;
-	x++;
 }
-
-
-// ASK: incomplete type "struct sigaction" is not allowed		// ANS: I don't understand, is this about some compiler warning ?
 
 int	set_sig_handler(void)
 {
-	struct sigaction s_sig_c;	
-	struct sigaction s_sig_quit;
-	struct sigaction s_sig_z;
+	struct sigaction	s_sig_int;
+	struct sigaction	s_sig_quit;
+	struct sigaction	s_sig_z;
 
 	rl_event_hook = event;		// needed to check for rl_done in signals, to return readline on ^C
-	s_sig_c.sa_handler = sig_int;
-	s_sig_c.sa_flags = SA_RESTART;
+	s_sig_int.sa_handler = sig_int;
+	s_sig_int.sa_flags = SA_RESTART;
 	s_sig_quit.sa_handler = sig_quit;
 	s_sig_quit.sa_flags = SA_RESTART;
 	s_sig_z.sa_handler = handl_z;
 	s_sig_z.sa_flags = SA_RESTART;
-	sigemptyset(&s_sig_c.sa_mask);
+	sigemptyset(&s_sig_int.sa_mask);
 	sigemptyset(&s_sig_quit.sa_mask);
 	sigemptyset(&s_sig_z.sa_mask);
-	sigaction(SIGINT, &s_sig_c, NULL);
+	sigaction(SIGINT, &s_sig_int, NULL);
 	sigaction(SIGQUIT, &s_sig_quit, NULL);
 	sigaction(SIGTSTP, &s_sig_quit, NULL);
 	return (0);
