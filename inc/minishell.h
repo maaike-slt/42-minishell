@@ -80,6 +80,7 @@ bool	redir_case_r_n_s(t_values *v, char *s, size_t *step);
 // quote parsing //
 bool	quote_parsing(t_values *values, int	*tab);
 bool	check_quote(t_values *v, char *s);
+bool	if_pass_check(char c, int *tab, t_quote *q);
 
 // quote resolving //
 bool	do_quotes(t_values *values);

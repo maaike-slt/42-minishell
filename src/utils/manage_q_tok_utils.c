@@ -86,7 +86,7 @@ void copy_in_tok(t_values *v, char *s, int x, t_quote *q)
 		i++;
 		y++;
 	}
-	copy_in_cmd_str(v, s, &y, q);
+	copy_in_cmd_str(v, s, &y, q);			//count should only be manipulated in / after this func
 	go_to_next_q(v, &x, &i, q->type);
 	while (v->split_str[x][i])
 	{

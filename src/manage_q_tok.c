@@ -12,6 +12,22 @@
 
 #include "minishell.h"
 
+int	next_pos(t_values *v, t_quote *q, int x, int y)
+{
+	y++;
+	while(v->split_str[x][y])
+	{
+		if (if_pass_check(v->split_str[x][y], q->tab, q) == false)
+		{
+			q->pos = y;
+			return (0);
+		}
+		y++;
+	}
+	q->pos = -1;
+	return (-1);
+}
+
 static size_t	get_right_pos(t_values *v, int *count, char type)
 {
 	size_t	i;
@@ -50,22 +66,24 @@ static size_t	get_outside_q_size(t_values *v, int x, t_quote *q)
 	size_t	y;
 	bool	betw_q;
 	bool	end;
+	int		temp;
 
+	temp = q->pos;
 	end = false;
 	betw_q = false;
-	i = 0;						// DON'T CHANGE THIS, you introduced a bug here, i has to be incremented even if x changes, if you put i in the loop when x changes size will not be accurate
+	i = 0;						// pls don't change this, i needs to be outside the loop
 	while (v->split_str[x])
 	{
 		y = 0;
 		while (v->split_str[x][y])
 		{
-			if (y == q->pos)
+			if (y == q->pos)				// en fait je peux pas avoir le q->pos comme cą, parce que sinon dans le x d'après ça va s'arreter sur pos invariablement, soit je build les tableau dans la boucle soit je call a nouveau if pass
 			{
 				if (betw_q == false)
 					betw_q = true;
 				else
 				{
-					betw_q = false;
+					betw_q = false;			//this loop is broken, 
 					end = true;
 					y++;
 					continue ;
@@ -73,8 +91,14 @@ static size_t	get_outside_q_size(t_values *v, int x, t_quote *q)
 				y++;
 				continue ;
 			}
-			if (v->split_str[x][y] == q->type)			//this probably won't work with ls aaa'test'$envvarwithquotes'test'aaa
+			if (v->split_str[x][y] == q->type) //should call if pass, also need to work with the two types, and has to manage with envvar quotes, so use tab (in if pass for ex) // peut etre je peux juste call if pass check sur chaque char ici
+			{
+				if (next_pos(v, q, x, y) == -1)
+					end = true;
 				betw_q = false;
+				y++;
+				continue ;
+			}
 			if (betw_q == false)
 				i++;
 			y++;
@@ -83,6 +107,7 @@ static size_t	get_outside_q_size(t_values *v, int x, t_quote *q)
 			break ;
 		x++;
 	}
+	q->pos = temp;
 	return (i);
 }
 
@@ -107,7 +132,7 @@ static size_t	get_size(t_values *v, t_quote *q)
 	size_t	out_size;
 	size_t	in_size;
 
-	out_size = get_outside_q_size(v, q->x, q);		// don't touch q access , sometimes pass by value needed, sometimes pointer
+	out_size = get_outside_q_size(v, q->x, q);		// pls don't touch x access, pass by value needed
 	in_size = get_inside_q_size(v, q->type, q->count);
 	return (out_size + in_size + 1);
 }
@@ -121,7 +146,7 @@ bool	manage_q_tok(t_values *v, t_quote *q)
 	new_tok = malloc(sizeof(char) * size);
 	if (!new_tok)
 		return (false);
-	copy_in_tok(v, new_tok, q->x, q);			// x pass by value needed, don't change
+	copy_in_tok(v, new_tok, q->x, q);			// pls don't change x, pass by value needed
 	manage_rest_tok(v, new_tok, q);
 	return (true);
 }

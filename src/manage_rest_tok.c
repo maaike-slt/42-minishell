@@ -90,7 +90,7 @@ void	manage_rest_tok(t_values *v, char *new_tok, t_quote *q)
 
 	old_tok = v->split_str[q->x];
 	v->split_str[q->x] = new_tok;
-	if (has_two_types(&old_tok[q->pos], q->type))
+	if (has_two_types(&old_tok[q->pos], q->type))		// will this work with env var with quote in split token with two valid quotes ?
 	{
 		free(old_tok);
 		return ;

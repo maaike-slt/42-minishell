@@ -12,11 +12,15 @@
 
 #include "minishell.h"
 
-static bool	if_pass_check(char c, int *tab, t_quote *q)
+bool	if_pass_check(char c, int *tab, t_quote *q)
 {
+	int	tmp;
+
+	tmp = *tab;
+
 	if (c == '\'' || c == '\"')
 	{
-		if (*tab == 0)
+		if (tmp == 0)
 		{
 			(q->z)++;
 			q->pos = q->y;
@@ -24,7 +28,7 @@ static bool	if_pass_check(char c, int *tab, t_quote *q)
 		}
 		else
 		{
-			(*tab)--;
+			tmp--;
 			return (true);
 		}
 	}
