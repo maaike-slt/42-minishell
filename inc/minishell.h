@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 17:18:41 by msloot            #+#    #+#             */
-/*   Updated: 2024/10/27 18:18:54 by msloot           ###   ########.fr       */
+/*   Updated: 2024/10/28 18:39:04 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define MINISHELL_H
 
 # define _XOPEN_SOURCE 700
+
+# define EX_ERR	!EX_OK
 
 # include "../libft/inc/libft.h"
 
@@ -111,5 +113,6 @@ int		exec(t_values *values);
 
 // builtins //
 int		echo(size_t argc, char **argv, char **envp);
+int		pwd(void);
 
 #endif
