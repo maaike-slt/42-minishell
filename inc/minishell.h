@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 17:18:41 by msloot            #+#    #+#             */
-/*   Updated: 2024/10/28 18:28:31 by msloot           ###   ########.fr       */
+/*   Updated: 2024/10/28 18:39:04 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,6 @@ int		exec(t_values *values);
 
 // builtins //
 int		echo(size_t argc, char **argv, char **envp);
-int		ft_pwd(void);
+int		pwd(void);
 
 #endif
