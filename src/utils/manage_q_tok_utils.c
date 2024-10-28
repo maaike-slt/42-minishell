@@ -58,14 +58,15 @@ static void	copy_in_cmd_str(t_values *v, char *s, size_t *y, t_quote *q)
 	{
 		if (v->cmd_str_b[i] == q->type && q->count[(int)q->type] == 0)
 		{
-			q->count[(int)q->type] = temp;
 			do_copy(&v->cmd_str_b[i + 1], s, y, q->type);
+			q->count[(int)q->type] = temp;
 			return ;
 		}
 		if (v->cmd_str_b[i] == q->type)
 		{
 			(q->count[(int)q->type])--;
 			i++;
+			continue ;
 		}
 		i++;
 	}
