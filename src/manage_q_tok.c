@@ -134,6 +134,8 @@ static size_t	get_size(t_values *v, t_quote *q)
 
 	out_size = get_outside_q_size(v, q->x, q);		// pls don't touch x access, pass by value needed
 	in_size = get_inside_q_size(v, q->type, q->count);
+//	printf("%zu\n", out_size);
+//	printf("%zu\n", in_size);
 	return (out_size + in_size + 1);
 }
 
