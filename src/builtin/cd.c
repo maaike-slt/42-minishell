@@ -23,4 +23,5 @@ int	cd(size_t argc, char **argv, char **envp)
 		return (EX_ERR); // will need to replace by minishell error later
 	return (EX_OK);
 	// update pwd to the new location
+	(void)envp; // compile
 }
