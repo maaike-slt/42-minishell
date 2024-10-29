@@ -19,8 +19,8 @@ int	next_pos(t_values *v, t_quote *q, int x, int y)
 	{
 		if (if_pass_check(v->split_str[x][y], q->tab, q) == false)
 		{
-			q->count_next_quote++;
 			q->pos = y;
+			q->count_next_quote++;
 			return (0);
 		}
 		y++;
@@ -108,6 +108,8 @@ static size_t	get_outside_q_size(t_values *v, int x, t_quote *q)
 				i++;
 			y++;
 		}
+		if (q->pos == 0)
+			q->pos = -1;
 		if (end)
 			break ;
 		x++;
@@ -124,11 +126,26 @@ static size_t	get_inside_q_size(t_values *v, char type, int *count, t_quote *q)
 	size = 0;
 	i = get_right_pos(v, count, type);
 	i++;
-	while (v->cmd_str_b[i] != type)
+//	while (v->cmd_str_b[i] != type)
+//	{
+////		if (v->cmd_str_b[i + 1] == type && q->count_next_quote)		// trouver un moyen d'aller a la prochaine quote peut importe type (accepter les deux)  pour avoir la bonne sie si deux quote token doivent etre joint
+////		{
+////			while (v->cmd
+//		size++;
+//		i++;
+//	}
+	while (v->cmd_str_b[i] != type || q->count_next_quote)
 	{
-//		if (v->cmd_str_b[i + 1] == type && q->count_next_quote)		// trouver un moyen d'aller a la prochaine quote peut importe type (accepter les deux)  pour avoir la bonne sie si deux quote token doivent etre joint
-//		{
-//			while (v->cmd
+		if (v->cmd_str_b[i] == type && q->count_next_quote)		// trouver un moyen d'aller a la prochaine quote peut importe type (accepter les deux)  pour avoir la bonne sie si deux quote token doivent etre joint
+		{
+			i++;
+			while (v->cmd_str_b[i] != '\'' && v->cmd_str_b[i] != '\"')
+				i++;
+			type = v->cmd_str_b[i];
+			i++;
+			q->count_next_quote--;
+			continue ;
+		}
 		size++;
 		i++;
 	}
