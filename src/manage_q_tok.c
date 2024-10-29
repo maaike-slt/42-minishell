@@ -19,6 +19,7 @@ int	next_pos(t_values *v, t_quote *q, int x, int y)
 	{
 		if (if_pass_check(v->split_str[x][y], q->tab, q) == false)
 		{
+			q->count_next_quote++;
 			q->pos = y;
 			return (0);
 		}
@@ -66,11 +67,13 @@ static size_t	get_outside_q_size(t_values *v, int x, t_quote *q)
 	size_t	y;
 	bool	betw_q;
 	bool	end;
+	bool	sec_valid_q;
 	int		temp;
 
 	temp = q->pos;
 	end = false;
 	betw_q = false;
+	sec_valid_q = false;
 	i = 0;						// pls don't change this, i needs to be outside the loop
 	while (v->split_str[x])
 	{
@@ -79,6 +82,7 @@ static size_t	get_outside_q_size(t_values *v, int x, t_quote *q)
 		{
 			if (y == q->pos)				// en fait je peux pas avoir le q->pos comme cą, parce que sinon dans le x d'après ça va s'arreter sur pos invariablement, soit je build les tableau dans la boucle soit je call a nouveau if pass
 			{
+				sec_valid_q = true;
 				if (betw_q == false)
 					betw_q = true;
 				else
@@ -91,9 +95,10 @@ static size_t	get_outside_q_size(t_values *v, int x, t_quote *q)
 				y++;
 				continue ;
 			}
-			if (v->split_str[x][y] == q->type) //should call if pass, also need to work with the two types, and has to manage with envvar quotes, so use tab (in if pass for ex) // peut etre je peux juste call if pass check sur chaque char ici
+			if (v->split_str[x][y] == q->type && sec_valid_q == true) // si je mets une var sec valid quote ici, que je set quand je rentre dans pos ça peut le faire ?
 			{
-				if (next_pos(v, q, x, y) == -1)
+				sec_valid_q = false;
+				if (next_pos(v, q, x, y) == -1)			// bug parce que tab pas incrḿenté
 					end = true;
 				betw_q = false;
 				y++;
@@ -111,7 +116,7 @@ static size_t	get_outside_q_size(t_values *v, int x, t_quote *q)
 	return (i);
 }
 
-static size_t	get_inside_q_size(t_values *v, char type, int *count)
+static size_t	get_inside_q_size(t_values *v, char type, int *count, t_quote *q)
 {
 	size_t	i;
 	size_t	size;
@@ -121,9 +126,13 @@ static size_t	get_inside_q_size(t_values *v, char type, int *count)
 	i++;
 	while (v->cmd_str_b[i] != type)
 	{
+//		if (v->cmd_str_b[i + 1] == type && q->count_next_quote)		// trouver un moyen d'aller a la prochaine quote peut importe type (accepter les deux)  pour avoir la bonne sie si deux quote token doivent etre joint
+//		{
+//			while (v->cmd
 		size++;
 		i++;
 	}
+	(void)q;
 	return (size);
 }
 
@@ -133,9 +142,9 @@ static size_t	get_size(t_values *v, t_quote *q)
 	size_t	in_size;
 
 	out_size = get_outside_q_size(v, q->x, q);		// pls don't touch x access, pass by value needed
-	in_size = get_inside_q_size(v, q->type, q->count);
-//	printf("%zu\n", out_size);
-//	printf("%zu\n", in_size);
+	in_size = get_inside_q_size(v, q->type, q->count, q);
+	printf("%zu\n", in_size);
+	printf("%zu\n", out_size);
 	return (out_size + in_size + 1);
 }
 
@@ -145,6 +154,7 @@ bool	manage_q_tok(t_values *v, t_quote *q)
 	size_t	size;
 
 	size = get_size(v, q);
+	return false; 			/// FOR TEST
 	new_tok = malloc(sizeof(char) * size);
 	if (!new_tok)
 		return (false);

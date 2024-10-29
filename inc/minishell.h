@@ -41,6 +41,7 @@ typedef struct s_quote
 	char	type;
 	int		*tab;
 	size_t	pos;
+	size_t	count_next_quote;
 }t_quote;
 
 typedef struct s_values

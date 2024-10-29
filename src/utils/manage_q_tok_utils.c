@@ -46,6 +46,8 @@ static void	do_copy(char *cmd_str, char *s, size_t *y, char type)
 	return ;
 }
 
+//static void manage_type_counter
+
 static void	copy_in_cmd_str(t_values *v, char *s, size_t *y, t_quote *q)
 {
 	int	temp;
@@ -53,14 +55,20 @@ static void	copy_in_cmd_str(t_values *v, char *s, size_t *y, t_quote *q)
 
 	i = 0;
 	temp = q->count[(int)q->type];
+//	manage_type_counter(q);
 	q->count[(int)q->type] *= 2;
 	while (v->cmd_str_b[i])
 	{
 		if (v->cmd_str_b[i] == q->type && q->count[(int)q->type] == 0)
 		{
 			do_copy(&v->cmd_str_b[i + 1], s, y, q->type);
-			q->count[(int)q->type] = temp;
-			return ;
+//			q->count[(int)q->type] = temp;
+//			if (q->count_next_quote == 0)						// for potential next quote in same split token i will to check for other type also
+//			{
+				q->count[(int)q->type] = temp;				// ah je peux faire une fonction search next type si je dois continuer la search
+//				return ;
+//			}
+//			q->count_next_quote--;							// problem, if type is different on encounter new quote in cmdr_str_b, need to manage count[type] somehow for next iteration
 		}
 		if (v->cmd_str_b[i] == q->type)
 		{

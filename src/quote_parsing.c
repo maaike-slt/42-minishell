@@ -14,13 +14,9 @@
 
 bool	if_pass_check(char c, int *tab, t_quote *q)
 {
-	int	tmp;
-
-	tmp = *tab;
-
 	if (c == '\'' || c == '\"')
 	{
-		if (tmp == 0)
+		if (tab[q->z] == 0)
 		{
 			(q->z)++;
 			q->pos = q->y;
@@ -29,7 +25,7 @@ bool	if_pass_check(char c, int *tab, t_quote *q)
 		}
 		else
 		{
-			tmp--;
+			(tab[q->z])--;
 			return (true);
 		}
 	}
@@ -44,6 +40,7 @@ static void	init_quote(t_quote *q, int *tab)
 	q->type = 0;
 	q->tab = tab;
 	q->pos = 0;
+	q->count_next_quote = 0;
 	q->count['\''] = 0;
 	q->count['\"'] = 0;
 }
@@ -58,7 +55,7 @@ bool	quote_parsing(t_values *v, int	*tab)
 		q.y = 0;
 		while (v->split_str[q.x][q.y])
 		{
-			if (if_pass_check(v->split_str[q.x][q.y], &tab[q.z], &q)	== false)
+			if (if_pass_check(v->split_str[q.x][q.y], &tab[q.z], &q) == false)
 			{
 //				q.type = v->split_str[q.x][q.y];
 				if (manage_q_tok(v, &q) == false)
