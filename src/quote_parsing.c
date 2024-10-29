@@ -16,7 +16,7 @@ bool	if_pass_check(char c, int *tab, t_quote *q)
 {
 	if (c == '\'' || c == '\"')
 	{
-		if (tab[q->z] == 0)
+		if (*tab == 0)
 		{
 			(q->z)++;
 			q->pos = q->y;
@@ -25,7 +25,7 @@ bool	if_pass_check(char c, int *tab, t_quote *q)
 		}
 		else
 		{
-			(tab[q->z])--;
+			(*tab)--;
 			return (true);
 		}
 	}

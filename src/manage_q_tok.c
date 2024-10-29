@@ -17,7 +17,7 @@ int	next_pos(t_values *v, t_quote *q, int x, int y)
 	y++;
 	while(v->split_str[x][y])
 	{
-		if (if_pass_check(v->split_str[x][y], q->tab, q) == false)
+		if (if_pass_check(v->split_str[x][y], &q->tab[q->z], q) == false)
 		{
 			q->pos = y;
 			q->count_next_quote++;
@@ -160,8 +160,8 @@ static size_t	get_size(t_values *v, t_quote *q)
 
 	out_size = get_outside_q_size(v, q->x, q);		// pls don't touch x access, pass by value needed
 	in_size = get_inside_q_size(v, q->type, q->count, q);
-	printf("%zu\n", in_size);
-	printf("%zu\n", out_size);
+//	printf("%zu\n", in_size);
+//	printf("%zu\n", out_size);
 	return (out_size + in_size + 1);
 }
 
@@ -171,7 +171,6 @@ bool	manage_q_tok(t_values *v, t_quote *q)
 	size_t	size;
 
 	size = get_size(v, q);
-	return false; 			/// FOR TEST
 	new_tok = malloc(sizeof(char) * size);
 	if (!new_tok)
 		return (false);
