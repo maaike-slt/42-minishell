@@ -69,8 +69,10 @@ static size_t	get_outside_q_size(t_values *v, int x, t_quote *q)
 	bool	end;
 	bool	sec_valid_q;
 	int		temp;
+	char	temp_type;
 
 	temp = q->pos;
+	temp_type = q->type;
 	end = false;
 	betw_q = false;
 	sec_valid_q = false;
@@ -115,6 +117,7 @@ static size_t	get_outside_q_size(t_values *v, int x, t_quote *q)
 		x++;
 	}
 	q->pos = temp;
+	q->type = temp_type;
 	return (i);
 }
 
