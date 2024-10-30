@@ -100,7 +100,7 @@ static size_t	get_outside_q_size(t_values *v, int x, t_quote *q)
 			if (v->split_str[x][y] == q->type && sec_valid_q == true) // si je mets une var sec valid quote ici, que je set quand je rentre dans pos ça peut le faire ?
 			{
 				sec_valid_q = false;
-				if (next_pos(v, q, x, y) == -1)			// bug parce que tab pas incrḿenté
+				if (next_pos(v, q, x, y) == -1)
 					end = true;
 				betw_q = false;
 				y++;
@@ -139,20 +139,19 @@ static size_t	get_inside_q_size(t_values *v, char type, int *count, t_quote *q)
 //	}
 	while (v->cmd_str_b[i] != type || q->count_next_quote)
 	{
-		if (v->cmd_str_b[i] == type && q->count_next_quote)		// trouver un moyen d'aller a la prochaine quote peut importe type (accepter les deux)  pour avoir la bonne sie si deux quote token doivent etre joint
+		if (v->cmd_str_b[i] == type && q->count_next_quote)	
 		{
 			i++;
 			while (v->cmd_str_b[i] != '\'' && v->cmd_str_b[i] != '\"')
 				i++;
 			type = v->cmd_str_b[i];
 			i++;
-			q->count_next_quote--;
+			q->count_next_quote--;			// pour que la version copy fonctionne j'aurais prob besoin de temp ça count next_quote
 			continue ;
 		}
 		size++;
 		i++;
 	}
-	(void)q;
 	return (size);
 }
 
