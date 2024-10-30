@@ -129,14 +129,6 @@ static size_t	get_inside_q_size(t_values *v, char type, int *count, t_quote *q)
 	size = 0;
 	i = get_right_pos(v, count, type);
 	i++;
-//	while (v->cmd_str_b[i] != type)
-//	{
-////		if (v->cmd_str_b[i + 1] == type && q->count_next_quote)		// trouver un moyen d'aller a la prochaine quote peut importe type (accepter les deux)  pour avoir la bonne sie si deux quote token doivent etre joint
-////		{
-////			while (v->cmd
-//		size++;
-//		i++;
-//	}
 	while (v->cmd_str_b[i] != type || q->count_next_quote)
 	{
 		if (v->cmd_str_b[i] == type && q->count_next_quote)	
@@ -162,8 +154,8 @@ static size_t	get_size(t_values *v, t_quote *q)
 
 	out_size = get_outside_q_size(v, q->x, q);		// pls don't touch x access, pass by value needed
 	in_size = get_inside_q_size(v, q->type, q->count, q);
-//	printf("%zu\n", in_size);
-//	printf("%zu\n", out_size);
+	printf("%zu\n", in_size);
+	printf("%zu\n", out_size);
 	return (out_size + in_size + 1);
 }
 
@@ -173,6 +165,7 @@ bool	manage_q_tok(t_values *v, t_quote *q)
 	size_t	size;
 
 	size = get_size(v, q);
+	return false;
 	new_tok = malloc(sizeof(char) * size);
 	if (!new_tok)
 		return (false);
