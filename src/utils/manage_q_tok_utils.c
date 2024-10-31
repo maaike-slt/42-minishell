@@ -12,115 +12,12 @@
 
 #include "minishell.h"
 
-//static void	go_to_next_q(t_values *v, int *x, size_t *i, char type)
-//{
-//	(*i)++;
-//	while (v->split_str[(*x)])
-//	{
-//		while (v->split_str[(*x)][(*i)])
-//		{
-//			if (v->split_str[(*x)][(*i)] == type)
-//			{
-//				(*i)++;
-//				return ;
-//			}
-//			(*i)++;
-//		}
-//		(*i) = 0;
-//		(*x)++;
-//	}
-//	return ;
-//}
-//
-//static void	do_copy(char *cmd_str, char *s, size_t *y, char type)
-//{
-//	size_t	i;
-//
-//	i = 0;
-//	while (cmd_str[i] != type)
-//	{
-//		s[(*y)] = cmd_str[i];
-//		(*y)++;
-//		i++;
-//	}
-//	return ;
-//}
-//
-////static void manage_type_counter
-//
-//static void	copy_in_cmd_str(t_values *v, char *s, size_t *y, t_quote *q)
-//{
-//	int	temp;
-//	size_t	i;
-//
-//	i = 0;
-//	temp = q->count[(int)q->type];
-////	manage_type_counter(q);
-//	q->count[(int)q->type] *= 2;
-//	while (v->cmd_str_b[i])
-//	{
-//		if (v->cmd_str_b[i] == q->type && q->count[(int)q->type] == 0)
-//		{
-//			do_copy(&v->cmd_str_b[i + 1], s, y, q->type);
-//			q->count[(int)q->type] = temp;
-//			return ;
-////			if (q->count_next_quote == 0)						// for potential next quote in same split token i will to check for other type also
-////			{
-////				q->count[(int)q->type] = temp;				// ah je peux faire une fonction search next type si je dois continuer la search
-////				return ;
-////			}
-////			q->count_next_quote--;							// problem, if type is different on encounter new quote in cmdr_str_b, need to manage count[type] somehow for next iteration
-//		}
-//		if (v->cmd_str_b[i] == q->type)
-//		{
-//			(q->count[(int)q->type])--;
-//			i++;
-//			continue ;
-//		}
-//		i++;
-//	}
-//	q->count[(int)q->type] = temp;
-//	return ;
-//}
-
-//void copy_in_tok(t_values *v, char *s, int x, t_quote *q)	
-//{
-//	size_t	i;
-//	size_t	y;
-//
-//	i = 0;
-//	y = 0;
-//	while (i != q->pos)
-//	{
-//		s[y] = v->split_str[x][i];
-//		i++;
-//		y++;
-//	}
-//	copy_in_cmd_str(v, s, &y, q);			//count should only be manipulated in / after this func
-//	go_to_next_q(v, &x, &i, q->type);
-//	while (v->split_str[x][i])
-//	{
-//		if (v->split_str[x][i] == '\'' || v->split_str[x][i] == '\"')		// for case ls '''''''' or ls ''""''""''""
-//			break ;
-//		s[y] = v->split_str[x][i];
-//		i++;
-//		y++;
-//	}
-//	s[y] = 0;
-//	return ;
-//}
-
-
-
-
-
-
-static size_t	get_next_i(t_values *v, size_t count_next_quote)
+static size_t	get_next_i(t_values *v, size_t count_next_quote, size_t *calc_right_size)
 {
 	size_t	i;
 	size_t	size;
 	char	type;
-	static size_t	calc_right_size; 		// otherwise on second pass size will be grom the beginning and not wht is needed 
+//	static size_t	calc_right_size; 	//size wrong on sec pass otherwise
 	size_t	temp;
 
 	i = 0;
@@ -135,8 +32,8 @@ static size_t	get_next_i(t_values *v, size_t count_next_quote)
 				if (!count_next_quote)
 				{
 					temp = size;
-					size -= calc_right_size;
-					calc_right_size = temp;
+					size -= *calc_right_size;
+					*calc_right_size = temp;
 					return (size);
 				}
 				count_next_quote--;
@@ -175,6 +72,7 @@ static void	copy_outside(t_values *v, int x, t_quote *q, char *new_tok)		// copy
 	bool	sec_valid_q;
 	int		temp;
 	char	temp_type;
+	static size_t	calc_right_size; 	//size wrong on sec pass otherwise
 
 	temp = q->pos;
 	temp_type = q->type;
@@ -205,7 +103,7 @@ static void	copy_outside(t_values *v, int x, t_quote *q, char *new_tok)		// copy
 			if (v->split_str[x][y] == q->type && sec_valid_q == true)
 			{
 				sec_valid_q = false;
-				i += get_next_i(v, q->count_next_quote);
+				i += get_next_i(v, q->count_next_quote, &calc_right_size);
 				if (next_pos(v, q, x, y) == -1)
 					end = true;
 				betw_q = false;
@@ -227,6 +125,7 @@ static void	copy_outside(t_values *v, int x, t_quote *q, char *new_tok)		// copy
 	}
 	q->pos = temp;
 	q->type = temp_type;
+	calc_right_size = 0;
 	return ;
 }
 
