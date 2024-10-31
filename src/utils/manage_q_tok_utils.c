@@ -17,7 +17,6 @@ static size_t	get_next_i(t_values *v, size_t count_next_quote, size_t *calc_righ
 	size_t	i;
 	size_t	size;
 	char	type;
-//	static size_t	calc_right_size; 	//size wrong on sec pass otherwise
 	size_t	temp;
 
 	i = 0;
@@ -88,6 +87,7 @@ static void	copy_outside(t_values *v, int x, t_quote *q, char *new_tok)		// copy
 			if (y == q->pos)
 			{
 				sec_valid_q = true;
+				q->pos = -1;
 				if (betw_q == false)
 					betw_q = true;
 				else
@@ -117,8 +117,8 @@ static void	copy_outside(t_values *v, int x, t_quote *q, char *new_tok)		// copy
 			}
 			y++;
 		}
-		if (q->pos == 0)
-			q->pos = -1;
+//		if (q->pos == 0)
+//			q->pos = -1;
 		if (end)
 			break ;
 		x++;
@@ -129,14 +129,16 @@ static void	copy_outside(t_values *v, int x, t_quote *q, char *new_tok)		// copy
 	return ;
 }
 
-static void	copy_inside(t_values *v, int *count, t_quote *q, char *new_tok)		//copy inside		// probleme ici je dois pouvoir mettre new tok en arg, mais ca fera 5, dois checker si pass by pointer here is faisable
+static void	copy_inside(t_values *v, int *count, t_quote *q, char *new_tok)
 {
 	size_t	i;
 	size_t y;
 	char type;
+	size_t temp;
 
 	y = 0;
 	type = q->type;
+	temp = q->count_next_quote;
 	i = get_right_pos(v, count, type);
 	i++;
 	skip_char(new_tok, &y);
@@ -147,9 +149,9 @@ static void	copy_inside(t_values *v, int *count, t_quote *q, char *new_tok)		//c
 			i++;
 			while (v->cmd_str_b[i] != '\'' && v->cmd_str_b[i] != '\"')
 				i++;
-			type = v->cmd_str_b[i];				// aussi pour que copy fonctionne, je dois temp le type ici// NON PARCE QUE PASS BY VALUE, mais justement je vais changer ça
+			type = v->cmd_str_b[i];
 			i++;
-			q->count_next_quote--;			// pour que la version copy fonctionne j'aurais prob besoin de temp ça count next_quote		//non je pense pas parce que normalement la fonction copy outside recalcule le truc
+			q->count_next_quote--;
 			skip_char(new_tok, &y);
 			continue ;
 		}
@@ -157,6 +159,7 @@ static void	copy_inside(t_values *v, int *count, t_quote *q, char *new_tok)		//c
 		y++;
 		i++;
 	}
+	q->count_next_quote = temp;
 	return ;
 }
 

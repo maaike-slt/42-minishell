@@ -17,7 +17,7 @@ static int	has_type(char *s, char type)
 	size_t	i;
 
 	i = 0;
-	if (!s)
+	if (!s)				// for NULL terminated
 		return (-1);
 	while (s[i])
 	{
@@ -51,19 +51,21 @@ static int	has_two_types(char *s, char type)
 	return (0);
 }
 
-static size_t	free_useless_tok(t_values *v, size_t x, char type)
+static size_t	free_useless_tok(t_values *v, size_t x, char type, t_quote *q)
 {
 	int	res;
 
 	x++;
 	res = has_type(v->split_str[x], type);
-	while (res != -1 && res != 1)
+//	while (res != -1 && res != 1)				// check if i can change this line to if == 0
+	while (!res)		// icic !res || count next quote * 2 quelque chose comme ça
 	{
 		free(v->split_str[x]);
 		x++;
 		res = has_type(v->split_str[x], type);
 	}
 	free(v->split_str[x]);
+	(void)q;
 	return (x);
 }
 
@@ -96,7 +98,7 @@ void	manage_rest_tok(t_values *v, char *new_tok, t_quote *q)
 		return ;
 	}
 	free(old_tok);
-	sec_q_tok = free_useless_tok(v, q->x, q->type);
+	sec_q_tok = free_useless_tok(v, q->x, q->type, q);
 	last_viable_tok = move_tokens(v, q->x, sec_q_tok);
 	tmp = last_viable_tok;
 	v->split_str[tmp] = NULL;
