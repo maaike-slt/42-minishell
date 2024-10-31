@@ -65,7 +65,7 @@ static void	skip_char(char *new_tok, size_t *i)
 static void	copy_outside(t_values *v, int x, t_quote *q, char *new_tok)		// copy_outside
 {
 	size_t	i;
-	size_t	y;
+	int	y;
 	bool	betw_q;
 	bool	end;
 	bool	sec_valid_q;
@@ -104,9 +104,12 @@ static void	copy_outside(t_values *v, int x, t_quote *q, char *new_tok)		// copy
 			{
 				sec_valid_q = false;
 				i += get_next_i(v, q->count_next_quote, &calc_right_size);
+				betw_q = false;				//avant avant y++
 				if (next_pos(v, q, x, y) == -1)
+				{
+					betw_q = true;		// ajout			/ cas 'ls' ''''''					/// PERHAPS FIXED, CHECK ALL CASES
 					end = true;
-				betw_q = false;
+				}
 				y++;
 				continue ;
 			}

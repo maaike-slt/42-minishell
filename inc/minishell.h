@@ -40,7 +40,7 @@ typedef struct s_quote
 	int		count[50];
 	char	type;
 	int		*tab;
-	size_t	pos;
+	int	pos;
 	size_t	new_tok_size;
 	size_t	count_next_quote;
 }t_quote;

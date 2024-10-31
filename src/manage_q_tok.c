@@ -64,7 +64,7 @@ size_t	get_right_pos(t_values *v, int *count, char type)
 static size_t	get_outside_q_size(t_values *v, int x, t_quote *q)
 {
 	size_t	i;
-	size_t	y;
+	int	y;
 	bool	betw_q;
 	bool	end;
 	bool	sec_valid_q;
