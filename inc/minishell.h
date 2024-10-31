@@ -41,6 +41,7 @@ typedef struct s_quote
 	char	type;
 	int		*tab;
 	size_t	pos;
+	size_t	new_tok_size;
 	size_t	count_next_quote;
 }t_quote;
 
@@ -84,6 +85,8 @@ bool	redir_case_r_n_s(t_values *v, char *s, size_t *step);
 bool	quote_parsing(t_values *values, int	*tab);
 bool	check_quote(t_values *v, char *s);
 bool	if_pass_check(char c, int *tab, t_quote *q);
+int		next_pos(t_values *v, t_quote *q, int x, int y);
+size_t	get_right_pos(t_values *v, int *count, char type);
 
 // quote resolving //
 bool	do_quotes(t_values *values);

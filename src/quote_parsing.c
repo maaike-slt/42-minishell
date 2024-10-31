@@ -57,7 +57,6 @@ bool	quote_parsing(t_values *v, int	*tab)
 		{
 			if (if_pass_check(v->split_str[q.x][q.y], &tab[q.z], &q) == false)
 			{
-//				q.type = v->split_str[q.x][q.y];
 				if (manage_q_tok(v, &q) == false)
 					return (false);
 				(q.count[(int)q.type])++;
