@@ -106,10 +106,10 @@ static void	copy_outside(t_values *v, int x, t_quote *q, char *new_tok)		// copy
 				i += get_next_i(v, q->count_next_quote, &calc_right_size);
 				betw_q = false;				//avant avant y++
 				if (next_pos(v, q, x, y) == -1)
-				{
-					betw_q = true;		// ajout			/ cas 'ls' ''''''					/// PERHAPS FIXED, CHECK ALL CASES
-					end = true;
-				}
+//				{
+//					betw_q = false;		// ajout			/ cas 'ls' ''''''					/// PERHAPS FIXED, CHECK ALL CASES
+					end = true;					// probleme ici pour cas ls aaaaa'     'aaaa
+//				}
 				y++;
 				continue ;
 			}
