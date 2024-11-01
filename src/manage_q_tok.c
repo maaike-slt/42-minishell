@@ -70,9 +70,11 @@ static size_t	get_outside_q_size(t_values *v, int x, t_quote *q)
 	bool	sec_valid_q;
 	int		temp;
 	char	temp_type;
+	int		temp_z;
 
 	temp = q->pos;
 	temp_type = q->type;
+	temp_z = q->z;
 	end = false;
 	betw_q = false;
 	sec_valid_q = false;
@@ -82,7 +84,7 @@ static size_t	get_outside_q_size(t_values *v, int x, t_quote *q)
 		y = 0;
 		while (v->split_str[x][y])
 		{
-			if (y == q->pos)				// en fait je peux pas avoir le q->pos comme cą, parce que sinon dans le x d'après ça va s'arreter sur pos invariablement, soit je build les tableau dans la boucle soit je call a nouveau if pass
+			if (y == q->pos)
 			{
 				sec_valid_q = true;
 				if (betw_q == false)
@@ -97,7 +99,7 @@ static size_t	get_outside_q_size(t_values *v, int x, t_quote *q)
 				y++;
 				continue ;
 			}
-			if (v->split_str[x][y] == q->type && sec_valid_q == true) // si je mets une var sec valid quote ici, que je set quand je rentre dans pos ça peut le faire ?
+			if (v->split_str[x][y] == q->type && sec_valid_q == true)
 			{
 				sec_valid_q = false;
 				if (next_pos(v, q, x, y) == -1)
@@ -118,6 +120,7 @@ static size_t	get_outside_q_size(t_values *v, int x, t_quote *q)
 	}
 	q->pos = temp;
 	q->type = temp_type;
+	q->z = temp_z;
 	return (i);
 }
 
