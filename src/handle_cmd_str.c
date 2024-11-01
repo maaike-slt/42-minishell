@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 17:05:10 by gbonis            #+#    #+#             */
-/*   Updated: 2024/10/25 16:52:15 by msloot           ###   ########.fr       */
+/*   Updated: 2024/11/01 17:10:48 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,11 @@ bool	handle_cmd_str(t_values *v)
 		handle_sig(&sig, v);
 		return (false);				// return here because if given "ls ^C" ls will be executed, when it shouldnt be
 	}
-	if (parse(v) == false)
+	if (!parse(v))
 		return (false);
-	if (get_struct_values(v) == false)
+	if (!exec_builtin(v))
+		return (false);
+	if (!get_struct_values(v))
 		return (false);
 	exec(v);
 	v->redpip_counter = 0;

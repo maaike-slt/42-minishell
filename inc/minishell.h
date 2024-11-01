@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 17:18:41 by msloot            #+#    #+#             */
-/*   Updated: 2024/10/29 18:57:11 by msloot           ###   ########.fr       */
+/*   Updated: 2024/11/01 17:09:09 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define MINISHELL_H
 
 # define _XOPEN_SOURCE 700
+
+# define BIN_NAME	"minishell: "
 
 # define EX_ERR	!EX_OK
 
@@ -114,10 +116,15 @@ int		set_sig_handler(void);
 
 // exec //
 int		exec(t_values *values);
+bool	exec_builtin(t_values *v);
 
 // builtins //
+int		builtin(size_t argc, char **argv, char **envp);
 int		echo(size_t argc, char **argv, char **envp);
 int		cd(size_t argc, char **argv, char **envp);
 int		pwd(void);
+
+// error_msg //
+void	error(const char *err_src, const char *msg);
 
 #endif

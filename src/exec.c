@@ -6,11 +6,18 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 14:39:26 by gbonis            #+#    #+#             */
-/*   Updated: 2024/10/23 21:49:31 by msloot           ###   ########.fr       */
+/*   Updated: 2024/11/01 17:10:50 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+bool	exec_builtin(t_values *v)
+{
+	if (!builtin(ft_2d_size((const void **)v->split_str), v->split_str, v->env))
+		return (false);
+	return (true);
+}
 
 int	exec(t_values *v)
 {
