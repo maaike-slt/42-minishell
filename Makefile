@@ -6,7 +6,7 @@
 #    By: msloot <msloot@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 19:19:04 by msloot            #+#    #+#              #
-#    Updated: 2024/10/29 17:43:10 by msloot           ###   ########.fr        #
+#    Updated: 2024/11/01 13:44:40 by msloot           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,6 +79,7 @@ SRC_NAME =	main.c \
 			builtin/echo.c \
 			builtin/pwd.c \
 			builtin/cd.c \
+			utils/error.c \
 
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 
