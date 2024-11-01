@@ -16,6 +16,7 @@ int	cd(size_t argc, char **argv, char **envp)
 {
 	int	ret;
 
+	ret = 0;
 	if (argc > 2)
 		return (error(argv[0], "too many arguments"), EX_ERR);
 	if (argc == 1)
