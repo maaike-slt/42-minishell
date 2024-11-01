@@ -37,12 +37,12 @@ typedef struct s_quote
 	int		x;
 	int		y;
 	int		z;
-	int		count[50];
+	int		count[50];		// numb of quotes of type in cmd_str_b
 	char	type;
 	int		*tab;
 	int	pos;
 	size_t	new_tok_size;
-	size_t	count_next_quote;
+	size_t	count_next_quote;	//
 }t_quote;
 
 typedef struct s_values

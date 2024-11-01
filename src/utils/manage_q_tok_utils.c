@@ -20,6 +20,7 @@ static size_t	get_next_i(t_values *v, size_t count_next_quote, size_t *calc_righ
 	size_t	temp;
 
 	i = 0;
+//	i = get_next_
 	size = 0;
 	type = 0;
 	while (v->cmd_str_b[i])
@@ -53,7 +54,6 @@ static size_t	get_next_i(t_values *v, size_t count_next_quote, size_t *calc_righ
 	}
 	return (size + 1);
 }
-
 
 static void	skip_char(char *new_tok, size_t *i)
 {
