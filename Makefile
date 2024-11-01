@@ -6,7 +6,7 @@
 #    By: msloot <msloot@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 19:19:04 by msloot            #+#    #+#              #
-#    Updated: 2024/11/01 13:44:40 by msloot           ###   ########.fr        #
+#    Updated: 2024/11/01 15:14:51 by msloot           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,6 +76,7 @@ SRC_NAME =	main.c \
 			manage_q_tok.c \
 			utils/manage_q_tok_utils.c \
 			manage_rest_tok.c \
+			builtin/exec.c \
 			builtin/echo.c \
 			builtin/pwd.c \
 			builtin/cd.c \

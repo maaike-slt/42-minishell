@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 14:39:26 by gbonis            #+#    #+#             */
-/*   Updated: 2024/10/23 21:49:31 by msloot           ###   ########.fr       */
+/*   Updated: 2024/11/01 15:23:33 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ int	exec(t_values *v)
 		return (0);
 	else if (pid == 0)
 	{
+		status = builtin(ft_2d_size(
+					(const void **)v->split_str), v->split_str, v->env);
+		if (status != -1)
+			exit(status);
 		if (execve(v->abs_path_bin, v->split_str, v->env) == -1)
 		{
 			if (v->abs_path_bin)
