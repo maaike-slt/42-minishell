@@ -20,7 +20,7 @@ static size_t	get_next_i(t_values *v, size_t count_next_quote, size_t *calc_righ
 	size_t	temp;
 
 	i = 0;
-//	i = get_next_
+//	i = get_next_				// for multiple tokens with multiple quotes
 	size = 0;
 	type = 0;
 	while (v->cmd_str_b[i])
@@ -89,16 +89,18 @@ static void	copy_outside(t_values *v, int x, t_quote *q, char *new_tok)		// copy
 				sec_valid_q = true;
 				q->pos = -1;
 				if (betw_q == false)
-					betw_q = true;
-				else
 				{
-					betw_q = false;
-					end = true;
+					betw_q = true;
 					y++;
 					continue ;
 				}
-				y++;
-				continue ;
+//				else
+//				{
+//					betw_q = false;
+//					end = true;				COMMENTED THIS, TEST EVERYGHING
+//					y++;
+//					continue ;
+//				}
 			}
 			if (v->split_str[x][y] == q->type && sec_valid_q == true)
 			{

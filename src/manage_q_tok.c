@@ -87,17 +87,22 @@ static size_t	get_outside_q_size(t_values *v, int x, t_quote *q)
 			if (y == q->pos)
 			{
 				sec_valid_q = true;
+				q->pos = -1;
+//				if (betw_q == false)
+//					betw_q = true;
 				if (betw_q == false)
+				{
 					betw_q = true;
+					y++;
+					continue ;
+				}
 //				else
 //				{
-//					betw_q = false;			//this loop is broken, 
+//					betw_q = false;			//je dois trouver un moyen que quand ça passe ici et quon est dans les quote, que lon incremente pas y et que lon continue sur nextpos
 //					end = true;
 //					y++;
 //					continue ;
 //				}
-				y++;
-				continue ;
 			}
 			if (v->split_str[x][y] == q->type && sec_valid_q == true)
 			{
@@ -112,8 +117,8 @@ static size_t	get_outside_q_size(t_values *v, int x, t_quote *q)
 				i++;
 			y++;
 		}
-		if (q->pos == 0)
-			q->pos = -1;
+//		if (q->pos == 0)
+//			q->pos = -1;
 		if (end)
 			break ;
 		x++;
