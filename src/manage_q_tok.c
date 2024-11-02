@@ -89,13 +89,13 @@ static size_t	get_outside_q_size(t_values *v, int x, t_quote *q)
 				sec_valid_q = true;
 				if (betw_q == false)
 					betw_q = true;
-				else
-				{
-					betw_q = false;			//this loop is broken, 
-					end = true;
-					y++;
-					continue ;
-				}
+//				else
+//				{
+//					betw_q = false;			//this loop is broken, 
+//					end = true;
+//					y++;
+//					continue ;
+//				}
 				y++;
 				continue ;
 			}
