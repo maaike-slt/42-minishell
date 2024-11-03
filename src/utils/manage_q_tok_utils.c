@@ -152,7 +152,7 @@ static void	copy_inside(t_values *v, int *count, t_quote *q, char *new_tok)
 		y++;
 		i++;
 	}
-	q->count_next_quote = temp;
+	q->count_next_quote = temp;		//dont know if it is a good idea, but the temp here is to use in exit manage tok (free and increment), could set it up in a struct
 	return ;
 }
 
