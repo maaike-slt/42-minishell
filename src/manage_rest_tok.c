@@ -119,6 +119,7 @@ void	manage_rest_tok(t_values *v, char *new_tok, t_quote *q)
 	old_tok = v->split_str[q->x];
 	if (has_two_types(&old_tok[q->pos], q->type, q))		// this only needs to check with the tab (for envvar quotes), if the count in a single split token is two, i think this func is alright. Anyway dont touch this for now, well see when envvar testing multiple quotes in sinlge token and multiple tok
 	{
+		v->split_str[q->x] = new_tok;
 		free(old_tok);
 		return ;
 	}
