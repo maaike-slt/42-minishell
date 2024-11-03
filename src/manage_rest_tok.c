@@ -12,17 +12,23 @@
 
 #include "minishell.h"
 
-static int	has_type(char *s, char type, size_t *quote_counter)
+static int	has_type(char *s, char *type, size_t *quote_counter)
 {
 	size_t	i;
 	bool	flag;
 
+	flag = false;
 	i = 0;
 	if (!s)				// for NULL term
 		return (-1);
 	while (s[i])
 	{
-		if (s[i] == type)
+		if (*quote_counter % 2 == 0)
+		{
+			if (s[i] == '\'' || s[i] == '\"')
+				*type = s[i];
+		}	
+		if (s[i] == *type)
 		{
 			flag = true;
 			if (*quote_counter)
@@ -35,7 +41,7 @@ static int	has_type(char *s, char type, size_t *quote_counter)
 	return (0);
 }
 
-static int	has_two_types(char *s, char type)
+static int	has_two_types(char *s, char type, t_quote *q)
 {
 	size_t	i;
 	size_t	count;
@@ -49,7 +55,15 @@ static int	has_two_types(char *s, char type)
 		if (s[i] == type)
 		{
 			if (count == 1)
+			{
+				if (q->count_next_quote)
+				{
+					q->x--;
+					q->two_type = true;
+					return(0);
+				}
 				return (1);
+			}
 			else
 				count++;
 		}
@@ -58,19 +72,23 @@ static int	has_two_types(char *s, char type)
 	return (0);
 }
 
-static size_t	free_useless_tok(t_values *v, size_t x, char type, t_quote *q)
+static size_t	free_useless_tok(t_values *v, size_t x, t_quote *q)		//ATTENTION JE DOIS CHANGER LE TYPE LORSQUE YA QUOTE COUNTER > 0 // ouai aussi faudra voir sur le changement de type en fonction des skip de tab
 {
 	int	res;
 	size_t quote_counter;
 
-	quote_counter = (q->count_next_quote * 2) + 1; // +1 because second quote of first quote, otherwise last token not freed
+		
+	if (q->count_next_quote)
+		quote_counter = (q->count_next_quote * 2) + 1; // +1 because second quote of first quote, otherwise last token not freed
+	if (q->two_type)
+		quote_counter++;
 	x++;
-	res = has_type(v->split_str[x], type, &quote_counter);
+	res = has_type(v->split_str[x], &q->type, &quote_counter);
 	while (!res || quote_counter)  // will have to add tab check for env var (just put the value in quote counter with q->count i guess
 	{
 		free(v->split_str[x]);
 		x++;
-		res = has_type(v->split_str[x], type, &quote_counter);
+		res = has_type(v->split_str[x], &q->type, &quote_counter);
 	}
 	free(v->split_str[x]);
 	(void)q;
@@ -99,14 +117,14 @@ void	manage_rest_tok(t_values *v, char *new_tok, t_quote *q)
 	char	*old_tok;
 
 	old_tok = v->split_str[q->x];
-	v->split_str[q->x] = new_tok;
-	if (has_two_types(&old_tok[q->pos], q->type))		// this only needs to check with the tab (for envvar quotes), if the count in a single split token is two, i think this func is alright. Anyway dont touch this for now, well see when envvar testing multiple quotes in sinlge token and multiple tok
+	if (has_two_types(&old_tok[q->pos], q->type, q))		// this only needs to check with the tab (for envvar quotes), if the count in a single split token is two, i think this func is alright. Anyway dont touch this for now, well see when envvar testing multiple quotes in sinlge token and multiple tok
 	{
 		free(old_tok);
 		return ;
 	}
-	free(old_tok);
-	sec_q_tok = free_useless_tok(v, q->x, q->type, q);
+	sec_q_tok = free_useless_tok(v, q->x, q);
+	if (q->two_type)
+		q->x++;
 	last_viable_tok = move_tokens(v, q->x, sec_q_tok);
 	tmp = last_viable_tok;
 	v->split_str[tmp] = NULL;
@@ -115,6 +133,8 @@ void	manage_rest_tok(t_values *v, char *new_tok, t_quote *q)
 		free(v->split_str[last_viable_tok]);
 		last_viable_tok++;
 	}
+	v->split_str[q->x] = new_tok;
 	q->x = sec_q_tok;
+	q->two_type = false;
 	return ;
 }

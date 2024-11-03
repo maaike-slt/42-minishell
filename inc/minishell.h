@@ -39,6 +39,7 @@ typedef struct s_quote
 	int		x;
 	int		y;
 	int		z;
+	bool	two_type;
 	int		count[50];		// in order to have the right start point for inside cmd str functions
 	char	type;
 	int		*tab;

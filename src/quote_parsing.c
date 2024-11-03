@@ -37,6 +37,7 @@ static void	init_quote(t_quote *q, int *tab)
 	q->x = 0;
 	q->y = 0;
 	q->z = 0;
+	q->two_type = false;
 	q->type = 0;
 	q->tab = tab;
 	q->pos = 0;
