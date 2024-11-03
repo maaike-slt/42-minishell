@@ -23,7 +23,7 @@ static int	has_type(char *s, char *type, size_t *quote_counter)
 		return (-1);
 	while (s[i])
 	{
-		if (*quote_counter % 2 == 0)
+		if (*quote_counter % 2 == 0 && *quote_counter)
 		{
 			if (s[i] == '\'' || s[i] == '\"')
 				*type = s[i];
