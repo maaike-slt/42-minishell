@@ -77,7 +77,7 @@ static size_t	free_useless_tok(t_values *v, size_t x, t_quote *q)		//ATTENTION J
 	int	res;
 	size_t quote_counter;
 
-		
+	quote_counter = 0;	
 	if (q->count_next_quote)
 		quote_counter = (q->count_next_quote * 2) + 1; // +1 because second quote of first quote, otherwise last token not freed
 	if (q->two_type)
@@ -124,6 +124,7 @@ void	manage_rest_tok(t_values *v, char *new_tok, t_quote *q)
 		return ;
 	}
 	sec_q_tok = free_useless_tok(v, q->x, q);
+	free(old_tok);
 	if (q->two_type)
 		q->x++;
 	last_viable_tok = move_tokens(v, q->x, sec_q_tok);
