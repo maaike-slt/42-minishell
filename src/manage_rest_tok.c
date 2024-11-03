@@ -124,9 +124,10 @@ void	manage_rest_tok(t_values *v, char *new_tok, t_quote *q)
 		return ;
 	}
 	sec_q_tok = free_useless_tok(v, q->x, q);
-	free(old_tok);
 	if (q->two_type)
 		q->x++;
+	else
+		free(old_tok);
 	last_viable_tok = move_tokens(v, q->x, sec_q_tok);
 	tmp = last_viable_tok;
 	v->split_str[tmp] = NULL;
