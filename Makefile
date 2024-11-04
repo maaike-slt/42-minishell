@@ -76,6 +76,7 @@ SRC_NAME =	main.c \
 			manage_q_tok.c \
 			utils/manage_q_tok_utils.c \
 			manage_rest_tok.c \
+			manage_count.c\
 			builtin/exec.c \
 			builtin/echo.c \
 			builtin/pwd.c \

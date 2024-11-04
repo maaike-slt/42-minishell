@@ -14,6 +14,8 @@
 
 int	next_pos(t_values *v, t_quote *q, int x, int y)
 {
+	//peut etre ici je peux temp icic je peux temp les value du tab// non je pense pas, parce qu'on a besoin de pouvuoir garder l'incréentation du z, et donc on sait pas a l'avance
+	//de combien on aura besoin, autan duppliquer le tab
 	y++;
 	while(v->split_str[x][y])
 	{
@@ -170,5 +172,6 @@ bool	manage_q_tok(t_values *v, t_quote *q)
 	ft_bzero(new_tok, size);
 	copy_in_tok(v, new_tok, q->x, q);			// pls don't change x, pass by value needed
 	manage_rest_tok(v, new_tok, q);
+	manage_count(q);				//normalement pour incrémenter count j'ai juste besoin de count next quote et je regarde dans lacmd strb, parce j'aurais deja veirf 
 	return (true);
 }
