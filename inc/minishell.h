@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 17:18:41 by msloot            #+#    #+#             */
-/*   Updated: 2024/11/01 17:09:09 by msloot           ###   ########.fr       */
+/*   Updated: 2024/11/05 11:19:07 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ bool	exec_builtin(t_values *v);
 int		builtin(size_t argc, char **argv, char **envp);
 int		echo(size_t argc, char **argv, char **envp);
 int		cd(size_t argc, char **argv, char **envp);
+int		env(char **envp);
 int		pwd(void);
 
 // error_msg //
