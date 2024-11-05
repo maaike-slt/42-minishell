@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbonis <gbonis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:16:27 by gbonis            #+#    #+#             */
-/*   Updated: 2024/10/02 14:16:54 by gbonis           ###   ########.fr       */
+/*   Updated: 2024/11/05 17:27:08 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ bool	separate(char ***result, char *executable, int temp)
 	if (!(*result)[0])
 		return (false);
 	(*result)[0][temp + 1] = 0;
-	(*result)[1] = ft_strdup(executable + (temp + 1));		// do not change this, this is pointer arithm 
+	(*result)[1] = ft_strdup(executable + (temp + 1));		// do not change this, this is pointer arithm
 	if (!result[1])
 	{
 		free((*result)[0]);

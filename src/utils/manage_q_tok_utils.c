@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 15:31:31 by gbonis            #+#    #+#             */
-/*   Updated: 2024/10/25 17:37:17 by msloot           ###   ########.fr       */
+/*   Updated: 2024/11/05 17:32:14 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static size_t	get_next_i(t_values *v, size_t count_next_quote, size_t *calc_righ
 
 static void	skip_char(char *new_tok, size_t *i)
 {
-	while(new_tok[(*i)])
+	while (new_tok[(*i)])
 		(*i)++;
 	return ;
 }
@@ -65,10 +65,11 @@ static void	skip_char(char *new_tok, size_t *i)
 static void	copy_outside(t_values *v, int x, t_quote *q, char *new_tok)		// copy_outside
 {
 	size_t	i;
-	int	y;
+	int		y;
 	bool	betw_q;
 	bool	end;
 	bool	sec_valid_q;
+	// cannot have more than 5 variable declarations (norm)
 	int		temp;
 	char	temp_type;
 	static size_t	calc_right_size; 	//size wrong on sec pass otherwise
@@ -78,7 +79,7 @@ static void	copy_outside(t_values *v, int x, t_quote *q, char *new_tok)		// copy
 	end = false;
 	betw_q = false;
 	sec_valid_q = false;
-	i = 0;						// pls don't change this, i needs to be outside the loop
+	i = 0;				// pls don't change this, i needs to be outside the loop
 	while (v->split_str[x])
 	{
 		y = 0;
@@ -125,19 +126,19 @@ static void	copy_outside(t_values *v, int x, t_quote *q, char *new_tok)		// copy
 static void	copy_inside(t_values *v, int *count, t_quote *q, char *new_tok)
 {
 	size_t	i;
-	size_t y;
-	char type;
-	size_t temp;
+	size_t	y;
+	char	type;
+	size_t	tmp;
 
 	y = 0;
 	type = q->type;
-	temp = q->count_next_quote;
+	tmp = q->count_next_quote;
 	i = get_right_pos(v, count, type);
 	i++;
 	skip_char(new_tok, &y);
 	while (v->cmd_str_b[i] != type || q->count_next_quote)
 	{
-		if (v->cmd_str_b[i] == type && q->count_next_quote)	
+		if (v->cmd_str_b[i] == type && q->count_next_quote)
 		{
 			i++;
 			while (v->cmd_str_b[i] != '\'' && v->cmd_str_b[i] != '\"')
@@ -152,14 +153,14 @@ static void	copy_inside(t_values *v, int *count, t_quote *q, char *new_tok)
 		y++;
 		i++;
 	}
-	q->count_next_quote = temp;		//dont know if it is a good idea, but the temp here is to use in exit manage tok (free and increment), could set it up in a struct
+	q->count_next_quote = tmp;		//dont know if it is a good idea, but the tmp here is to use in exit manage tok (free and increment), could set it up in a struct
 	return ;
 }
 
-void copy_in_tok(t_values *v, char *s, int x, t_quote *q)	
+void	copy_in_tok(t_values *v, char *s, int x, t_quote *q)
 {
 	copy_outside(v, x, q, s);
-	copy_inside(v, q->count, q, s); 
+	copy_inside(v, q->count, q, s);
 	s[(q->new_tok_size - 1)] = 0;
 	return ;
 }
