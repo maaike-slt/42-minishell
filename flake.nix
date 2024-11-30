@@ -39,6 +39,9 @@
                 # build dependencies
                 clang
                 readline
+
+                # dev tools
+                norminette
               ];
 
               languages.c = {

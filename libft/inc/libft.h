@@ -20,7 +20,7 @@
 # include <stdbool.h>
 # include <limits.h>
 
-# ifdef	WITH_OPEN
+# ifdef WITH_OPEN
 
 #  include <fcntl.h>
 
@@ -175,7 +175,7 @@ t_vec	*
 
 char		*get_next_line(int fd);
 
-# ifdef	WITH_OPEN
+# ifdef WITH_OPEN
 
 ssize_t		count_line(const char *path);
 
