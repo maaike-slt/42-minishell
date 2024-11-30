@@ -36,14 +36,18 @@
             {
               # https://devenv.sh/reference/options/
               packages = with pkgs; [
+                # build dependencies
+                clang
                 readline
               ];
 
-              enterShell = ''
-                hello
-              '';
+              languages.c = {
+                enable = true;
+              };
 
-              processes.hello.exec = "hello";
+              enterShell = ''
+                alias cc='clang'
+              '';
             }
           ];
         };
