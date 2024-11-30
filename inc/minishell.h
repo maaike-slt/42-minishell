@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2024/11/30 22:18:40 by msloot           ###   ########.fr       */
+/*   Updated: 2024/11/30 23:26:39 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,10 @@
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <sysexits.h>
+
+# define PROMPT	"\033[1;32m>\033[0m "
+
+bool	loop(void);
+char	*prompt(void);
 
 #endif
