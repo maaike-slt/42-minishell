@@ -40,21 +40,6 @@ minishell
 *.x86_64
 *.hex
 
-# Debug files
-*.dSYM/
-*.su
-*.idb
-*.pdb
-
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
-
 ### Vim ###
 # Swap
 [._]*.s[a-v][a-z]
@@ -96,5 +81,8 @@ tags
 .ionide
 
 ### nix
+# direnv
+.direnv/
+
 # devenv
 .devenv/
