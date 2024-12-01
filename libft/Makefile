@@ -6,7 +6,7 @@
 #    By: msloot <msloot@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/21 17:15:16 by msloot            #+#    #+#              #
-#    Updated: 2024/12/01 16:12:40 by adelille         ###   ########.fr        #
+#    Updated: 2024/12/01 16:17:29 by adelille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ MAKEFLAGS += --silent
 SHELL := bash
 
 B =		$(shell tput bold)
-I =		$(shell tput stim)
+I =		$(shell tput sitm)
 
 BLA =	$(shell tput setaf 0)
 RED =	$(shell tput setaf 1)
