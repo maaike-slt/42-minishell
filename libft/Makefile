@@ -6,7 +6,7 @@
 #    By: msloot <msloot@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/21 17:15:16 by msloot            #+#    #+#              #
-#    Updated: 2024/12/01 12:48:15 by adelille         ###   ########.fr        #
+#    Updated: 2024/12/01 13:50:45 by adelille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,16 +40,16 @@ CYA =	$(shell tput setaf 6)
 WHI =	$(shell tput setaf 7)
 D =		$(shell tput sgr0)
 
-PRIMARY =   $(shell tput setaf 13)
-SECONDARY = $(GRE)
+PRIMARY =	$(shell tput setaf 13)
+SECONDARY =	$(GRE)
 
-PROGRESS_START =    $(PRIMARY)▐
-PROGRESS_END =      $(PRIMARY)▌
-# PROGRESS_EMPTY =  -
-PROGRESS_FILL =     $(SECONDARY)█
+PROGRESS_START =	$(PRIMARY)▐
+PROGRESS_END =		$(PRIMARY)▌
+# PROGRESS_EMPTY =	-
+PROGRESS_FILL =		$(SECONDARY)█
 
 # **************************************************************************** #
-#	SOURCE		#
+#	SOURCE	#
 
 SRC_PATH =			./src/
 OBJ_PATH =			./obj/
@@ -109,7 +109,7 @@ endef
 name = 0
 
 # *************************************************************************** #
-#	RULES		#
+#	RULES	#
 
 all:		launch $(NAME)
 	@if [ $(name) -ne 0 ]; then \
