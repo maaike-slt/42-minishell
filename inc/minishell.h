@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2024/11/30 23:26:39 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/01 17:54:36 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # define _XOPEN_SOURCE 700
 
-# define EX_ERR	!EX_OK
+# define EX_ERR	1
 
 # include "../libft/inc/libft.h"
 
@@ -34,7 +34,14 @@
 
 # define PROMPT	"\033[1;32m>\033[0m "
 
-bool	loop(void);
-char	*prompt(void);
+typedef struct s_expression
+{
+	int		argc;
+	char	**argv;
+}	t_expression;
+
+bool			loop(void);
+char			*prompt(void);
+t_expression	*parse(char *line);
 
 #endif

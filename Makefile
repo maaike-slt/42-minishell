@@ -6,7 +6,7 @@
 #    By: msloot <msloot@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 19:19:04 by msloot            #+#    #+#              #
-#    Updated: 2024/12/01 16:08:57 by adelille         ###   ########.fr        #
+#    Updated: 2024/12/01 17:52:37 by adelille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,6 +70,7 @@ SRC_PATH =	./src/
 OBJ_PATH =	./obj/
 
 SRC_NAME =	main.c loop.c prompt.c \
+			parse.c \
 
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 
