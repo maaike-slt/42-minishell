@@ -127,7 +127,7 @@ $(NAME):	$(OBJ)
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(LKFLAGS) -I$(INC) -c $< -o $@
+	$(CC) $(CFLAGS) $(LDFLAGS) -I$(INC) -c $< -o $@
 	@printf "$(D)$(PROGRESS_FILL)$(D)"
 
 clean:
