@@ -6,7 +6,7 @@
 #    By: msloot <msloot@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 19:19:04 by msloot            #+#    #+#              #
-#    Updated: 2024/12/01 13:54:58 by adelille         ###   ########.fr        #
+#    Updated: 2024/12/01 15:36:47 by adelille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,7 +93,7 @@ name = 0
 # *************************************************************************** #
 #	RULES	#
 
-all:		launch $(NAME)
+all:		$(LOCAL_LIB) launch $(NAME)
 	@if [ $(name) -ne 0 ]; then \
 		printf "\n$(B)$(PRIMARY)─╴$(NAME) compiled$(D)\n"; \
 	else \
@@ -103,9 +103,9 @@ all:		launch $(NAME)
 launch:
 	$(call progress_bar)
 
-$(NAME):	$(OBJ) $(LOCAL_LIB)
-	$(CC) $(CFLAGS) $(OBJ) $(LOCAL_LIB) -o $(NAME)
-	@printf "\n$(B)$(MAG)$(NAME) compiled$(D)\n"
+$(NAME):	$(LOCAL_LIB) $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) $(LOCAL_LIB) $(LDLIBS) -o $(NAME)
+	@$(eval name=1)
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@mkdir -p $(dir $@)
@@ -115,14 +115,14 @@ $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 $(LOCAL_LIB):
 	@$(MAKE) -C $(dir $@)
 
-clean:	$(addsuffix clean, $(LOCAL_LIB_PATH))
+clean:	$(addsuffix .clean, $(LOCAL_LIB_PATH))
 	@$(RM) $(OBJ_PATH)
 	@echo "$(B)cleared$(D)"
 
 %.clean:
 	@$(MAKE) clean -C $*
 
-fclean:		clean $(addsuffix fclean, $(LOCAL_LIB_PATH))
+fclean:		clean $(addsuffix .fclean, $(LOCAL_LIB_PATH))
 	@$(RM) $(NAME)
 
 %.fclean:
