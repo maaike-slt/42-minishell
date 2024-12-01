@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/01 17:54:36 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/01 18:49:12 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,12 @@
 # include <sysexits.h>
 
 # define PROMPT	"\033[1;32m>\033[0m "
+
+typedef struct s_expression_list
+{
+	t_expression				*expression;
+	struct s_expression_list	*next;
+}	t_expression_list;
 
 typedef struct s_expression
 {

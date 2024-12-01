@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 17:15:14 by adelille          #+#    #+#             */
-/*   Updated: 2024/12/01 18:06:30 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/01 18:59:24 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,12 @@ wildcard
 ls *.c
 */
 
-t_expression	*parse(char *line)
+t_expression_list	*parse(char *line)
 {
+	t_expression_list	*head;
 	/* size_t	i; */
 
 	if (!line || line[0] == '\0')
-		return (NULL);
+		return (NULL)
 	return (NULL);
 }
