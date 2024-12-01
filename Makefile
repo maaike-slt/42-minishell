@@ -104,7 +104,7 @@ launch:
 	$(call progress_bar)
 
 $(NAME):	$(LOCAL_LIB) $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) $(LOCAL_LIB) $(LDLIBS) -o $(NAME)
+	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJ) $(LOCAL_LIB) $(LDLIBS) -o $(NAME)
 	@$(eval name=1)
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
