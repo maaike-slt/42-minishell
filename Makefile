@@ -6,7 +6,7 @@
 #    By: msloot <msloot@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 19:19:04 by msloot            #+#    #+#              #
-#    Updated: 2024/12/01 17:52:37 by adelille         ###   ########.fr        #
+#    Updated: 2024/12/01 22:38:28 by adelille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,7 +70,8 @@ SRC_PATH =	./src/
 OBJ_PATH =	./obj/
 
 SRC_NAME =	main.c loop.c prompt.c \
-			parse.c \
+			parse/parse.c parse/is_separator.c parse/expression_len.c parse/extract_args.c \
+			arr.c \
 
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 
@@ -115,6 +116,9 @@ $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 
 $(LOCAL_LIB):
 	@$(MAKE) -C $(dir $@)
+
+test:		$(LOCAL_LIB) $(OBJ)
+	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJ) $(LOCAL_LIB) $(LDLIBS) $(ASMFLAGS) $(ASMINC) ./src/parse/expression_len.c -o ./test.out
 
 clean:	$(addsuffix .clean, $(LOCAL_LIB_PATH))
 	@$(RM) $(OBJ_PATH)

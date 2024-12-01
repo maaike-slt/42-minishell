@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/01 18:49:12 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/01 22:28:30 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,18 @@
 
 # define PROMPT	"\033[1;32m>\033[0m "
 
-typedef struct s_expression_list
+typedef struct s_arr
 {
-	t_expression				*expression;
-	struct s_expression_list	*next;
-}	t_expression_list;
+	void	*p;
+	size_t	len;
+	size_t	capacity;
+	size_t	cell_size;
+}   t_arr;
+
+#define ARR_INIT_SIZE 32
+
+bool	ft_arr_new(t_arr *arr, size_t cell_size);
+size_t	ft_arr_add(t_arr *arr, void *cell);
 
 typedef struct s_expression
 {
@@ -46,8 +53,14 @@ typedef struct s_expression
 	char	**argv;
 }	t_expression;
 
-bool			loop(void);
-char			*prompt(void);
-t_expression	*parse(char *line);
+typedef struct s_expression_list
+{
+	t_expression				*expression;
+	struct s_expression_list	*next;
+}	t_expression_list;
+
+bool				loop(void);
+char				*prompt(void);
+t_expression_list	*parse(char *line);
 
 #endif

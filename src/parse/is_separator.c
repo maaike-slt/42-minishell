@@ -1,30 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt.c                                           :+:      :+:    :+:   */
+/*   is_separator.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/30 23:19:10 by adelille          #+#    #+#             */
-/*   Updated: 2024/12/01 22:06:08 by adelille         ###   ########.fr       */
+/*   Created: 2024/12/01 21:55:28 by adelille          #+#    #+#             */
+/*   Updated: 2024/12/01 22:17:25 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-/**
- * @brief Prompt the user for a bash input
- * 
- * @return char* the user input (on the heap) or NULL if nothing
- */
-char	*prompt(void)
+bool	is_separator(char c)
 {
-	char	*line;
-
-	line = readline(PROMPT);
-	// FIXME: continue to prompt if line is still escaping
-	if (!line || line[0] == '\0')
-		return (free(line), NULL);
-	add_history(line);
-	return (line);
+	return (ft_is_in("<>|;&", c));
 }
