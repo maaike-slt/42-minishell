@@ -6,7 +6,7 @@
 #    By: msloot <msloot@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/21 17:15:16 by msloot            #+#    #+#              #
-#    Updated: 2024/12/01 13:50:45 by adelille         ###   ########.fr        #
+#    Updated: 2024/12/01 16:12:40 by adelille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,11 @@ CFLAGS =	-Wall -Werror -Wextra
 # CFLAGS +=	-fsanitize=address
 # CFLAGS +=	-Wsuggest-attribute=const
 
-LKFLAGS =	-MMD -MP
+ASMFLAGS =  -MMD -MP
+ASMINC =    -I./inc/
+
+# LDFLAGS =
+# LDLIBS =
 
 # **************************************************************************** #
 #	MAKEFILE	#
@@ -30,6 +34,8 @@ MAKEFLAGS += --silent
 SHELL := bash
 
 B =		$(shell tput bold)
+I =		$(shell tput stim)
+
 BLA =	$(shell tput setaf 0)
 RED =	$(shell tput setaf 1)
 GRE =	$(shell tput setaf 2)
@@ -38,7 +44,9 @@ BLU =	$(shell tput setaf 4)
 MAG =	$(shell tput setaf 5)
 CYA =	$(shell tput setaf 6)
 WHI =	$(shell tput setaf 7)
+
 D =		$(shell tput sgr0)
+CLR =	$(shell tput el 1)
 
 PRIMARY =	$(shell tput setaf 13)
 SECONDARY =	$(GRE)
@@ -53,7 +61,6 @@ PROGRESS_FILL =		$(SECONDARY)█
 
 SRC_PATH =			./src/
 OBJ_PATH =			./obj/
-INC =				./inc/
 
 SRC_NAME = \
 	ft_is/ft_isalpha.c ft_is/ft_isdigit.c ft_is/ft_isalnum.c \
@@ -88,8 +95,9 @@ SRC_NAME = \
 	read/get_next_line.c read/count_line.c \
 
 SRC =				$(addprefix $(SRC_PATH), $(SRC_NAME))
+
 # SRC =				$(wildcard $(SRC_PATH)*.c) $(wildcard $(SRC_PATH)**/*.c)
-#SRC_NAME =			$(subst $(SRC_PATH), , $(SRC))
+# SRC_NAME =		$(subst $(SRC_PATH), , $(SRC))
 
 OBJ_NAME =			$(SRC_NAME:.c=.o)
 OBJ =				$(addprefix $(OBJ_PATH), $(OBJ_NAME))
@@ -127,7 +135,7 @@ $(NAME):	$(OBJ)
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(LDFLAGS) -I$(INC) -c $< -o $@
+	$(CC) $(CFLAGS) $(ASMFLAGS) $(ASMINC) -c $< -o $@
 	@printf "$(D)$(PROGRESS_FILL)$(D)"
 
 clean:
