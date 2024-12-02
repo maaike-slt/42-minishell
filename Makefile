@@ -6,7 +6,7 @@
 #    By: msloot <msloot@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 19:19:04 by msloot            #+#    #+#              #
-#    Updated: 2024/12/01 22:38:28 by adelille         ###   ########.fr        #
+#    Updated: 2024/12/02 21:51:24 by adelille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -118,7 +118,9 @@ $(LOCAL_LIB):
 	@$(MAKE) -C $(dir $@)
 
 test:		$(LOCAL_LIB) $(OBJ)
-	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJ) $(LOCAL_LIB) $(LDLIBS) $(ASMFLAGS) $(ASMINC) ./src/parse/expression_len.c -o ./test.out
+	$(CC) $(CFLAGS) $(ASMFLAGS) $(ASMINC) -DTEST=1 -c ./src/main.c -o ./obj/main.o
+	$(CC) $(CFLAGS) $(ASMFLAGS) $(ASMINC) -DTEST=1 -c ./src/parse/expression_len.c -o ./obj/parse/expression_len.o
+	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJ) $(LOCAL_LIB) $(LDLIBS) -o ./test.out
 
 clean:	$(addsuffix .clean, $(LOCAL_LIB_PATH))
 	@$(RM) $(OBJ_PATH)

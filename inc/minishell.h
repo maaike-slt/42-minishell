@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/01 22:28:30 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/02 21:01:37 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,9 @@ typedef struct s_expression_list
 bool				loop(void);
 char				*prompt(void);
 t_expression_list	*parse(char *line);
+
+# ifdef TEST
+bool	test_expression_len(void);
+# endif
 
 #endif

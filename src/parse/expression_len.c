@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 21:56:57 by adelille          #+#    #+#             */
-/*   Updated: 2024/12/01 22:29:21 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/02 21:14:43 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ size_t	expression_len(const char *line)
 	e.double_quote = false;
 	i = 0;
 	while (line[i]
-		&& (e.backslash || e.single_quote || e.double_quote)
-		&& !is_separator(line[i]))
+		&& ((e.backslash || e.single_quote || e.double_quote)
+		|| !is_separator(line[i])))
 	{
 		if (e.backslash)
 			e.backslash = false;
@@ -40,10 +40,16 @@ size_t	expression_len(const char *line)
 }
 
 #ifdef TEST
-int	main(void)
+bool test_expression_len(void)
 {
-	char	*line = "echo \"Hello World\"";
-	size_t	len;
+	char	line[99];
+
+	strcpy(line, "echo \"Hello World\"");
+	if (expression_len(line) != 13)
+		return ();
+	strcpy(line, "echo 'Hello World'");
+	if (expression_len(line) != 13)
+		return (true);
 
 	len = expression_len(line);
 	printf("len: %zu\n", len);
