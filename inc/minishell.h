@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/02 20:04:34 by msloot           ###   ########.fr       */
+/*   Updated: 2024/12/02 22:08:50 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,18 @@ typedef struct s_args
 	char	**envp;
 }	t_args;
 
-
-void	init_signals(void);
-bool	loop(char **envp);
-char	*prompt(void);
+void		init_signals(void);
+bool		loop(char **envp);
+char		*prompt(void);
 
 t_dispatch	dispatch(t_args *arg);
+
+int			builtin(t_args *arg);
+int			cd(t_args *arg);
+int			echo(t_args *arg);
+int			env(char **envp);
+int			pwd(void);
+
+void		error(const char *err_src, const char *msg);
 
 #endif
