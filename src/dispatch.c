@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   dispatch.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/30 22:18:52 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/02 19:57:55 by msloot           ###   ########.fr       */
+/*   Created: 2024/12/02 19:23:35 by msloot            #+#    #+#             */
+/*   Updated: 2024/12/02 20:17:02 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+t_dispatch	dispatch(t_args *arg)
 {
-	(void)argc;
-	(void)argv;
-	ft_putstr("Hello, World!\n");
-	init_signals();
-	loop(envp);
-	rl_clear_history();
-	return (0);
+	if (ft_strcmp(arg->argv[0], "exit") == 0)
+	{
+		printf("\033[1;36m[DEBUG]\033[0m\texiting\n");
+		return (D_EXIT);
+	}
+	return (D_OKAY);
 }
