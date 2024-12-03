@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/02 21:01:37 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/03 21:23:05 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,9 @@ char				*prompt(void);
 t_expression_list	*parse(char *line);
 
 # ifdef TEST
+bool	assert(const char *name, bool r);
+bool	assert_eq(const char *name, ssize_t got, ssize_t expected);
+
 bool	test_expression_len(void);
 # endif
 

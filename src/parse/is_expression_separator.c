@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_separator.c                                     :+:      :+:    :+:   */
+/*   is_expression_separator.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 21:55:28 by adelille          #+#    #+#             */
-/*   Updated: 2024/12/01 22:17:25 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/03 21:28:36 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-bool	is_separator(char c)
+bool	is_expression_separator(char c)
 {
-	return (ft_is_in("<>|;&", c));
+	return (ft_is_in("|;&", c));
 }

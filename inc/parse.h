@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 21:54:18 by adelille          #+#    #+#             */
-/*   Updated: 2024/12/01 22:26:53 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/03 21:29:02 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ typedef struct s_escape
 	bool	double_quote;
 }	t_escape;
 
-bool	is_separator(char c);
+bool	is_expression_separator(char c);
 bool	extract_args(t_expression *exp, char *line, size_t len, char **envp);
 
 #endif

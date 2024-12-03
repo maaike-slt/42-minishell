@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 21:56:57 by adelille          #+#    #+#             */
-/*   Updated: 2024/12/02 21:14:43 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/03 22:08:46 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ size_t	expression_len(const char *line)
 	i = 0;
 	while (line[i]
 		&& ((e.backslash || e.single_quote || e.double_quote)
-		|| !is_separator(line[i])))
+			|| !is_expression_separator(line[i])))
 	{
 		if (e.backslash)
 			e.backslash = false;
@@ -40,19 +40,33 @@ size_t	expression_len(const char *line)
 }
 
 #ifdef TEST
-bool test_expression_len(void)
+
+bool	test_expression_len(void)
 {
-	char	line[99];
+	bool	r;
 
-	strcpy(line, "echo \"Hello World\"");
-	if (expression_len(line) != 13)
-		return ();
-	strcpy(line, "echo 'Hello World'");
-	if (expression_len(line) != 13)
-		return (true);
-
-	len = expression_len(line);
-	printf("len: %zu\n", len);
-	return (0);
+	r = EX_OK;
+	r |= assert_eq("expression_len echo \"Hello World\"",
+			expression_len("echo \"Hello World\""), 18);
+	r |= assert_eq("expression_len echo 'Hello World'",
+			expression_len("echo 'Hello World'"), 18);
+	r |= assert_eq("expression_len echo Hello World",
+			expression_len("echo Hello World"), 16);
+	r |= assert_eq("expression_len echo Hello World; echo here",
+			expression_len("echo Hello World; echo here"), 16);
+	r |= assert_eq("expression_len echo Hello\\ World",
+			expression_len("echo Hello\\ World"), 17);
+	r |= assert_eq("expression_len echo Hello World\\; echo here",
+			expression_len("echo Hello World\\; echo here"), 28);
+	r |= assert_eq("expression_len echo 'Hello World; echo here'",
+			expression_len("echo 'Hello World; echo here'"), 29);
+	r |= assert_eq("expression_len echo Hello World | cat -e",
+			expression_len("echo Hello World | cat -e"), 17);
+	r |= assert_eq("expression_len echo 'Hello World | cat -e'",
+			expression_len("echo 'Hello World | cat -e'"), 27);
+	r |= assert_eq("expression_len echo Hello World > file",
+			expression_len("echo Hello World > file"), 23);
+	return (r);
 }
+
 #endif

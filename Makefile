@@ -6,7 +6,7 @@
 #    By: msloot <msloot@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 19:19:04 by msloot            #+#    #+#              #
-#    Updated: 2024/12/02 21:51:24 by adelille         ###   ########.fr        #
+#    Updated: 2024/12/03 21:44:18 by adelille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,13 +70,19 @@ SRC_PATH =	./src/
 OBJ_PATH =	./obj/
 
 SRC_NAME =	main.c loop.c prompt.c \
-			parse/parse.c parse/is_separator.c parse/expression_len.c parse/extract_args.c \
+			parse/parse.c parse/is_expression_separator.c parse/expression_len.c parse/extract_args.c \
 			arr.c \
+			test.c \
 
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
+
+TEST_NAME = test
+TEST_OBJ_PATH =	./obj/test/
+TEST_OBJ_NAME =	$(filter-out main.o, $(OBJ_NAME))
+TEST_OBJ =	$(addprefix $(TEST_OBJ_PATH), $(TEST_OBJ_NAME))
 
 # *************************************************************************** #
 
@@ -114,16 +120,19 @@ $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	$(CC) $(CFLAGS) $(ASMFLAGS) $(ASMINC) -c $< -o $@
 	@printf "$(D)$(PROGRESS_FILL)$(D)"
 
+$(TEST_OBJ_PATH)%.o: $(SRC_PATH)%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(ASMFLAGS) $(ASMINC) -DTEST=1 -c $< -o $@
+
 $(LOCAL_LIB):
 	@$(MAKE) -C $(dir $@)
 
-test:		$(LOCAL_LIB) $(OBJ)
-	$(CC) $(CFLAGS) $(ASMFLAGS) $(ASMINC) -DTEST=1 -c ./src/main.c -o ./obj/main.o
-	$(CC) $(CFLAGS) $(ASMFLAGS) $(ASMINC) -DTEST=1 -c ./src/parse/expression_len.c -o ./obj/parse/expression_len.o
-	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJ) $(LOCAL_LIB) $(LDLIBS) -o ./test.out
+$(TEST_NAME):		$(LOCAL_LIB) $(TEST_OBJ)
+	$(CC) $(CFLAGS) $(LDFLAGS) $(TEST_OBJ) $(LOCAL_LIB) $(LDLIBS) -o $(TEST_NAME)
+	./$(TEST_NAME)
 
 clean:	$(addsuffix .clean, $(LOCAL_LIB_PATH))
-	@$(RM) $(OBJ_PATH)
+	@$(RM) $(OBJ_PATH) $(TEST_OBJ_PATH)
 	@echo "$(B)cleared$(D)"
 
 %.clean:

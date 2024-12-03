@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 17:15:14 by adelille          #+#    #+#             */
-/*   Updated: 2024/12/01 22:16:49 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/03 21:33:40 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static t_expression	*parse_single_expression(char *line, size_t *i)
 		free(exp);
 		return (NULL);
 	}
-	while (line[*i] && !is_separator(line[*i]))
+	while (line[*i] && !is_expression_separator(line[*i]))
 	{
 		if (!ft_arr_add(&arr, &line[*i]))
 		{
