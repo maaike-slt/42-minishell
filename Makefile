@@ -6,7 +6,7 @@
 #    By: msloot <msloot@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 19:19:04 by msloot            #+#    #+#              #
-#    Updated: 2024/12/02 21:42:35 by msloot           ###   ########.fr        #
+#    Updated: 2024/12/03 15:00:33 by msloot           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,7 +72,7 @@ OBJ_PATH =	./obj/
 SRC_NAME =	main.c signals.c loop.c prompt.c \
 			dispatch.c \
 			error.c \
-			builtin/cd.c builtin/echo.c builtin/env.c builtin/exec.c builtin/pwd.c \
+			builtin/cd.c builtin/echo.c builtin/env.c builtin/b_exec.c builtin/pwd.c \
 
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 

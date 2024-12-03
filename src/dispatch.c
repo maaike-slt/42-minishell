@@ -6,14 +6,14 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 19:23:35 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/02 22:26:27 by msloot           ###   ########.fr       */
+/*   Updated: 2024/12/03 15:05:42 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // tmp
-static int	i_fork(void)
+static int	i_fork(t_args *arg)
 {
 	pid_t	pid;
 
@@ -22,8 +22,11 @@ static int	i_fork(void)
 		return (perror("fork"), EX_ERR);
 	if (pid == 0)
 	{
+		if (!execve("/usr/bin/ls", arg->argv, arg->envp))
+			free(arg->argv);
 		ft_putstr("child\n");
 		sleep(1);
+		rl_clear_history();
 		exit(0);	// FIXME: do not just exit(0)
 	}
 	else	// TODO: remove else branch if child quits
@@ -48,7 +51,7 @@ t_dispatch	dispatch(t_args *arg)
 	// else if  in path
 	// for testing
 	else if (true)
-		i_fork();
+		i_fork(arg);
 	else
 		ft_putstr("command not found"); // TODO: finish this branch
 	return (D_OKAY);
