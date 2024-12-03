@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 19:23:35 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/03 15:05:42 by msloot           ###   ########.fr       */
+/*   Updated: 2024/12/03 20:48:51 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,10 @@ static int	i_fork(t_args *arg)
 		return (perror("fork"), EX_ERR);
 	if (pid == 0)
 	{
-		if (!execve("/usr/bin/ls", arg->argv, arg->envp))
-			free(arg->argv);
+		if (execve("/usr/bin/ls", arg->argv, arg->envp) == -1)
+			perror("execve");
 		ft_putstr("child\n");
 		sleep(1);
-		rl_clear_history();
 		exit(0);	// FIXME: do not just exit(0)
 	}
 	else	// TODO: remove else branch if child quits
