@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 19:23:35 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/03 20:48:51 by msloot           ###   ########.fr       */
+/*   Updated: 2024/12/05 19:41:16 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,9 @@ static int	i_fork(t_args *arg)
 		sleep(1);
 		exit(0);	// FIXME: do not just exit(0)
 	}
-	else	// TODO: remove else branch if child quits
-	{
-		ft_putstr("parent\n");
-		waitpid(pid, NULL, 0);
-		ft_putstr("child is done, too much child labor\n");
-	}
+	ft_putstr("parent\n");
+	waitpid(pid, NULL, 0);
+	ft_putstr("child is done, too much child labor\n");
 	return (EX_OK);
 }
 
