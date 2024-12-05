@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_expression_separator.c                          :+:      :+:    :+:   */
+/*   is_arg_separator.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/01 21:55:28 by adelille          #+#    #+#             */
-/*   Updated: 2024/12/05 19:55:24 by adelille         ###   ########.fr       */
+/*   Created: 2024/12/05 19:50:48 by adelille          #+#    #+#             */
+/*   Updated: 2024/12/05 19:55:59 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-inline bool	is_expression_separator(char c)
+inline bool	is_arg_separator(char c, char quote)
 {
-	return (ft_is_in("|;&", c));
+	return (!c || ft_isspace(c) || (quote && c == quote))
 }
