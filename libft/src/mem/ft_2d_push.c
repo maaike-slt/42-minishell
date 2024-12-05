@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_2d_push.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/05 11:09:00 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/03 21:03:09 by msloot           ###   ########.fr       */
+/*   Created: 2024/12/05 21:22:03 by msloot            #+#    #+#             */
+/*   Updated: 2024/12/05 21:55:18 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	env(char **envp)
+void	**ft_2d_push(void ***ptr, void *val)
 {
-	size_t	i;
+	size_t	size;
+	void	**new;
 
-	i = 0;
-	while (envp[i])
-	{
-		ft_putendl_fd(envp[i], STDOUT_FILENO);
-		i++;
-	}
-	return (EX_OK);
+	size = ft_2d_size((const void **)*ptr);
+	new = (void **)malloc(sizeof(void *) * (size + 1));
+	if (!new)
+		return (NULL);
+	ft_memcpy(new, *ptr, size);
+	new[size] = val;
+	new[size + 1] = NULL;
+	free(*ptr);
+	*ptr = new;
+	return (new);
 }

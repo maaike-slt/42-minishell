@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:38:29 by msloot            #+#    #+#             */
-/*   Updated: 2024/11/01 15:47:11 by msloot           ###   ########.fr       */
+/*   Updated: 2024/12/02 21:47:10 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ static bool	check_newline(char *str)
 	return (true);
 }
 
-static void	write_echo(size_t argc, char **argv)
+static void	write_echo(int argc, char **argv)
 {
-	size_t	i;
+	int		i;
 	bool	newline;
 
 	i = 1;
@@ -55,9 +55,8 @@ static void	write_echo(size_t argc, char **argv)
 		write(1, "\n", 1);
 }
 
-int	echo(size_t argc, char **argv, char **envp)
+int	echo(t_args *arg)
 {
-	(void)envp;
-	write_echo(argc, argv);
+	write_echo(arg->argc, arg->argv);
 	return (EX_OK);
 }

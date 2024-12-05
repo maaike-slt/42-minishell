@@ -6,7 +6,7 @@
 #    By: msloot <msloot@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/21 17:15:16 by msloot            #+#    #+#              #
-#    Updated: 2024/12/01 16:17:29 by adelille         ###   ########.fr        #
+#    Updated: 2024/12/05 21:28:06 by msloot           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,11 +70,11 @@ SRC_NAME = \
 	str/ft_strlen.c str/ft_strchr.c str/ft_strrchr.c str/ft_strcmp.c str/ft_strncmp.c str/ft_strcpy.c str/ft_strlcpy.c \
 	str/ft_strcat.c str/ft_strlcat.c str/ft_strnstr.c \
 	str/ft_toupper.c str/ft_tolower.c \
-	nbr/ft_abs.c \
+	nbr/ft_abs.c nbr/ft_min.c nbr/ft_max.c \
 	nbr/ft_nbrlen.c nbr/ft_nbrlen_base.c \
 	nbr/ft_unbrlen.c nbr/ft_unbrlen_base.c \
 	mem/ft_bzero.c mem/ft_memset.c mem/ft_memcpy.c mem/ft_memcmp.c mem/ft_memchr.c mem/ft_memmove.c \
-	mem/ft_free_2d.c mem/ft_2d_size.c \
+	mem/ft_free_2d.c mem/ft_2d_size.c mem/ft_2d_pop.c mem/ft_2d_drop.c mem/ft_2d_push.c \
 	convert/ft_atoi.c convert/ft_aton.c convert/ft_atoun.c convert/ft_atoi_digits_only.c  convert/ft_itoa.c \
 	convert/ft_ntoa_base.c convert/ft_ntoa.c \
 	convert/ft_untoa_base.c convert/ft_untoa.c \

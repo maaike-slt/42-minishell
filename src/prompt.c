@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 23:19:10 by adelille          #+#    #+#             */
-/*   Updated: 2024/12/01 22:06:08 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/05 22:04:40 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /**
  * @brief Prompt the user for a bash input
- * 
+ *
  * @return char* the user input (on the heap) or NULL if nothing
  */
 char	*prompt(void)

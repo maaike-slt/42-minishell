@@ -6,7 +6,7 @@
 #    By: msloot <msloot@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 19:19:04 by msloot            #+#    #+#              #
-#    Updated: 2024/12/05 21:57:08 by adelille         ###   ########.fr        #
+#    Updated: 2024/12/05 22:04:04 by adelille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,9 +70,15 @@ SRC_PATH =	./src/
 OBJ_PATH =	./obj/
 
 SRC_NAME =	main.c signals.c loop.c prompt.c \
-			parse/parse.c parse/is_expression_separator.c parse/expression_len.c parse/extract_args.c \
+			parse/parse.c \
+			parse/is_args_separator.c parse/is_expression_separator.c \
+			parse/expression_len.c parse/extract_args.c \
 			arr.c \
 			test.c \
+			dispatch.c \
+			error.c \
+			builtin/cd.c builtin/echo.c builtin/env.c builtin/b_exec.c builtin/pwd.c \
+			builtin/unset.c \
 
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 

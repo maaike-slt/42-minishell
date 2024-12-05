@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/05 21:58:02 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/05 22:05:45 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,36 @@ t_expression_list	*parse(char *line);
 void	init_signals(void);
 bool	loop(void);
 char	*prompt(void);
+
+typedef enum e_dispatch_code
+{
+	D_ERROR,
+	D_EXIT,
+	D_OKAY
+}				t_dispatch;
+
+typedef struct s_args
+{
+	size_t	argc;
+	char	**argv;
+	char	**envp;
+}	t_args;
+
+void		init_signals(void);
+bool		loop(char **envp);
+char		*prompt(void);
+
+t_dispatch	dispatch(t_args *arg);
+
+int			builtin(t_args *arg);
+int			cd(t_args *arg);
+int			echo(t_args *arg);
+int			env(char **envp);
+int			pwd(void);
+
+ssize_t		find_env(const char **envp, const char *key);
+
+void		error(const char *err_src, const char *msg);
 
 # ifdef TEST
 bool	assert(const char *name, bool r);
