@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 14:56:09 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/05 19:51:28 by msloot           ###   ########.fr       */
+/*   Updated: 2024/12/05 21:56:18 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void		ft_free_2d(void ***arr, size_t size);
 size_t		ft_2d_size(const void **ptr);
 void		*ft_2d_pop(void **ptr, size_t index);
 void		ft_2d_drop(void **ptr, size_t index);
+void		**ft_2d_push(void ***ptr, void *val);
 
 typedef struct s_base
 {
