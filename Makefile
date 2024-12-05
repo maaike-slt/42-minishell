@@ -6,7 +6,7 @@
 #    By: msloot <msloot@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 19:19:04 by msloot            #+#    #+#              #
-#    Updated: 2024/12/05 22:04:04 by adelille         ###   ########.fr        #
+#    Updated: 2024/12/05 22:07:33 by adelille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,7 +71,7 @@ OBJ_PATH =	./obj/
 
 SRC_NAME =	main.c signals.c loop.c prompt.c \
 			parse/parse.c \
-			parse/is_args_separator.c parse/is_expression_separator.c \
+			parse/is_arg_separator.c parse/is_expression_separator.c \
 			parse/expression_len.c parse/extract_args.c \
 			arr.c \
 			test.c \

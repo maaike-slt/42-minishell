@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 21:03:51 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/03 22:06:39 by msloot           ###   ########.fr       */
+/*   Updated: 2024/12/05 22:10:23 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	unset(t_args *arg)
 	ssize_t	index;
 
 	// TODO check for right number of args
-	index = find_env(arg->envp, arg->argv[1]);
+	index = find_env((const char **)(arg->envp), arg->argv[1]);
 	if (index != -1)
 	{
 		// handle not found

@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/05 22:05:45 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/05 22:07:02 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,10 @@ typedef struct s_expression_list
 	struct s_expression_list	*next;
 }	t_expression_list;
 
-bool				loop(void);
+bool				loop(char **envp);
 char				*prompt(void);
 t_expression_list	*parse(char *line);
-
-void	init_signals(void);
-bool	loop(void);
-char	*prompt(void);
+void				init_signals(void);
 
 typedef enum e_dispatch_code
 {

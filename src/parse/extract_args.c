@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 22:14:59 by adelille          #+#    #+#             */
-/*   Updated: 2024/12/05 21:13:04 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/05 22:08:13 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static char	*extract_single_arg(
 		else if (line[*i] == '$')
 		{
 			// FIXME: handle variables
+			(void)envp;
 			(*i)++;
 		}
 		else
