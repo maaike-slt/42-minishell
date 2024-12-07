@@ -1,27 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   envdup.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/30 22:18:52 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/07 19:01:31 by msloot           ###   ########.fr       */
+/*   Created: 2024/12/07 19:40:05 by msloot            #+#    #+#             */
+/*   Updated: 2024/12/07 19:55:16 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+char	**envdup(char **src)
 {
-	char	**envp_cpy;
+	size_t	i;
+	size_t	size;
+	char	**dst;
 
-	envp_cpy = envdup(envp);
-	(void)argc;
-	(void)argv;
-	ft_putstr("Hello, World!\n");
-	init_signals();
-	loop(envp);
-	rl_clear_history();
-	return (0);
+	size = ft_2d_size((const void **)src);
+	dst = (char **)malloc(sizeof(char *) * size);
+	if (!dst)
+		return (NULL);
+	i = 0;
+	while (i < size)
+	{
+		dst[i] = ft_strdup(src[i]);
+		if (!dst[i])
+			return (ft_2d_free((void ***)&dst, ft_2d_size((const void **)dst)),
+				NULL);
+		i++;
+	}
+	return (dst);
 }

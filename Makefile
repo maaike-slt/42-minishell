@@ -6,7 +6,7 @@
 #    By: msloot <msloot@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 19:19:04 by msloot            #+#    #+#              #
-#    Updated: 2024/12/03 21:04:16 by msloot           ###   ########.fr        #
+#    Updated: 2024/12/07 19:40:21 by msloot           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,7 +70,7 @@ SRC_PATH =	./src/
 OBJ_PATH =	./obj/
 
 SRC_NAME =	main.c signals.c loop.c prompt.c \
-			dispatch.c \
+			dispatch.c find_env.c envdup.c \
 			error.c \
 			builtin/cd.c builtin/echo.c builtin/env.c builtin/b_exec.c builtin/pwd.c \
 			builtin/unset.c \
