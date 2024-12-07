@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 14:56:09 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/05 21:56:18 by msloot           ###   ########.fr       */
+/*   Updated: 2024/12/07 20:01:04 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int			ft_memcmp(const void *s1, const void *s2, size_t n);
 void		*ft_memchr(const void *s, char c, size_t n);
 void		*ft_memmove(void *dst, const void *src, size_t n);
 
-void		ft_free_2d(void ***arr, size_t size);
+void		ft_2d_free(void ***arr, size_t size);
 size_t		ft_2d_size(const void **ptr);
 void		*ft_2d_pop(void **ptr, size_t index);
 void		ft_2d_drop(void **ptr, size_t index);
@@ -121,6 +121,7 @@ char		*ft_unbr_convert(char *dst, size_t n, size_t n_len);
 
 size_t		ft_check_base(const char *base);
 
+char		*ft_strpush(char **str, char c);
 char		*ft_strdup(const char *s);
 char		*ft_strndup(const char *s, size_t n);
 void		*ft_calloc(size_t nmemb, size_t size);
