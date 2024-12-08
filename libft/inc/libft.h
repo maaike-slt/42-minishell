@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 14:56:09 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/07 20:01:04 by msloot           ###   ########.fr       */
+/*   Updated: 2024/12/08 17:32:20 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <stdbool.h>
 # include <limits.h>
 
-# ifdef	WITH_OPEN
+# ifdef WITH_OPEN
 
 #  include <fcntl.h>
 
@@ -183,7 +183,7 @@ t_vec	*
 
 char		*get_next_line(int fd);
 
-# ifdef	WITH_OPEN
+# ifdef WITH_OPEN
 
 ssize_t		count_line(const char *path);
 
