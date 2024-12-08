@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/01 16:31:58 by msloot           ###   ########.fr       */
+/*   Updated: 2024/12/07 19:42:01 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,36 @@
 
 # define PROMPT	"\033[1;32m>\033[0m "
 
-void	init_signals(void);
-bool	loop(void);
-char	*prompt(void);
+typedef enum e_dispatch_code
+{
+	D_ERROR,
+	D_EXIT,
+	D_OKAY
+}				t_dispatch;
+
+typedef struct s_args
+{
+	size_t	argc;
+	char	**argv;
+	char	**envp;
+}	t_args;
+
+void		init_signals(void);
+bool		loop(char **envp);
+char		*prompt(void);
+
+t_dispatch	dispatch(t_args *arg);
+
+int			builtin(t_args *arg);
+int			cd(t_args *arg);
+int			echo(t_args *arg);
+int			env(char **envp);
+int			unset(t_args *arg);
+int			pwd(void);
+
+ssize_t		find_env(char **envp, const char *key);
+char		**envdup(char **src);
+
+void		error(const char *err_src, const char *msg);
 
 #endif

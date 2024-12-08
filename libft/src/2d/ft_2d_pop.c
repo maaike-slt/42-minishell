@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_2d_pop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/05 11:09:00 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/03 21:03:09 by msloot           ###   ########.fr       */
+/*   Created: 2024/12/05 19:45:59 by msloot            #+#    #+#             */
+/*   Updated: 2024/12/05 19:49:59 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	env(char **envp)
+void	*ft_2d_pop(void **ptr, size_t index)
 {
+	void	*ret;
 	size_t	i;
 
-	i = 0;
-	while (envp[i])
+	if (ptr == NULL || ptr[0] == NULL)
+		return (NULL);
+	ret = ptr[index];
+	i = index;
+	while (ptr[i])
 	{
-		ft_putendl_fd(envp[i], STDOUT_FILENO);
+		ptr[i] = ptr[i + 1];
 		i++;
 	}
-	return (EX_OK);
+	return (ret);
 }

@@ -1,30 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_2d.c                                       :+:      :+:    :+:   */
+/*   ft_2d_drop.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/17 18:20:30 by msloot            #+#    #+#             */
-/*   Updated: 2024/03/17 18:39:32 by msloot           ###   ########.fr       */
+/*   Created: 2024/12/05 19:45:59 by msloot            #+#    #+#             */
+/*   Updated: 2024/12/05 19:53:29 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_free_2d(void ***arr, size_t size)
+void	ft_2d_drop(void **ptr, size_t index)
 {
-	size_t	i;
-
-	if (!arr || !*arr)
-		return ;
-	i = 0;
-	while (i < size)
-	{
-		free((*arr)[i]);
-		(*arr)[i] = NULL;
-		i++;
-	}
-	free(*arr);
-	*arr = NULL;
+	free(ft_2d_pop(ptr, index));
 }

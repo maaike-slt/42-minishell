@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 14:56:09 by msloot            #+#    #+#             */
-/*   Updated: 2024/06/17 23:21:16 by msloot           ###   ########.fr       */
+/*   Updated: 2024/12/08 17:32:20 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,10 @@ size_t		ft_strlen(const char *s);
 char		*ft_strnstr(const char *big, const char *little, size_t len);
 
 size_t		ft_abs(ssize_t nbr);
+size_t		ft_umin(size_t a, size_t b);
+ssize_t		ft_min(ssize_t a, ssize_t b);
+size_t		ft_umax(size_t a, size_t b);
+ssize_t		ft_max(ssize_t a, ssize_t b);
 size_t		ft_nbrlen_base(ssize_t n, size_t base);
 size_t		ft_unbrlen_base(size_t n, size_t base);
 size_t		ft_nbrlen(ssize_t n);
@@ -67,8 +71,11 @@ int			ft_memcmp(const void *s1, const void *s2, size_t n);
 void		*ft_memchr(const void *s, char c, size_t n);
 void		*ft_memmove(void *dst, const void *src, size_t n);
 
-void		ft_free_2d(void ***arr, size_t size);
+void		ft_2d_free(void ***arr, size_t size);
 size_t		ft_2d_size(const void **ptr);
+void		*ft_2d_pop(void **ptr, size_t index);
+void		ft_2d_drop(void **ptr, size_t index);
+void		**ft_2d_push(void ***ptr, void *val);
 
 typedef struct s_base
 {
@@ -114,6 +121,7 @@ char		*ft_unbr_convert(char *dst, size_t n, size_t n_len);
 
 size_t		ft_check_base(const char *base);
 
+char		*ft_strpush(char **str, char c);
 char		*ft_strdup(const char *s);
 char		*ft_strndup(const char *s, size_t n);
 void		*ft_calloc(size_t nmemb, size_t size);

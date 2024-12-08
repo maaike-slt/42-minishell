@@ -1,26 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   envdup.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/05 11:09:00 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/03 21:03:09 by msloot           ###   ########.fr       */
+/*   Created: 2024/12/07 19:40:05 by msloot            #+#    #+#             */
+/*   Updated: 2024/12/07 19:55:16 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	env(char **envp)
+char	**envdup(char **src)
 {
 	size_t	i;
+	size_t	size;
+	char	**dst;
 
+	size = ft_2d_size((const void **)src);
+	dst = (char **)malloc(sizeof(char *) * size);
+	if (!dst)
+		return (NULL);
 	i = 0;
-	while (envp[i])
+	while (i < size)
 	{
-		ft_putendl_fd(envp[i], STDOUT_FILENO);
+		dst[i] = ft_strdup(src[i]);
+		if (!dst[i])
+			return (ft_2d_free((void ***)&dst, ft_2d_size((const void **)dst)),
+				NULL);
 		i++;
 	}
-	return (EX_OK);
+	return (dst);
 }

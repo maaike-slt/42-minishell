@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_2d_free.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/05 11:09:00 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/03 21:03:09 by msloot           ###   ########.fr       */
+/*   Created: 2024/03/17 18:20:30 by msloot            #+#    #+#             */
+/*   Updated: 2024/12/07 19:52:27 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	env(char **envp)
+void	ft_2d_free(void ***arr, size_t size)
 {
 	size_t	i;
 
+	if (!arr || !*arr)
+		return ;
 	i = 0;
-	while (envp[i])
+	while (i < size)
 	{
-		ft_putendl_fd(envp[i], STDOUT_FILENO);
+		free((*arr)[i]);
+		(*arr)[i] = NULL;
 		i++;
 	}
-	return (EX_OK);
+	free(*arr);
+	*arr = NULL;
 }
