@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 19:04:11 by adelille          #+#    #+#             */
-/*   Updated: 2024/12/08 16:48:01 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/08 17:04:48 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ char	*extract_double_quote(const char *line, size_t *i, char **envp)
 {
 	char	*ret;
 
+	(void)envp;
 	(*i)++;
 	ret = ft_strdup("");
 	while (ret && line[*i] && line[*i] != '"')
@@ -25,8 +26,10 @@ char	*extract_double_quote(const char *line, size_t *i, char **envp)
 			(*i)++;
 			ft_strpush(&ret, line[*i]); 
 		}
+		/*
 		else if (line[*i] == '$')
 			ret = ft_strjoin_free(ret, extract_variable(line, i, envp), true, true);
+		*/
 		else
 			ft_strpush(&ret, line[*i]); 
 		(*i)++;

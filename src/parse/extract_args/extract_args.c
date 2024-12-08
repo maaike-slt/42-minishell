@@ -6,20 +6,12 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 22:14:59 by adelille          #+#    #+#             */
-/*   Updated: 2024/12/08 16:48:37 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/08 17:04:25 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "parse.h"
-
-static char *extract_double_quote(const char *line, size_t *i)
-{
-}
-
-static char *extract_single_quote(const char *line, size_t *i)
-{
-}
 
 static char	*extract_single_arg(
 	const char *line, size_t *i, size_t len, char **envp)
@@ -40,8 +32,10 @@ static char	*extract_single_arg(
 			(*i)++;
 			ft_strpush(&ret, line[*i]);
 	    }
+		/*
 		else if (line[*i] == '$')
 			ret = ft_strjoin_free(ret, extract_variable(line, i, envp), true, true);
+		*/
 		else
 			ft_strpush(&ret, line[*i]);
 		(*i)++;
@@ -64,7 +58,8 @@ bool	extract_args(t_expression *exp, char *line, size_t len, char **envp)
 			i++;
 		arg = extract_single_arg(line, &i, len, envp);
 		if (!arg || !ft_arr_add(&arr, arg))
-			return (ft_free_2d((void **)arr.p), false);
+			return (ft_2d_free((void ***)&arr.p, ft_2d_size((const void **)&arr.p)),
+				false);
 	}
 	exp->argc = arr.len;
 	exp->argv = (char **)arr.p;
