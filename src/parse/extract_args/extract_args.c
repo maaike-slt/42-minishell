@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 22:14:59 by adelille          #+#    #+#             */
-/*   Updated: 2024/12/08 19:24:13 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/08 20:53:38 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,28 +56,16 @@ bool	extract_args(t_expression *exp, char *line, size_t len, char **envp)
 	i = 0;
 	while (i < len)
 	{
-		ft_putstr("i: ");
-		ft_putnbr(i);
-		ft_putchar('\n');
 		while (line[i] && ft_isspace(line[i]))
 			i++;
 		if (i >= len)
 			break ;
 		arg = extract_single_arg(line, &i, len, envp);
-		ft_putstr("arg: ");
-		ft_putstr(arg);
-		ft_putchar('\n');
 		if (!arg || !ft_2d_push((void ***)(&exp->argv), arg))
 			return (ft_2d_free((void ***)(&exp->argv),
 				ft_2d_size((const void **)exp->argv)), false);
-		ft_putstr("exp->argv[exp->argc]: ");
-		ft_putstr(exp->argv[exp->argc]);
-		ft_putchar('\n');
 		exp->argc++;
 	}
-	ft_putstr("exp->argc: ");
-	ft_putnbr(exp->argc);
-	ft_putchar('\n');
 	return (true);
 }
 
@@ -95,19 +83,11 @@ bool	test_extract_args(void)
 	r = EX_OK;
 	r |= assert("extract_args yo \"ye; no\" 'oh | e'",
 			extract_args(&exp, line, ft_strlen(line), envp));
-	/*
-	ft_putstr("exp.argv[0]: ");
-	ft_putstr(exp.argv[0]);
-	ft_putchar('\n');
 	r |= assert_eq("exp.argc", exp.argc, 3);
 	r |= assert("exp.argv != NULL", exp.argv != NULL);
-	ft_putstr("exp.argv[0]: ");
-	ft_putstr(exp.argv[0]);
-	ft_putchar('\n');
 	r |= assert_eq("exp.argv[0]", ft_strcmp(exp.argv[0], "yo"), 0);
 	r |= assert_eq("exp.argv[1]", ft_strcmp(exp.argv[1], "ye; no"), 0);
 	r |= assert_eq("exp.argv[2]", ft_strcmp(exp.argv[2], "oh | e"), 0);
-	*/
 	r |= assert("exp.argv[3] == NULL", exp.argv[3] == NULL);
 	ft_2d_free((void ***)(&exp.argv), ft_2d_size((const void **)exp.argv));
 	return (r);
