@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 19:04:11 by adelille          #+#    #+#             */
-/*   Updated: 2024/12/07 19:39:00 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/08 16:48:01 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ char	*extract_double_quote(const char *line, size_t *i, char **envp)
 		if (line[*i] == '\\')
 		{
 			(*i)++;
-			ret = ft_strjoin_free(ret, ft_strndup(&line[*i], 1), true, true);
+			ft_strpush(&ret, line[*i]); 
 		}
 		else if (line[*i] == '$')
 			ret = ft_strjoin_free(ret, extract_variable(line, i, envp), true, true);
 		else
-			ret = ft_strjoin_free(ret, ft_strndup(&line[*i], 1), true, true);
+			ft_strpush(&ret, line[*i]); 
 		(*i)++;
 	}
 	return (ret);
