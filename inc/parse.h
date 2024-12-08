@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 21:54:18 by adelille          #+#    #+#             */
-/*   Updated: 2024/12/08 17:09:04 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/08 17:51:07 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,6 @@ echo "Hello $HOME"
 wildcard
 ls *.c
 */
-
-typedef struct s_escape
-{
-	bool	backslash;
-	bool	single_quote;
-	bool	double_quote;
-}	t_escape;
 
 bool		is_expression_separator(char c);
 bool		is_arg_separator(char c, char quote);

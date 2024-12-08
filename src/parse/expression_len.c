@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 21:56:57 by adelille          #+#    #+#             */
-/*   Updated: 2024/12/03 22:08:46 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/08 17:50:51 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,26 @@
 size_t	expression_len(const char *line)
 {
 	size_t		i;
-	t_escape	e;
+	bool		backslash;
+	bool		single_quote;
+	bool		double_quote;
 
-	e.backslash = false;
-	e.single_quote = false;
-	e.double_quote = false;
+	backslash = false;
+	single_quote = false;
+	double_quote = false;
 	i = 0;
 	while (line[i]
-		&& ((e.backslash || e.single_quote || e.double_quote)
+		&& ((backslash || single_quote || double_quote)
 			|| !is_expression_separator(line[i])))
 	{
-		if (e.backslash)
-			e.backslash = false;
+		if (backslash)
+			backslash = false;
 		else if (line[i] == '\\')
-			e.backslash = true;
-		else if (line[i] == '\'' && !e.double_quote)
-			e.single_quote = !e.single_quote;
-		else if (line[i] == '"' && !e.single_quote)
-			e.double_quote = !e.double_quote;
+			backslash = true;
+		else if (line[i] == '\'' && !double_quote)
+			single_quote = !single_quote;
+		else if (line[i] == '"' && !single_quote)
+			double_quote = !double_quote;
 		i++;
 	}
 	return (i);
