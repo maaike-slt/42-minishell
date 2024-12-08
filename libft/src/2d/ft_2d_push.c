@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 21:22:03 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/05 21:55:18 by msloot           ###   ########.fr       */
+/*   Updated: 2024/12/08 17:29:36 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	**ft_2d_push(void ***ptr, void *val)
 	void	**new;
 
 	size = ft_2d_size((const void **)*ptr);
-	new = (void **)malloc(sizeof(void *) * (size + 1));
+	new = (void **)malloc(sizeof(void *) * (size + 2));
 	if (!new)
 		return (NULL);
 	ft_memcpy(new, *ptr, size);

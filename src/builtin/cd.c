@@ -18,7 +18,7 @@ int	cd(t_args *arg)
 
 	ret = 0;
 	if (arg->argc > 2)
-		return (error(arg->argv[0], "too many arguments"), D_ERROR);
+		return (error(arg->argv[0], "too many arguments"), EX_ERR);
 	if (arg->argc == 1)
 		// direct current position to HOME
 	ret = chdir(arg->argv[1]);
