@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/08 18:46:02 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/08 19:00:18 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ void		error(const char *err_src, const char *msg);
 # ifdef TEST
 bool	assert(const char *name, bool r);
 bool	assert_eq(const char *name, ssize_t got, ssize_t expected);
+bool	assert_str_eq(const char *name, const char *got, const char *expected);
 
 bool	test_expression_len(void);
 bool	test_extract_args(void);

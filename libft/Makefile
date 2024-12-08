@@ -6,7 +6,7 @@
 #    By: msloot <msloot@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/21 17:15:16 by msloot            #+#    #+#              #
-#    Updated: 2024/12/07 20:00:02 by msloot           ###   ########.fr        #
+#    Updated: 2024/12/08 19:28:10 by adelille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ AR =	ar rcs
 RM = 	rm -rf
 
 CFLAGS =	-Wall -Werror -Wextra
-# CFLAGS +=	-g
+CFLAGS +=	-g
 # CFLAGS +=	-fsanitize=address
 # CFLAGS +=	-Wsuggest-attribute=const
 

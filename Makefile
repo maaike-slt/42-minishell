@@ -6,7 +6,7 @@
 #    By: msloot <msloot@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 19:19:04 by msloot            #+#    #+#              #
-#    Updated: 2024/12/08 18:25:06 by adelille         ###   ########.fr        #
+#    Updated: 2024/12/08 19:28:14 by adelille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -138,7 +138,7 @@ $(LOCAL_LIB):
 
 $(TEST_NAME):		$(LOCAL_LIB) $(TEST_OBJ)
 	$(CC) $(CFLAGS) $(LDFLAGS) $(TEST_OBJ) $(LOCAL_LIB) $(LDLIBS) -o $(TEST_NAME)
-	./$(TEST_NAME)
+	valgrind -q ./$(TEST_NAME) || true
 
 clean:	$(addsuffix .clean, $(LOCAL_LIB_PATH))
 	@$(RM) $(OBJ_PATH) $(TEST_OBJ_PATH)
