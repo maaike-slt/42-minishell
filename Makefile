@@ -6,7 +6,7 @@
 #    By: msloot <msloot@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 19:19:04 by msloot            #+#    #+#              #
-#    Updated: 2024/12/08 17:26:17 by msloot           ###   ########.fr        #
+#    Updated: 2024/12/08 17:43:05 by adelille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,6 +70,13 @@ SRC_PATH =	./src/
 OBJ_PATH =	./obj/
 
 SRC_NAME =	main.c signals.c loop.c prompt.c \
+			parse/parse.c \
+			parse/is_expression_separator.c parse/expression_len.c \
+			parse/extract_args/extract_args.c \
+			parse/extract_args/extract_single_quote.c \
+			parse/extract_args/extract_double_quote.c \
+			arr.c \
+			test.c \
 			dispatch.c find_env.c envdup.c \
 			error.c \
 			builtin/cd.c builtin/echo.c builtin/env.c builtin/exec.c builtin/pwd.c \
@@ -79,6 +86,11 @@ SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
+
+TEST_NAME = test
+TEST_OBJ_PATH =	./obj/test/
+TEST_OBJ_NAME =	$(filter-out main.o, $(OBJ_NAME))
+TEST_OBJ =	$(addprefix $(TEST_OBJ_PATH), $(TEST_OBJ_NAME))
 
 # *************************************************************************** #
 
@@ -116,11 +128,19 @@ $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	$(CC) $(CFLAGS) $(ASMFLAGS) $(ASMINC) -c $< -o $@
 	@printf "$(D)$(PROGRESS_FILL)$(D)"
 
+$(TEST_OBJ_PATH)%.o: $(SRC_PATH)%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(ASMFLAGS) $(ASMINC) -DTEST=1 -c $< -o $@
+
 $(LOCAL_LIB):
 	@$(MAKE) -C $(dir $@)
 
+$(TEST_NAME):		$(LOCAL_LIB) $(TEST_OBJ)
+	$(CC) $(CFLAGS) $(LDFLAGS) $(TEST_OBJ) $(LOCAL_LIB) $(LDLIBS) -o $(TEST_NAME)
+	./$(TEST_NAME)
+
 clean:	$(addsuffix .clean, $(LOCAL_LIB_PATH))
-	@$(RM) $(OBJ_PATH)
+	@$(RM) $(OBJ_PATH) $(TEST_OBJ_PATH)
 	@echo "$(B)cleared$(D)"
 
 %.clean:

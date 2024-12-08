@@ -1,29 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
+/*   is_expression_separator.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/03 21:03:51 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/08 16:45:22 by adelille         ###   ########.fr       */
+/*   Created: 2024/12/01 21:55:28 by adelille          #+#    #+#             */
+/*   Updated: 2024/12/08 17:09:19 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	unset(t_args *arg)
+bool	is_expression_separator(char c)
 {
-	size_t	i;
-	ssize_t	index;
-
-	i = 1;
-	while (i < arg->argc)
-	{
-		index = find_env(arg->envp, arg->argv[i]);
-		if (index >= 0)
-			ft_2d_drop((void **)arg->envp, index);
-		i++;
-	}
-	return (EX_OK);
+	return (ft_is_in("|;&", c));
 }

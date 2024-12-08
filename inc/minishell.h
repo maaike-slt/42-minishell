@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/07 19:42:01 by msloot           ###   ########.fr       */
+/*   Updated: 2024/12/08 16:44:35 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # define _XOPEN_SOURCE 700
 
-# define EX_ERR	!EX_OK
+# define EX_ERR	1
 
 # include "../libft/inc/libft.h"
 
@@ -33,6 +33,36 @@
 # include <sysexits.h>
 
 # define PROMPT	"\033[1;32m>\033[0m "
+
+typedef struct s_arr
+{
+	void	*p;
+	size_t	len;
+	size_t	capacity;
+	size_t	cell_size;
+}   t_arr;
+
+#define ARR_INIT_SIZE 32
+
+bool	ft_arr_new(t_arr *arr, size_t cell_size);
+size_t	ft_arr_add(t_arr *arr, void *cell);
+
+typedef struct s_expression
+{
+	int		argc;
+	char	**argv;
+}	t_expression;
+
+typedef struct s_expression_list
+{
+	t_expression				*expression;
+	struct s_expression_list	*next;
+}	t_expression_list;
+
+bool				loop(char **envp);
+char				*prompt(void);
+t_expression_list	*parse(char *line);
+void				init_signals(void);
 
 typedef enum e_dispatch_code
 {
@@ -65,5 +95,13 @@ ssize_t		find_env(char **envp, const char *key);
 char		**envdup(char **src);
 
 void		error(const char *err_src, const char *msg);
+
+# ifdef TEST
+bool	assert(const char *name, bool r);
+bool	assert_eq(const char *name, ssize_t got, ssize_t expected);
+
+bool	test_expression_len(void);
+bool	test_extract_args(void);
+# endif
 
 #endif

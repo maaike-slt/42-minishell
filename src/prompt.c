@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 23:19:10 by adelille          #+#    #+#             */
-/*   Updated: 2024/12/01 15:01:56 by msloot           ###   ########.fr       */
+/*   Updated: 2024/12/05 22:04:40 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ char	*prompt(void)
 	char	*line;
 
 	line = readline(PROMPT);
+	// FIXME: continue to prompt if line is still escaping
 	if (!line || line[0] == '\0')
-		return (NULL);
+		return (free(line), NULL);
 	add_history(line);
 	return (line);
 }
