@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:38:29 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/08 17:52:23 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/08 18:42:13 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ static void	write_echo(int argc, char **argv)
 		ft_putchar('\n');
 }
 
-int	echo(t_args *arg)
+int	echo(int argc, char **argv)
 {
-	write_echo(arg->argc, arg->argv);
+	write_echo(argc, argv);
 	return (EX_OK);
 }

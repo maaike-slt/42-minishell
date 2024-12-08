@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/08 16:44:35 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/08 18:46:02 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,17 @@ typedef struct s_expression
 	char	**argv;
 }	t_expression;
 
+void	expression_free(void *exp);
+
 typedef struct s_expression_list
 {
-	t_expression				*expression;
+	t_expression				*content;
 	struct s_expression_list	*next;
 }	t_expression_list;
 
 bool				loop(char **envp);
 char				*prompt(void);
-t_expression_list	*parse(char *line);
+t_expression_list	*parse(char *line, char **envp);
 void				init_signals(void);
 
 typedef enum e_dispatch_code
@@ -71,24 +73,17 @@ typedef enum e_dispatch_code
 	D_OKAY
 }				t_dispatch;
 
-typedef struct s_args
-{
-	size_t	argc;
-	char	**argv;
-	char	**envp;
-}	t_args;
-
 void		init_signals(void);
 bool		loop(char **envp);
 char		*prompt(void);
 
-t_dispatch	dispatch(t_args *arg);
+t_dispatch	dispatch(const t_expression *exp, char **envp);
 
-int			builtin(t_args *arg);
-int			cd(t_args *arg);
-int			echo(t_args *arg);
+int			builtin(int argc, char **argv, char **envp);
+int			cd(int argc, char **argv, char **envp);
+int			echo(int argc, char **argv);
 int			env(char **envp);
-int			unset(t_args *arg);
+int			unset(int argc, char **argv, char **envp);
 int			pwd(void);
 
 ssize_t		find_env(char **envp, const char *key);

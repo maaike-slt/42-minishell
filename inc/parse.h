@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 21:54:18 by adelille          #+#    #+#             */
-/*   Updated: 2024/12/08 17:51:07 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/08 18:49:02 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,9 @@ echo "Hello $HOME"
 wildcard
 ls *.c
 */
+
+
+size_t		expression_len(const char *line);
 
 bool		is_expression_separator(char c);
 bool		is_arg_separator(char c, char quote);
