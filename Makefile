@@ -6,7 +6,7 @@
 #    By: msloot <msloot@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 19:19:04 by msloot            #+#    #+#              #
-#    Updated: 2024/12/08 16:42:31 by adelille         ###   ########.fr        #
+#    Updated: 2024/12/08 16:44:24 by adelille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,7 +77,7 @@ SRC_NAME =	main.c signals.c loop.c prompt.c \
 			parse/extract_args/extract_double_quote.c \
 			arr.c \
 			test.c \
-			dispatch.c \
+			dispatch.c find_env.c envdup.c \
 			error.c \
 			builtin/cd.c builtin/echo.c builtin/env.c builtin/b_exec.c builtin/pwd.c \
 			builtin/unset.c \

@@ -1,29 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
+/*   envdup.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/03 21:03:51 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/08 16:45:22 by adelille         ###   ########.fr       */
+/*   Created: 2024/12/07 19:40:05 by msloot            #+#    #+#             */
+/*   Updated: 2024/12/07 19:55:16 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	unset(t_args *arg)
+char	**envdup(char **src)
 {
 	size_t	i;
-	ssize_t	index;
+	size_t	size;
+	char	**dst;
 
-	i = 1;
-	while (i < arg->argc)
+	size = ft_2d_size((const void **)src);
+	dst = (char **)malloc(sizeof(char *) * size);
+	if (!dst)
+		return (NULL);
+	i = 0;
+	while (i < size)
 	{
-		index = find_env(arg->envp, arg->argv[i]);
-		if (index >= 0)
-			ft_2d_drop((void **)arg->envp, index);
+		dst[i] = ft_strdup(src[i]);
+		if (!dst[i])
+			return (ft_2d_free((void ***)&dst, ft_2d_size((const void **)dst)),
+				NULL);
 		i++;
 	}
-	return (EX_OK);
+	return (dst);
 }
