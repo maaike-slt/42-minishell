@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_exp_separator.c                                 :+:      :+:    :+:   */
+/*   is_exp_sep.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-bool	is_exp_separator(char c)
+bool	is_exp_sep(char c)
 {
 	return (ft_is_in("|;&", c));
 }

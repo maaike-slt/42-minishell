@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 21:54:18 by adelille          #+#    #+#             */
-/*   Updated: 2024/12/09 22:02:10 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/09 22:10:17 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ pipe
 ls | grep .c
 
 ;
-separator
+sep
 ls ; echo "Hello World"
 
 &&
@@ -73,8 +73,7 @@ ls *.c
 
 size_t		exp_len(const char *line);
 
-bool		is_exp_separator(char c);
-bool		is_arg_separator(char c, char quote);
+bool		is_exp_sep(char c);
 
 bool		extract_args(t_exp *exp, char *line, size_t len, char **envp);
 char		*extract_single_quote(const char *line, size_t *i);

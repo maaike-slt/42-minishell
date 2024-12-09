@@ -26,7 +26,7 @@ size_t	exp_len(const char *line)
 	i = 0;
 	while (line[i]
 		&& ((backslash || single_quote || double_quote)
-			|| !is_exp_separator(line[i])))
+			|| !is_exp_sep(line[i])))
 	{
 		if (backslash)
 			backslash = false;

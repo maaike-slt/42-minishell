@@ -71,7 +71,7 @@ OBJ_PATH =	./obj/
 
 SRC_NAME =	main.c signals.c loop.c prompt.c \
 			parse/parse.c \
-			parse/exp_free.c parse/is_exp_separator.c parse/exp_len.c \
+			parse/exp_free.c parse/is_exp_sep.c parse/exp_len.c \
 			parse/extract_args/extract_args.c \
 			parse/extract_args/extract_single_quote.c \
 			parse/extract_args/extract_double_quote.c \
