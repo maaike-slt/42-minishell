@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/09 21:21:44 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/09 21:25:42 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_expression
 	char	**argv;
 }	t_expression;
 
-void	expression_free(void *exp);
+void				expression_free(void *exp);
 
 typedef struct s_expression_list
 {
@@ -60,31 +60,34 @@ typedef enum e_dispatch_code
 	D_OKAY
 }				t_dispatch;
 
-void		init_signals(void);
-bool		loop(char **envp);
-char		*prompt(void);
+void				init_signals(void);
+bool				loop(char **envp);
+char				*prompt(void);
 
-t_dispatch	dispatch(const t_expression *exp, char **envp);
+t_dispatch			dispatch(const t_expression *exp, char **envp);
 
-int			builtin(int argc, char **argv, char **envp);
-int			cd(int argc, char **argv, char **envp);
-int			echo(int argc, char **argv);
-int			env(char **envp);
-int			unset(int argc, char **argv, char **envp);
-int			pwd(void);
+int					builtin(int argc, char **argv, char **envp);
+int					cd(int argc, char **argv, char **envp);
+int					echo(int argc, char **argv);
+int					env(char **envp);
+int					unset(int argc, char **argv, char **envp);
+int					pwd(void);
 
-ssize_t		find_env(char **envp, const char *key);
-char		**envdup(char **src);
+ssize_t				find_env(char **envp, const char *key);
+char				**envdup(char **src);
 
-void		error(const char *err_src, const char *msg);
+void				error(const char *err_src, const char *msg);
 
 # ifdef TEST
-bool	assert(const char *name, bool r);
-bool	assert_eq(const char *name, ssize_t got, ssize_t expected);
-bool	assert_str_eq(const char *name, const char *got, const char *expected);
 
-bool	test_expression_len(void);
-bool	test_extract_args(void);
+bool				assert(const char *name, bool r);
+bool				assert_eq(const char *name, ssize_t got, ssize_t expected);
+bool				assert_str_eq(const char *name,
+						const char *got, const char *expected);
+
+bool				test_expression_len(void);
+bool				test_extract_args(void);
+
 # endif
 
 #endif
