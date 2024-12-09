@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/09 21:25:42 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/09 22:01:28 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,19 @@ typedef struct s_expression
 {
 	int		argc;
 	char	**argv;
-}	t_expression;
+}	t_exp;
 
-void				expression_free(void *exp);
+void				exp_free(void *exp);
 
 typedef struct s_expression_list
 {
-	t_expression				*content;
+	t_exp						*content;
 	struct s_expression_list	*next;
-}	t_expression_list;
+}	t_exp_list;
 
 bool				loop(char **envp);
 char				*prompt(void);
-t_expression_list	*parse(char *line, char **envp);
+t_exp_list			*parse(char *line, char **envp);
 void				init_signals(void);
 
 typedef enum e_dispatch_code
@@ -64,7 +64,7 @@ void				init_signals(void);
 bool				loop(char **envp);
 char				*prompt(void);
 
-t_dispatch			dispatch(const t_expression *exp, char **envp);
+t_dispatch			dispatch(const t_exp *exp, char **envp);
 
 int					builtin(int argc, char **argv, char **envp);
 int					cd(int argc, char **argv, char **envp);
@@ -78,6 +78,12 @@ char				**envdup(char **src);
 
 void				error(const char *err_src, const char *msg);
 
+# ifdef DEBUG
+
+void				dbg(const char *str);
+
+# endif
+
 # ifdef TEST
 
 bool				assert(const char *name, bool r);
@@ -85,7 +91,7 @@ bool				assert_eq(const char *name, ssize_t got, ssize_t expected);
 bool				assert_str_eq(const char *name,
 						const char *got, const char *expected);
 
-bool				test_expression_len(void);
+bool				test_exp_len(void);
 bool				test_extract_args(void);
 
 # endif

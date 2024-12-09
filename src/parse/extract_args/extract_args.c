@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 22:14:59 by adelille          #+#    #+#             */
-/*   Updated: 2024/12/09 21:28:12 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/09 21:54:57 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static char	*extract_single_arg(
 	return (ret);
 }
 
-bool	extract_args(t_expression *exp, char *line, size_t len, char **envp)
+bool	extract_args(t_exp *exp, char *line, size_t len, char **envp)
 {
 	char	*arg;
 	size_t	i;
@@ -73,10 +73,10 @@ bool	extract_args(t_expression *exp, char *line, size_t len, char **envp)
 
 bool	test_extract_args(void)
 {
-	t_expression	exp;
-	char			line[99];
-	char			**envp;
-	bool			r;
+	t_exp	exp;
+	char	line[99];
+	char	**envp;
+	bool	r;
 
 	envp = (char *[]){"HOME=/home/adelille", "USER=adelille", NULL};
 	ft_strcpy(line, "yo \"ye; no\" 'oh | e'");

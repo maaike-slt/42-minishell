@@ -57,7 +57,7 @@ int	main(void)
 	bool	r;
 
 	r = EX_OK;
-	r |= test_expression_len();
+	r |= test_exp_len();
 	r |= test_extract_args();
 	if (r == EX_OK)
 		ft_putstr_fd("\033[1;32m[OK]\n\033[0m", 1);

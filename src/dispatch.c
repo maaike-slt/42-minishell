@@ -13,7 +13,7 @@
 #include "minishell.h"
 
 // tmp
-static int	i_fork(const t_expression *exp, char **envp)
+static int	i_fork(const t_exp *exp, char **envp)
 {
 	pid_t	pid;
 
@@ -34,7 +34,7 @@ static int	i_fork(const t_expression *exp, char **envp)
 	return (EX_OK);
 }
 
-t_dispatch	dispatch(const t_expression *exp, char **envp)
+t_dispatch	dispatch(const t_exp *exp, char **envp)
 {
 	if (ft_strcmp(exp->argv[0], "exit") == 0)
 	{
