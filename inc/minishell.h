@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/08 19:00:18 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/09 21:21:44 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,6 @@
 # include <sysexits.h>
 
 # define PROMPT	"\033[1;32m>\033[0m "
-
-typedef struct s_arr
-{
-	void	*p;
-	size_t	len;
-	size_t	capacity;
-	size_t	cell_size;
-}   t_arr;
-
-#define ARR_INIT_SIZE 32
-
-bool	ft_arr_new(t_arr *arr, size_t cell_size);
-size_t	ft_arr_add(t_arr *arr, void *cell);
 
 typedef struct s_expression
 {

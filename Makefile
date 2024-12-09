@@ -6,7 +6,7 @@
 #    By: msloot <msloot@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 19:19:04 by msloot            #+#    #+#              #
-#    Updated: 2024/12/08 19:28:14 by adelille         ###   ########.fr        #
+#    Updated: 2024/12/09 21:22:05 by adelille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,12 +76,11 @@ SRC_NAME =	main.c signals.c loop.c prompt.c \
 			parse/extract_args/extract_args.c \
 			parse/extract_args/extract_single_quote.c \
 			parse/extract_args/extract_double_quote.c \
-			arr.c \
-			test.c \
 			dispatch.c find_env.c envdup.c \
 			error.c \
 			builtin/cd.c builtin/echo.c builtin/env.c builtin/exec.c builtin/pwd.c \
 			builtin/unset.c \
+			test.c \
 
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 
