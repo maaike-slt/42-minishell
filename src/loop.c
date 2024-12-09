@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 23:12:00 by adelille          #+#    #+#             */
-/*   Updated: 2024/12/08 18:39:04 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/09 21:30:03 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ bool	loop(char **envp)
 		{
 			dispatch_ret = dispatch(current->content, envp);
 			if (dispatch_ret == D_EXIT)
-				return (ft_lstclear((t_list **)&expression_list, expression_free), true);
+				return (ft_lstclear((t_list **)&expression_list,
+						expression_free), true);
 			current = current->next;
 		}
 		ft_lstclear((t_list **)&expression_list, expression_free);
