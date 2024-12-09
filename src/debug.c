@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 21:42:44 by adelille          #+#    #+#             */
-/*   Updated: 2024/12/09 22:09:15 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/09 22:16:19 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ void	dbg(const char *str)
 	ft_putendl_fd(str, STDERR_FILENO);
 }
 
-void	dbg_builtin(const char *builtin, int argc, char **argv)
+void	dbg_builtin(int argc, char **argv)
 {
 	size_t	i;
 
 	ft_putstr_fd("\033[1;36m[DEBUG]\033[0m\t", STDERR_FILENO);
 	ft_putstr_fd("\033[1;35m", STDERR_FILENO);
-	ft_putstr_fd(builtin, STDERR_FILENO);
+	ft_putstr_fd(argv[0], STDERR_FILENO);
 	ft_putstr_fd(
 		"\033[0m:\n\033[1;36m  - \033[0m\033[1margc\033[0m = \033[34m",
 		STDERR_FILENO);
@@ -35,9 +35,10 @@ void	dbg_builtin(const char *builtin, int argc, char **argv)
 	i = 0;
 	while (i < (size_t)argc)
 	{
-		ft_putstr_fd("\033[1;36m  - \033[0m\033[1margv[", STDERR_FILENO);
+		ft_putstr_fd(
+			"\033[1;36m  - \033[0m\033[1margv[\033[0m\033[34m", STDERR_FILENO);
 		ft_putnbr_fd(i, STDERR_FILENO);
-		ft_putstr_fd("]\033[0m = \033[34m", STDERR_FILENO);
+		ft_putstr_fd("\033[0m\033[1m]\033[0m = \033[32m", STDERR_FILENO);
 		ft_putendl_fd(argv[i], STDERR_FILENO);
 		i++;
 	}

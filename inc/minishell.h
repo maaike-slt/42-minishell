@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/09 22:01:28 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/09 22:17:38 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,8 @@ char				**envdup(char **src);
 
 void				error(const char *err_src, const char *msg);
 
-# ifdef DEBUG
-
 void				dbg(const char *str);
-
-# endif
+void				dbg_builtin(int argc, char **argv);
 
 # ifdef TEST
 

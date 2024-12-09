@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:38:29 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/08 18:42:13 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/09 22:18:31 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static void	write_echo(int argc, char **argv)
 	int		i;
 	bool	newline;
 
+	dbg_builtin(argc, argv);
 	i = 1;
 	newline = true;
 	while (i < argc && check_newline(argv[i]))

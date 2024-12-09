@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 17:42:45 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/09 21:42:08 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/09 22:15:17 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	cd(int argc, char **argv, char **envp)
 {
 	int	ret;
 
+	dbg_builtin(argc, argv);
 	(void)envp;
 	ret = 0;
 	if (argc > 2)

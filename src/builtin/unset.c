@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 21:03:51 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/08 18:52:23 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/09 22:18:22 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	unset(int argc, char **argv, char **envp)
 	size_t	i;
 	ssize_t	index;
 
+	dbg_builtin(argc, argv);
 	i = 1;
 	while (i < (size_t)argc)
 	{
