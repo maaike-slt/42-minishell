@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 17:42:45 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/09 22:15:17 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/09 22:25:55 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,5 @@ int	cd(int argc, char **argv, char **envp)
 		// direct current position to HOME
 	}
 	return (go(argv[1]));
-	ret = chdir(argv[1]);
-	if (ret == -1)
-		return (perror(argv[0]), EX_ERR);
-	return (EX_OK);
 	// update pwd to the new location
 }
