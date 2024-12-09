@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 19:23:35 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/09 21:30:22 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/09 22:23:17 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_dispatch	dispatch(const t_exp *exp, char **envp)
 {
 	if (ft_strcmp(exp->argv[0], "exit") == 0)
 	{
-		printf("\033[1;36m[DEBUG]\033[0m\texiting\n");
+		dbg("👋");
 		return (D_EXIT);
 	}
 	else

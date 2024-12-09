@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 23:12:00 by adelille          #+#    #+#             */
-/*   Updated: 2024/12/09 21:59:52 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/09 22:21:17 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 bool	loop(char **envp)
 {
-	char				*line;
-	t_exp_list			*exp_list;
-	t_exp_list			*current;
-	t_dispatch			dispatch_ret;
+	char		*line;
+	t_exp_list	*exp_list;
+	t_exp_list	*current;
+	t_dispatch	dispatch_ret;
 
 	while (true)
 	{
 		line = prompt();
 		if (!line)
 			continue ;
-		printf("\033[1;36m[DEBUG]\033[0m\tgot: '%s'\n", line);
+		dbg(line);
 		exp_list = parse(line, envp);
 		free(line);
 		current = exp_list;

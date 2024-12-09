@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 21:42:44 by adelille          #+#    #+#             */
-/*   Updated: 2024/12/09 22:16:19 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/09 22:22:18 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	dbg_builtin(int argc, char **argv)
 		ft_putendl_fd(argv[i], STDERR_FILENO);
 		i++;
 	}
+	ft_putstr_fd("\033[0m", STDERR_FILENO);
 }
 
 #else
