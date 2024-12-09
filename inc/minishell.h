@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/08 16:44:35 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/09 22:17:38 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,34 +34,23 @@
 
 # define PROMPT	"\033[1;32m>\033[0m "
 
-typedef struct s_arr
-{
-	void	*p;
-	size_t	len;
-	size_t	capacity;
-	size_t	cell_size;
-}   t_arr;
-
-#define ARR_INIT_SIZE 32
-
-bool	ft_arr_new(t_arr *arr, size_t cell_size);
-size_t	ft_arr_add(t_arr *arr, void *cell);
-
 typedef struct s_expression
 {
 	int		argc;
 	char	**argv;
-}	t_expression;
+}	t_exp;
+
+void				exp_free(void *exp);
 
 typedef struct s_expression_list
 {
-	t_expression				*expression;
+	t_exp						*content;
 	struct s_expression_list	*next;
-}	t_expression_list;
+}	t_exp_list;
 
 bool				loop(char **envp);
 char				*prompt(void);
-t_expression_list	*parse(char *line);
+t_exp_list			*parse(char *line, char **envp);
 void				init_signals(void);
 
 typedef enum e_dispatch_code
@@ -71,37 +60,37 @@ typedef enum e_dispatch_code
 	D_OKAY
 }				t_dispatch;
 
-typedef struct s_args
-{
-	size_t	argc;
-	char	**argv;
-	char	**envp;
-}	t_args;
+void				init_signals(void);
+bool				loop(char **envp);
+char				*prompt(void);
 
-void		init_signals(void);
-bool		loop(char **envp);
-char		*prompt(void);
+t_dispatch			dispatch(const t_exp *exp, char **envp);
 
-t_dispatch	dispatch(t_args *arg);
+int					builtin(int argc, char **argv, char **envp);
+int					cd(int argc, char **argv, char **envp);
+int					echo(int argc, char **argv);
+int					env(char **envp);
+int					unset(int argc, char **argv, char **envp);
+int					pwd(void);
 
-int			builtin(t_args *arg);
-int			cd(t_args *arg);
-int			echo(t_args *arg);
-int			env(char **envp);
-int			unset(t_args *arg);
-int			pwd(void);
+ssize_t				find_env(char **envp, const char *key);
+char				**envdup(char **src);
 
-ssize_t		find_env(char **envp, const char *key);
-char		**envdup(char **src);
+void				error(const char *err_src, const char *msg);
 
-void		error(const char *err_src, const char *msg);
+void				dbg(const char *str);
+void				dbg_builtin(int argc, char **argv);
 
 # ifdef TEST
-bool	assert(const char *name, bool r);
-bool	assert_eq(const char *name, ssize_t got, ssize_t expected);
 
-bool	test_expression_len(void);
-bool	test_extract_args(void);
+bool				assert(const char *name, bool r);
+bool				assert_eq(const char *name, ssize_t got, ssize_t expected);
+bool				assert_str_eq(const char *name,
+						const char *got, const char *expected);
+
+bool				test_exp_len(void);
+bool				test_extract_args(void);
+
 # endif
 
 #endif

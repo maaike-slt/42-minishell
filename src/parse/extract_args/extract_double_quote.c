@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 19:04:11 by adelille          #+#    #+#             */
-/*   Updated: 2024/12/08 17:04:48 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/09 21:26:40 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ char	*extract_double_quote(const char *line, size_t *i, char **envp)
 		if (line[*i] == '\\')
 		{
 			(*i)++;
-			ft_strpush(&ret, line[*i]); 
+			ft_strpush(&ret, line[*i]);
 		}
 		/*
 		else if (line[*i] == '$')
 			ret = ft_strjoin_free(ret, extract_variable(line, i, envp), true, true);
 		*/
 		else
-			ft_strpush(&ret, line[*i]); 
+			ft_strpush(&ret, line[*i]);
 		(*i)++;
 	}
 	return (ret);
@@ -48,7 +48,7 @@ bool	test_extract_double_quote(void)
 
 	ft_strlcpy(line, "\"He;llo\\ Wor$ld \\\"  here  \"   ", 99);
 	i = 0;
-	ret = extract_double_quote(line, &i);
+	ret = extract_double_quote(line, &i, NULL);
 	r = EX_OK;
 	r |= assert_eq("extract_double_quote index", i, 19);
 	r |= assert_str_eq("extract_double_quote ending char", &line[i], "\'");

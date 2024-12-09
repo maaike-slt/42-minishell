@@ -6,7 +6,7 @@
 #    By: msloot <msloot@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 19:19:04 by msloot            #+#    #+#              #
-#    Updated: 2024/12/08 17:43:05 by adelille         ###   ########.fr        #
+#    Updated: 2024/12/09 22:13:57 by adelille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CC = 	cc
 RM = 	rm -rf
 
 CFLAGS =	-Wall -Werror -Wextra
-CFLAGS +=	-g
+CFLAGS +=	-g -DDEBUG=1
 # CFLAGS +=	-fsanitize=address
 
 ASMFLAGS =	-MMD -MP
@@ -71,16 +71,15 @@ OBJ_PATH =	./obj/
 
 SRC_NAME =	main.c signals.c loop.c prompt.c \
 			parse/parse.c \
-			parse/is_expression_separator.c parse/expression_len.c \
+			parse/exp_free.c parse/is_exp_sep.c parse/exp_len.c \
 			parse/extract_args/extract_args.c \
 			parse/extract_args/extract_single_quote.c \
 			parse/extract_args/extract_double_quote.c \
-			arr.c \
-			test.c \
 			dispatch.c find_env.c envdup.c \
 			error.c \
 			builtin/cd.c builtin/echo.c builtin/env.c builtin/exec.c builtin/pwd.c \
 			builtin/unset.c \
+			debug.c test.c \
 
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 
@@ -137,7 +136,7 @@ $(LOCAL_LIB):
 
 $(TEST_NAME):		$(LOCAL_LIB) $(TEST_OBJ)
 	$(CC) $(CFLAGS) $(LDFLAGS) $(TEST_OBJ) $(LOCAL_LIB) $(LDLIBS) -o $(TEST_NAME)
-	./$(TEST_NAME)
+	valgrind -q ./$(TEST_NAME) || true
 
 clean:	$(addsuffix .clean, $(LOCAL_LIB_PATH))
 	@$(RM) $(OBJ_PATH) $(TEST_OBJ_PATH)

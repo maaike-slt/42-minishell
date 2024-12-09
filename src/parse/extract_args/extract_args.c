@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 22:14:59 by adelille          #+#    #+#             */
-/*   Updated: 2024/12/08 17:04:25 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/09 21:54:57 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ static char	*extract_single_arg(
 			ret = ft_strjoin_free(ret,
 					extract_double_quote(line, i, envp), true, true);
 		else if (line[*i] == '\\')
-	    {
+		{
 			(*i)++;
 			ft_strpush(&ret, line[*i]);
-	    }
+		}
 		/*
 		else if (line[*i] == '$')
 			ret = ft_strjoin_free(ret, extract_variable(line, i, envp), true, true);
@@ -43,26 +43,29 @@ static char	*extract_single_arg(
 	return (ret);
 }
 
-bool	extract_args(t_expression *exp, char *line, size_t len, char **envp)
+bool	extract_args(t_exp *exp, char *line, size_t len, char **envp)
 {
-	t_arr	arr;
 	char	*arg;
 	size_t	i;
 
-	if (!ft_arr_new(&arr, sizeof(char *)))
+	exp->argv = (char **)malloc(sizeof(char *));
+	if (!exp->argv)
 		return (false);
+	exp->argv[0] = NULL;
+	exp->argc = 0;
 	i = 0;
 	while (i < len)
 	{
 		while (line[i] && ft_isspace(line[i]))
 			i++;
+		if (i >= len)
+			break ;
 		arg = extract_single_arg(line, &i, len, envp);
-		if (!arg || !ft_arr_add(&arr, arg))
-			return (ft_2d_free((void ***)&arr.p, ft_2d_size((const void **)&arr.p)),
-				false);
+		if (!arg || !ft_2d_push((void ***)(&exp->argv), arg))
+			return (ft_2d_free((void ***)(&exp->argv),
+				ft_2d_size((const void **)exp->argv)), false);
+		exp->argc++;
 	}
-	exp->argc = arr.len;
-	exp->argv = (char **)arr.p;
 	return (true);
 }
 
@@ -70,18 +73,24 @@ bool	extract_args(t_expression *exp, char *line, size_t len, char **envp)
 
 bool	test_extract_args(void)
 {
-	t_expression	exp;
-	char			**envp = NULL;
+	t_exp	exp;
+	char	line[99];
+	char	**envp;
+	bool	r;
 
-	if (!extract_args(&exp, "yo \"ye; no\" 'oh | e'\", ft_strlen(line), envp))
-		return (false);
-	if (exp.argc != 2)
-		return (false);
-	if (ft_strcmp(exp.argv[0], "echo") != 0)
-		return (false);
-	if (ft_strcmp(exp.argv[1], "Hello, World!") != 0)
-		return (false);
-	return (true);
+	envp = (char *[]){"HOME=/home/adelille", "USER=adelille", NULL};
+	ft_strcpy(line, "yo \"ye; no\" 'oh | e'");
+	r = EX_OK;
+	r |= assert("extract_args yo \"ye; no\" 'oh | e'",
+			extract_args(&exp, line, ft_strlen(line), envp));
+	r |= assert_eq("exp.argc", exp.argc, 3);
+	r |= assert("exp.argv != NULL", exp.argv != NULL);
+	r |= assert_eq("exp.argv[0]", ft_strcmp(exp.argv[0], "yo"), 0);
+	r |= assert_eq("exp.argv[1]", ft_strcmp(exp.argv[1], "ye; no"), 0);
+	r |= assert_eq("exp.argv[2]", ft_strcmp(exp.argv[2], "oh | e"), 0);
+	r |= assert("exp.argv[3] == NULL", exp.argv[3] == NULL);
+	ft_2d_free((void ***)(&exp.argv), ft_2d_size((const void **)exp.argv));
+	return (r);
 }
 
 #endif

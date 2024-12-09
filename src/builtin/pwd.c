@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 17:59:49 by msloot            #+#    #+#             */
-/*   Updated: 2024/11/01 15:43:13 by msloot           ###   ########.fr       */
+/*   Updated: 2024/12/09 22:19:15 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	pwd(void)
 
 	if (getcwd(cwd, PATH_MAX))
 	{
-		ft_putendl_fd(cwd, 1);
+		ft_putendl_fd(cwd, STDOUT_FILENO);
 		return (EX_OK);
 	}
 	else

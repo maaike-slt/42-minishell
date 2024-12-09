@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
+/*   exp_free.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/03 21:03:51 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/09 22:18:22 by adelille         ###   ########.fr       */
+/*   Created: 2024/12/08 18:23:23 by adelille          #+#    #+#             */
+/*   Updated: 2024/12/09 22:00:27 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	unset(int argc, char **argv, char **envp)
+void	exp_free(void *exp)
 {
-	size_t	i;
-	ssize_t	index;
+	t_exp	*e;
 
-	dbg_builtin(argc, argv);
-	i = 1;
-	while (i < (size_t)argc)
+	if (!exp)
+		return ;
+	e = (t_exp *)exp;
+	if (e->argv)
 	{
-		index = find_env(envp, argv[i]);
-		if (index >= 0)
-			ft_2d_drop((void **)envp, index);
-		i++;
+		free(e->argv);
+		e->argv = NULL;
 	}
-	return (EX_OK);
+	free(e);
 }

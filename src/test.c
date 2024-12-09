@@ -6,12 +6,13 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 20:59:04 by adelille          #+#    #+#             */
-/*   Updated: 2024/12/07 19:11:20 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/09 21:30:44 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifdef TEST
-#include "minishell.h"
+
+# include "minishell.h"
 
 bool	assert(const char *name, bool r)
 {
@@ -51,15 +52,16 @@ bool	assert_str_eq(const char *name, const char *got, const char *expected)
 	return (EX_ERR);
 }
 
-int main(void)
+int	main(void)
 {
 	bool	r;
 
 	r = EX_OK;
-	r |= test_expression_len();
+	r |= test_exp_len();
 	r |= test_extract_args();
 	if (r == EX_OK)
 		ft_putstr_fd("\033[1;32m[OK]\n\033[0m", 1);
 	return (r);
 }
+
 #endif

@@ -45,6 +45,7 @@
 
                 # dev tools
                 norminette
+                lldb_19
               ];
 
               languages.c = {

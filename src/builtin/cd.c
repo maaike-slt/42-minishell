@@ -6,24 +6,35 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 17:42:45 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/02 22:15:31 by msloot           ###   ########.fr       */
+/*   Updated: 2024/12/09 22:28:58 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	cd(t_args *arg)
+static int	go(const char *path)
 {
 	int	ret;
 
-	ret = 0;
-	if (arg->argc > 2)
-		return (error(arg->argv[0], "too many arguments"), EX_ERR);
-	if (arg->argc == 1)
-		// direct current position to HOME
-	ret = chdir(arg->argv[1]);
+	ret = chdir(path);
 	if (ret == -1)
-		return (perror(arg->argv[0]), EX_ERR);
+		return (perror("cd"), EX_ERR);
 	return (EX_OK);
+}
+
+int	cd(int argc, char **argv, char **envp)
+{
+	dbg_builtin(argc, argv);
+	(void)envp;
+	if (argc > 2)
+		return (error(argv[0], "too many arguments"), EX_ERR);
+	if (argc == 2)
+		return (go(argv[1]));
+	if (argc == 1)
+	{
+
+		// direct current position to HOME
+	}
+	return (go(argv[1]));
 	// update pwd to the new location
 }
