@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/10 20:29:37 by msloot           ###   ########.fr       */
+/*   Updated: 2024/12/10 23:17:33 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ int					pwd(void);
 ssize_t				find_env(char **envp, const char *key);
 char				*ft_getenv(char **envp, const char *key);
 char				**envdup(char **src);
+char				**ft_setenv(char **envp, char *key, char *val);
+char				**ft_setenv_raw(char **envp, const char *str);
 
 void				error(const char *err_src, const char *msg);
 
