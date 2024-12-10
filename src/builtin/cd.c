@@ -31,13 +31,9 @@ int	cd(int argc, char **argv, char **envp)
 		return (error(argv[0], "too many arguments"), EX_ERR);
 	if (argc == 2)
 		return (go(argv[1]));
-	if (argc == 1)
-	{
-		home_path = ft_getenv(envp, "HOME");
-		if (!home_path)
-			return (ft_puterr("HOME not set"), EX_ERR);
-		return (go(home_path));
-	}
-	return (go(argv[1]));
+	home_path = ft_getenv(envp, "HOME");
+	if (!home_path)
+		return (error("cd", "HOME not set"), EX_ERR);
+	return (go(home_path));
 	// update pwd to the new location
 }
