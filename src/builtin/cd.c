@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 17:42:45 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/09 22:28:58 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/10 19:27:20 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static int	go(const char *path)
 
 int	cd(int argc, char **argv, char **envp)
 {
+	char	*home_path;
+
 	dbg_builtin(argc, argv);
 	(void)envp;
 	if (argc > 2)
@@ -32,8 +34,10 @@ int	cd(int argc, char **argv, char **envp)
 		return (go(argv[1]));
 	if (argc == 1)
 	{
-
-		// direct current position to HOME
+		home_path = envp[find_env(envp, "HOME")];
+		if (!home_path)
+			return (ft_puterr("HOME not set"), EX_ERR);
+		return (go(home_path));
 	}
 	return (go(argv[1]));
 	// update pwd to the new location

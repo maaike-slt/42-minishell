@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 19:40:05 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/07 19:55:16 by msloot           ###   ########.fr       */
+/*   Updated: 2024/12/10 19:34:18 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	**envdup(char **src)
 	char	**dst;
 
 	size = ft_2d_size((const void **)src);
-	dst = (char **)malloc(sizeof(char *) * size);
+	dst = (char **)malloc(sizeof(char *) * (size + 1));
 	if (!dst)
 		return (NULL);
 	i = 0;
@@ -31,5 +31,6 @@ char	**envdup(char **src)
 				NULL);
 		i++;
 	}
+	dst[i] = NULL;
 	return (dst);
 }
