@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 22:13:30 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/10 23:17:07 by msloot           ###   ########.fr       */
+/*   Updated: 2024/12/10 23:29:11 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,14 @@
 
 char	**ft_setenv_raw(char **envp, const char *str)
 {
-	return ((char **)ft_2d_push((void ***)&envp, (void *)str));
+	ssize_t	index;
+
+	index = find_env(envp, str);
+	if (index == -1)
+		return ((char **)ft_2d_push((void ***)&envp, (void *)str));
+	free(envp[index]);
+	envp[index] = (char *)str;
+	return (envp);
 }
 
 char	**ft_setenv(char **envp, char *key, char *val)
