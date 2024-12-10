@@ -6,7 +6,7 @@
 #    By: msloot <msloot@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 19:19:04 by msloot            #+#    #+#              #
-#    Updated: 2024/12/10 22:14:31 by msloot           ###   ########.fr        #
+#    Updated: 2024/12/10 23:26:49 by adelille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -156,6 +156,6 @@ re:			fclean all
 
 -include $(OBJ:.o=.d)
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re launch
 
 # **************************************************************************** #
