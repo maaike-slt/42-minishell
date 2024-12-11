@@ -6,11 +6,13 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 16:25:34 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/01 21:18:37 by msloot           ###   ########.fr       */
+/*   Updated: 2024/12/11 20:44:27 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// TODO TOMORROW: make readline exit on ctrl+d (SIGQUIT)
 
 static void	ft_sigint(int signum, siginfo_t *info, void *context)
 {

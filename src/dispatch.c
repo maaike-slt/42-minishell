@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 19:23:35 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/09 22:23:17 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/11 20:43:38 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static int	i_fork(const t_exp *exp, char **envp)
 		return (perror("fork"), EX_ERR);
 	if (pid == 0)
 	{
+		// TODO TOMORROW: actually execute the binary given in argument
 		if (execve("/usr/bin/ls", exp->argv, envp) == -1)
 			perror("execve");
 		ft_putstr("child\n");

@@ -6,13 +6,15 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:52 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/09 21:30:58 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/11 20:27:17 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 #ifndef TEST
+
+// TODO TOMORROW: export builtin
 
 int	main(int argc, char **argv, char **envp)
 {

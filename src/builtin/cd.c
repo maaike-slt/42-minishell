@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 17:42:45 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/10 20:32:49 by msloot           ###   ########.fr       */
+/*   Updated: 2024/12/11 21:14:22 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,7 @@ int	cd(int argc, char **argv, char **envp)
 	if (!home_path)
 		return (error("cd", "HOME not set"), EX_ERR);
 	return (go(home_path));
-	// update pwd to the new location
+	// TODO TOMORROW: update PWD
+	// TODO TOMORROW: update OLDPWD
+	// TODO TOMORROW: make `cd -` work like `cd` in `bash`
 }
