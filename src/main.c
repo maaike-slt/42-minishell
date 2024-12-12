@@ -14,6 +14,17 @@
 
 #ifndef TEST
 
+/*
+	rl_free_keymap(rl_get_keymap_by_name("emacs"));
+	rl_free_keymap(rl_get_keymap_by_name("emacs-standard"));
+	rl_free_keymap(rl_get_keymap_by_name("emacs-meta"));
+	rl_free_keymap(rl_get_keymap_by_name("emacs-ctlx"));
+	rl_free_keymap(rl_get_keymap_by_name("vi"));
+	rl_free_keymap(rl_get_keymap_by_name("vi-move"));
+	rl_free_keymap(rl_get_keymap_by_name("vi-command"));
+	rl_free_keymap(rl_get_keymap_by_name("vi-insert"));
+*/
+
 static void	rl_clean(void)
 {
 	rl_clear_history();
@@ -23,15 +34,6 @@ static void	rl_clean(void)
 	rl_callback_sigcleanup();
 	rl_callback_handler_remove();
 	rl_free_undo_list();
-	rl_free_keymap(rl_get_keymap());
-	rl_free_keymap(rl_get_keymap_by_name("emacs"));
-	rl_free_keymap(rl_get_keymap_by_name("emacs-standard"));
-	rl_free_keymap(rl_get_keymap_by_name("emacs-meta"));
-	rl_free_keymap(rl_get_keymap_by_name("emacs-ctlx"));
-	rl_free_keymap(rl_get_keymap_by_name("vi"));
-	rl_free_keymap(rl_get_keymap_by_name("vi-move"));
-	rl_free_keymap(rl_get_keymap_by_name("vi-command"));
-	rl_free_keymap(rl_get_keymap_by_name("vi-insert"));
 }
 
 int	main(int argc, char **argv, char **envp)
