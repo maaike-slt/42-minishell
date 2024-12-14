@@ -6,32 +6,36 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 19:23:35 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/14 18:45:36 by msloot           ###   ########.fr       */
+/*   Updated: 2024/12/14 19:38:35 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // tmp
+
 static int	i_fork(const t_exp *exp, char **envp)
 {
+	char	*path;
 	pid_t	pid;
 
+	path = find_bin_path(exp->argv[0], envp);
+	if (path == NULL)
+		return (free(path), error(exp->argv[0], "command not found"),
+			EX_NOTFOUND);
 	pid = fork();
 	if (pid == -1)
 		return (perror("fork"), EX_ERR);
 	if (pid == 0)
 	{
-		// TODO TOMORROW: actually execute the binary given in argument
-		if (execve("/usr/bin/ls", exp->argv, envp) == -1)
+		if (execve(path, exp->argv, envp) == -1)
 			perror("execve");
-		ft_putstr("child\n");
 		sleep(1);
+		free(path);
 		exit(0);	// FIXME: do not just exit(0)
 	}
-	ft_putstr("parent\n");
 	waitpid(pid, NULL, 0);
-	ft_putstr("child is done, too much child labor\n");
+	free(path);
 	return (EX_OK);
 }
 

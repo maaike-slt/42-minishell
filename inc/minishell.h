@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/14 19:07:38 by msloot           ###   ########.fr       */
+/*   Updated: 2024/12/14 19:31:45 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,11 @@
 
 # define _XOPEN_SOURCE 700
 
-# define EX_ERR	1
+enum e_exit_code
+{
+	EX_ERR = 1,
+	EX_NOTFOUND = 127
+};
 
 # include "../libft/inc/libft.h"
 
@@ -62,6 +66,7 @@ char				*prompt(void);
 t_exp_list			*parse(char *line, char **envp);
 
 t_dispatch			dispatch(const t_exp *exp, char ***envp);
+char				*find_bin_path(const char *cmd, char **envp);
 
 int					builtin(int argc, char **argv, char ***envp);
 int					cd(int argc, char **argv, char **envp);
@@ -89,8 +94,13 @@ bool				assert_eq(const char *name, ssize_t got, ssize_t expected);
 bool				assert_str_eq(const char *name,
 						const char *got, const char *expected);
 
+char				**dummy_envp(char *first);
+
 bool				test_exp_len(void);
 bool				test_extract_args(void);
+bool				test_extract_double_quote(void);
+bool				test_extract_single_quote(void);
+bool				test_extract_variable(void);
 
 # endif
 

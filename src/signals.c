@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 16:25:34 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/11 20:44:27 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/14 19:32:00 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ static void	ft_sigint(int signum, siginfo_t *info, void *context)
 	(void)info;
 	(void)context;
 	ft_putstr_fd("\n", 1);
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
+	/* rl_replace_line("", 0); */
+	/* rl_on_new_line(); */
+	/* rl_redisplay(); */
 }
 
 void	init_signals(void)

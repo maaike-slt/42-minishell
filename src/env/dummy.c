@@ -1,36 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dup.c                                              :+:      :+:    :+:   */
+/*   dummy.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/07 19:40:05 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/10 23:31:41 by adelille         ###   ########.fr       */
+/*   Created: 2024/12/10 22:06:13 by msloot            #+#    #+#             */
+/*   Updated: 2024/12/14 19:34:45 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**envdup(char **src)
-{
-	size_t	i;
-	size_t	size;
-	char	**dst;
+#ifdef TEST
 
-	size = ft_2d_size((const void **)src);
-	dst = (char **)malloc(sizeof(char *) * (size + 1));
-	if (!dst)
+char	**dummy_envp(char *first)
+{
+	char	**envp;
+
+	envp = (char **)malloc(sizeof(char *) * 2);
+	if (!envp)
 		return (NULL);
-	i = 0;
-	while (i < size)
-	{
-		dst[i] = ft_strdup(src[i]);
-		if (!dst[i])
-			return (ft_2d_free((void ***)&dst, ft_2d_size((const void **)dst)),
-				NULL);
-		i++;
-	}
-	dst[i] = NULL;
-	return (dst);
+	envp[0] = first;
+	envp[1] = NULL;
+	return (envp);
 }
+
+#endif
