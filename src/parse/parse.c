@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 17:15:14 by adelille          #+#    #+#             */
-/*   Updated: 2024/12/09 22:02:51 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/14 17:31:45 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ t_exp_list	*parse(char *line, char **envp)
 		if (!current)
 			return (ft_lstclear((t_list **)&head, exp_free), NULL);
 		ft_lstadd_back((t_list **)&head, current);
-		/* i++; */
+		if (line[i])
+			i++;
 	}
 	return (head);
 }
