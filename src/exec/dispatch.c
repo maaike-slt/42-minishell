@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 19:23:35 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/14 16:31:14 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/14 19:38:35 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	i_fork(const t_exp *exp, char **envp)
 	return (EX_OK);
 }
 
-t_dispatch	dispatch(const t_exp *exp, char **envp)
+t_dispatch	dispatch(const t_exp *exp, char ***envp)
 {
 	if (ft_strcmp(exp->argv[0], "exit") == 0)
 	{
@@ -52,7 +52,7 @@ t_dispatch	dispatch(const t_exp *exp, char **envp)
 	// else if  in path
 	// for testing
 	else if (true)
-		i_fork(exp, envp);
+		i_fork(exp, *envp);
 	else
 		ft_putstr("command not found"); // TODO: finish this branch
 	return (D_OKAY);

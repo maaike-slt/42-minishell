@@ -1,36 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_2d_push.c                                       :+:      :+:    :+:   */
+/*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/05 21:22:03 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/14 18:29:29 by msloot           ###   ########.fr       */
+/*   Created: 2024/12/14 19:34:24 by msloot            #+#    #+#             */
+/*   Updated: 2024/12/14 19:34:37 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-void	**ft_2d_push(void ***ptr, void *val)
+int	export(int argc, char **argv, char ***envp)
 {
-	size_t	size;
 	size_t	i;
-	void	**new;
 
-	size = ft_2d_size((const void **)*ptr);
-	new = (void **)malloc(sizeof(void *) * (size + 2));
-	if (!new)
-		return (NULL);
-	i = 0;
-	while (i < size)
+	dbg_builtin(argc, argv);
+	if (argc < 2)
+		return (EX_OK);
+	i = 1;
+	while (argv[i])
 	{
-		new[i] = (*ptr)[i];
+		if (ft_is_in(argv[i], '='))
+			ft_setenv_raw(envp, argv[i]);
 		i++;
 	}
-	new[i] = val;
-	new[i + 1] = NULL;
-	free(*ptr);
-	*ptr = new;
-	return (new);
+	return (EX_OK);
 }

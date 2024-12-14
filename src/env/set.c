@@ -6,25 +6,31 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 22:13:30 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/10 23:29:11 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/14 19:38:04 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**ft_setenv_raw(char **envp, const char *str)
+char	**ft_setenv_raw(char ***envp, char *str)
 {
+	size_t	key_len;
 	ssize_t	index;
 
-	index = find_env(envp, str);
+	key_len = 0;
+	while (str[key_len] != '=' && str[key_len])
+		key_len++;
+	str[key_len] = '\0';
+	index = find_env(*envp, str);
+	str[key_len] = '=';
 	if (index == -1)
-		return ((char **)ft_2d_push((void ***)&envp, (void *)str));
-	free(envp[index]);
-	envp[index] = (char *)str;
-	return (envp);
+		return ((char **)ft_2d_push((void ***)envp, (void *)str));
+	free((*envp)[index]);
+	(*envp)[index] = str;
+	return (*envp);
 }
 
-char	**ft_setenv(char **envp, char *key, char *val)
+char	**ft_setenv(char ***envp, char *key, char *val)
 {
 	size_t	key_len;
 	size_t	val_len;

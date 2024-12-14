@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:52 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/11 00:06:19 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/14 19:32:34 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	init_signals();
-	loop(envp_cpy);
+	loop(&envp_cpy);
 	ft_2d_free((void ***)&envp_cpy, ft_2d_size((const void **)envp_cpy));
 	rl_clean();
 	return (0);
