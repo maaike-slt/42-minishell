@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/10 23:17:33 by msloot           ###   ########.fr       */
+/*   Updated: 2024/12/14 19:07:38 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,6 @@ typedef struct s_expression_list
 	struct s_expression_list	*next;
 }	t_exp_list;
 
-bool				loop(char **envp);
-char				*prompt(void);
-t_exp_list			*parse(char *line, char **envp);
-void				init_signals(void);
 
 typedef enum e_dispatch_code
 {
@@ -61,23 +57,25 @@ typedef enum e_dispatch_code
 }				t_dispatch;
 
 void				init_signals(void);
-bool				loop(char **envp);
+bool				loop(char ***envp);
 char				*prompt(void);
+t_exp_list			*parse(char *line, char **envp);
 
-t_dispatch			dispatch(const t_exp *exp, char **envp);
+t_dispatch			dispatch(const t_exp *exp, char ***envp);
 
-int					builtin(int argc, char **argv, char **envp);
+int					builtin(int argc, char **argv, char ***envp);
 int					cd(int argc, char **argv, char **envp);
 int					echo(int argc, char **argv);
 int					env(char **envp);
 int					unset(int argc, char **argv, char **envp);
+int					export(int argc, char **argv, char ***envp);
 int					pwd(void);
 
 ssize_t				find_env(char **envp, const char *key);
 char				*ft_getenv(char **envp, const char *key);
 char				**envdup(char **src);
-char				**ft_setenv(char **envp, char *key, char *val);
-char				**ft_setenv_raw(char **envp, const char *str);
+char				**ft_setenv(char ***envp, char *key, char *val);
+char				**ft_setenv_raw(char ***envp, char *str);
 
 void				error(const char *err_src, const char *msg);
 
