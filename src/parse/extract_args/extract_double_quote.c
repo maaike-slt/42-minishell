@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 19:04:11 by adelille          #+#    #+#             */
-/*   Updated: 2024/12/14 19:09:14 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/14 19:22:29 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*extract_double_quote(const char *line, size_t *i, char **envp)
 	ret = ft_strdup("");
 	while (ret && line[*i] && line[*i] != '"')
 	{
-		if (line[*i] == '\\')
+		if (line[*i] == '\\' && ft_is_in("\\\"$", line[*i + 1]))
 		{
 			(*i)++;
 			ft_strpush(&ret, line[*i]);
@@ -53,7 +53,7 @@ bool	test_extract_double_quote(void)
 	r |= assert_eq("extract_double_quote index", i, 27);
 	r |= assert_str_eq("extract_double_quote remaining", &line[i], "\"   ");
 	r |= assert_str_eq("extract_double_quote return",
-			ret, "He;llo\\ Wor\\$ld \"  here  ");
+			ret, "He;llo\\ Wor$ld \"  here  ");
 	free(ret);
 	return (r);
 }
