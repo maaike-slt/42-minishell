@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/10 20:29:37 by msloot           ###   ########.fr       */
+/*   Updated: 2024/12/14 18:39:51 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,11 @@
 
 # define _XOPEN_SOURCE 700
 
-# define EX_ERR	1
+enum e_exit_code
+{
+	EX_ERR = 1,
+	EX_NOTFOUND = 127
+};
 
 # include "../libft/inc/libft.h"
 
@@ -65,6 +69,7 @@ bool				loop(char **envp);
 char				*prompt(void);
 
 t_dispatch			dispatch(const t_exp *exp, char **envp);
+char				*find_bin_path(const char *cmd, char **envp);
 
 int					builtin(int argc, char **argv, char **envp);
 int					cd(int argc, char **argv, char **envp);
@@ -76,6 +81,8 @@ int					pwd(void);
 ssize_t				find_env(char **envp, const char *key);
 char				*ft_getenv(char **envp, const char *key);
 char				**envdup(char **src);
+char				**ft_setenv(char **envp, char *key, char *val);
+char				**ft_setenv_raw(char **envp, const char *str);
 
 void				error(const char *err_src, const char *msg);
 
@@ -89,8 +96,13 @@ bool				assert_eq(const char *name, ssize_t got, ssize_t expected);
 bool				assert_str_eq(const char *name,
 						const char *got, const char *expected);
 
+char				**dummy_envp(char *first);
+
 bool				test_exp_len(void);
 bool				test_extract_args(void);
+bool				test_extract_double_quote(void);
+bool				test_extract_single_quote(void);
+bool				test_extract_variable(void);
 
 # endif
 

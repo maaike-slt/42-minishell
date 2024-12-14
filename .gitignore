@@ -41,6 +41,9 @@ test
 *.x86_64
 *.hex
 
+# valgrind
+vgcore.*
+
 ### Vim ###
 # Swap
 [._]*.s[a-v][a-z]

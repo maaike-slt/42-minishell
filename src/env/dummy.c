@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exp_free.c                                         :+:      :+:    :+:   */
+/*   dummy.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/08 18:23:23 by adelille          #+#    #+#             */
-/*   Updated: 2024/12/10 22:15:12 by adelille         ###   ########.fr       */
+/*   Created: 2024/12/14 18:19:51 by adelille          #+#    #+#             */
+/*   Updated: 2024/12/14 19:25:01 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exp_free(void *exp)
-{
-	t_exp	*e;
+#ifdef TEST
 
-	if (!exp)
-		return ;
-	e = (t_exp *)exp;
-	ft_2d_free((void ***)&e->argv, e->argc);
-	free(e);
+char	**dummy_envp(char *first)
+{
+	char	**envp;
+
+	envp = (char **)malloc(sizeof(char *) * 2);
+	if (!envp)
+		return (NULL);
+	envp[0] = first;
+	envp[1] = NULL;
+	return (envp);
 }
+
+#endif
