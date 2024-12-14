@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 22:14:59 by adelille          #+#    #+#             */
-/*   Updated: 2024/12/09 21:54:57 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/14 18:53:30 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,9 @@ static char	*extract_single_arg(
 			(*i)++;
 			ft_strpush(&ret, line[*i]);
 		}
-		/*
 		else if (line[*i] == '$')
-			ret = ft_strjoin_free(ret, extract_variable(line, i, envp), true, true);
-		*/
+			ret = ft_strjoin_free(ret,
+					extract_variable(line, i, envp), true, true);
 		else
 			ft_strpush(&ret, line[*i]);
 		(*i)++;

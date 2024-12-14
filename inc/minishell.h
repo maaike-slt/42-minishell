@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/14 16:26:26 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/14 18:39:51 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,13 @@ bool				assert_eq(const char *name, ssize_t got, ssize_t expected);
 bool				assert_str_eq(const char *name,
 						const char *got, const char *expected);
 
+char				**dummy_envp(char *first);
+
 bool				test_exp_len(void);
 bool				test_extract_args(void);
+bool				test_extract_double_quote(void);
+bool				test_extract_single_quote(void);
+bool				test_extract_variable(void);
 
 # endif
 
