@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/15 18:00:43 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/15 18:43:15 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,14 @@ enum e_exit_code
 
 # define PROMPT	"\033[38;2;17;240;188m\033[0m  "
 
+# define INTERNAL_PIPE_FD	-42
+
 typedef struct s_expression
 {
 	int		argc;
 	char	**argv;
+	int		infd;
+	int		outfd;
 }	t_exp;
 
 void				exp_free(void *exp);

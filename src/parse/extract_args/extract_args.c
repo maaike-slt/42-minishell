@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 22:14:59 by adelille          #+#    #+#             */
-/*   Updated: 2024/12/14 18:53:30 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/15 19:48:28 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,10 @@ static char	*extract_single_arg(
 	ret = ft_strdup("");
 	while (ret && *i < len && line[*i] && !ft_isspace(line[*i]))
 	{
-		if (line[*i] == '\'')
-			ret = ft_strjoin_free(ret,
-					extract_single_quote(line, i), true, true);
-		else if (line[*i] == '"')
-			ret = ft_strjoin_free(ret,
-					extract_double_quote(line, i, envp), true, true);
-		else if (line[*i] == '\\')
-		{
-			(*i)++;
-			ft_strpush(&ret, line[*i]);
-		}
-		else if (line[*i] == '$')
-			ret = ft_strjoin_free(ret,
-					extract_variable(line, i, envp), true, true);
+		if (extract_string(ret, line, i, envp)
+	  		;
+		else if (handle_redirection(line, i))	// TODO: should set the arg to something like "\[-1]"
+			;
 		else
 			ft_strpush(&ret, line[*i]);
 		(*i)++;
