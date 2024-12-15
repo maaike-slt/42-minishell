@@ -6,7 +6,7 @@
 #    By: msloot <msloot@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 19:19:04 by msloot            #+#    #+#              #
-#    Updated: 2024/12/14 19:35:15 by msloot           ###   ########.fr        #
+#    Updated: 2024/12/15 21:56:54 by adelille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,6 +73,8 @@ SRC_NAME =	main.c signals.c loop.c prompt.c \
 			parse/parse.c \
 			parse/exp_free.c parse/is_exp_sep.c parse/exp_len.c \
 			parse/extract_args/extract_args.c \
+			parse/extract_args/extract_string.c \
+			parse/extract_args/extract_redirection.c \
 			parse/extract_args/extract_single_quote.c \
 			parse/extract_args/extract_double_quote.c \
 			parse/extract_args/extract_variable.c \

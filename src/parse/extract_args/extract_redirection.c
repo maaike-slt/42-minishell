@@ -1,34 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   extract_string.c                                   :+:      :+:    :+:   */
+/*   extract_redirection.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 18:57:22 by adelille          #+#    #+#             */
-/*   Updated: 2024/12/15 22:28:59 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/15 22:29:02 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "parse.h"
 
-bool	extract_string(char **ret, const char *line, size_t *i, char **envp)
+bool	extract_redirection(char **ret, const char *line, size_t *i)
 {
-	if (line[*i] == '\'')
-		*ret = ft_strjoin_free(*ret,
-				extract_single_quote(line, i), true, true);
-	else if (line[*i] == '"')
-		*ret = ft_strjoin_free(*ret,
-				extract_double_quote(line, i, envp), true, true);
-	else if (line[*i] == '\\')
-	{
-		(*i)++;
-		ft_strpush(ret, line[*i]);
-	}
-	else if (line[*i] == '$')
-		*ret = ft_strjoin_free(*ret,
-				extract_variable(line, i, envp), true, true);
+	(void)ret;
+	(void)line;
+	(void)i;
+	if (false)
+		;
 	else
 		return (false);
 	return (true);

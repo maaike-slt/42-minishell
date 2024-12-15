@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 17:15:14 by adelille          #+#    #+#             */
-/*   Updated: 2024/12/15 18:51:12 by adelille         ###   ########.fr       */
+/*   Updated: 2024/12/15 22:28:34 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_exp_list	*parse(char *line, char **envp)
 	i = 0;
 	while (line[i])
 	{
-		current = parse_single_exp(line, &i, envp);
+		current = parse_single_exp(line, &i, envp, is_pipe);
 		if (!current)
 			return (ft_lstclear((t_list **)&head, exp_free), NULL);
 		current = ft_lstnew(current);
@@ -54,8 +54,8 @@ t_exp_list	*parse(char *line, char **envp)
 			return (ft_lstclear((t_list **)&head, exp_free), NULL);
 		ft_lstadd_back((t_list **)&head, current);
 		is_pipe = line[i] == '|';
-		if (is_pipe && current->data->outfd == STDOUT_FILENO)
-			current->data->outfd = INTERNAL_PIPE_FD;
+		if (is_pipe && ((t_exp_list *)current)->content->outfd == STDOUT_FILENO)
+			((t_exp_list *)current)->content->outfd = INTERNAL_PIPE_FD;
 		if (line[i])
 			i++;
 	}
