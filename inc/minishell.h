@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/14 19:31:45 by msloot           ###   ########.fr       */
+/*   Updated: 2024/12/15 18:00:43 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ enum e_exit_code
 # include <sys/stat.h>
 # include <sysexits.h>
 
-# define PROMPT	"\033[1;32m>\033[0m "
+# define PROMPT	"\033[38;2;17;240;188m\033[0m  "
 
 typedef struct s_expression
 {
