@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 17:42:45 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/15 19:45:53 by msloot           ###   ########.fr       */
+/*   Updated: 2025/02/02 18:44:00 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@ static int	go(const char *path, char ***envp)
 	{
 		old_pwd = ft_getenv(*envp, "OLDPWD");
 		if (!old_pwd)
-			return (error("cd", "OLDPWD not set"), EX_ERR);
+			return (free(current_pwd), error("cd", "OLDPWD not set"), EX_ERR);
 		ret = chdir(old_pwd);
+		ft_putendl_fd(old_pwd, STDOUT_FILENO);
 	}
 	else
 		ret = chdir(path);
