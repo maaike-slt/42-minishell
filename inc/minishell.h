@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/02 17:50:45 by msloot           ###   ########.fr       */
+/*   Updated: 2025/02/02 17:59:36 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ t_dispatch			dispatch(const t_exp *exp, char ***envp);
 char				*find_bin_path(const char *cmd, char **envp);
 
 int					builtin(int argc, char **argv, char ***envp);
-int					cd(int argc, char **argv, char **envp);
+int					cd(int argc, char **argv, char ***envp);
 int					echo(int argc, char **argv);
 int					env(char **envp);
 int					unset(int argc, char **argv, char **envp);
@@ -78,7 +78,7 @@ int					pwd(void);
 ssize_t				find_env(char **envp, const char *key);
 char				*ft_getenv(char **envp, const char *key);
 char				**envdup(char **src);
-char				**ft_setenv(char ***envp, char *key, char *val);
+char				**ft_setenv(char ***envp, const char *key, const char *val);
 char				**ft_setenv_raw(char ***envp, char *str);
 
 void				error(const char *err_src, const char *msg);
