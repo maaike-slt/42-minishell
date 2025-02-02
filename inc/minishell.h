@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/15 19:30:54 by msloot           ###   ########.fr       */
+/*   Updated: 2025/02/02 17:59:36 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,6 @@
 # define MINISHELL_H
 
 # define _XOPEN_SOURCE 700
-
-enum e_exit_code
-{
-	EX_ERR = 1,
-	EX_NOTFOUND = 127
-};
 
 # include "../libft/inc/libft.h"
 
@@ -52,6 +46,11 @@ typedef struct s_expression_list
 	struct s_expression_list	*next;
 }	t_exp_list;
 
+enum e_exit_code
+{
+	EX_ERR = 1,
+	EX_NOTFOUND = 127
+};
 
 typedef enum e_dispatch_code
 {
@@ -62,7 +61,7 @@ typedef enum e_dispatch_code
 
 void				init_signals(void);
 bool				loop(char ***envp);
-char				*prompt(void);
+char				*prompt(char **envp);
 t_exp_list			*parse(char *line, char **envp);
 
 t_dispatch			dispatch(const t_exp *exp, char ***envp);
