@@ -6,23 +6,27 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 23:19:10 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/02 17:30:43 by msloot           ###   ########.fr       */
+/*   Updated: 2025/02/02 17:51:35 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*get_cwd(void)
+static char	*get_cwd(char **envp)
 {
 	size_t	i;
 	char	*cwd;
 	char	*ret;
+	char	*home;
 
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
 		return (ft_strdup(""));
 	if (ft_strcmp(cwd, "/") == 0)
-		return (ft_strdup("/"));
+		return (free(cwd), ft_strdup("/"));
+	home = ft_getenv(envp, "HOME");
+	if (home && ft_strcmp(cwd, home) == 0)
+		return (free(cwd), ft_strdup("~"));
 	i = ft_strlen(cwd);
 	while (i > 0 && cwd[i] != '/')
 		i--;
@@ -36,12 +40,12 @@ static char	*get_cwd(void)
  *
  * @return char* the user input (on the heap) or NULL if nothing
  */
-char	*prompt(void)
+char	*prompt(char **envp)
 {
 	char	*prompt;
 	char	*line;
 
-	prompt = ft_strjoin_free(Y_B_MAG, get_cwd(), false, true);
+	prompt = ft_strjoin_free(Y_B_MAG, get_cwd(envp), false, true);
 	ft_strpush(&prompt, ' ');
 	prompt = ft_strjoin_free(prompt, PROMPT, true, false);
 	line = readline(prompt);
