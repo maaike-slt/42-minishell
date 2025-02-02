@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 19:34:24 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/14 19:34:37 by msloot           ###   ########.fr       */
+/*   Updated: 2025/02/02 19:54:27 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	export(int argc, char **argv, char ***envp)
 	while (argv[i])
 	{
 		if (ft_is_in(argv[i], '='))
-			ft_setenv_raw(envp, argv[i]);
+			ft_setenv_raw(envp, ft_strdup(argv[i]));
 		i++;
 	}
 	return (EX_OK);
