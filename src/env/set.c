@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 22:13:30 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/14 19:38:04 by msloot           ###   ########.fr       */
+/*   Updated: 2024/12/15 19:30:37 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	**ft_setenv_raw(char ***envp, char *str)
 	return (*envp);
 }
 
-char	**ft_setenv(char ***envp, char *key, char *val)
+char	**ft_setenv(char ***envp, const char *key, const char *val)
 {
 	size_t	key_len;
 	size_t	val_len;
@@ -46,7 +46,5 @@ char	**ft_setenv(char ***envp, char *key, char *val)
 	ft_strcpy(str, key);
 	str[key_len] = '=';
 	ft_strcpy(&str[key_len + 1], val);
-	free(key);
-	free(val);
 	return (ft_setenv_raw(envp, str));
 }

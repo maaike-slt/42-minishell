@@ -2,3 +2,4 @@
 - cd - (cd to previous directory)
 - cd ~ (cd to $HOME)
 - pwd in prompt
+  - `~` when in $HOME
