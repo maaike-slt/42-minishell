@@ -32,6 +32,7 @@ int main(int argc, char *argv[], char **envp)
 		dup2(pipefd[1], STDOUT_FILENO);
 		if (execve("./foo", argv, envp) == -1)
 			perror("execve");
+		printf("execve FINISHED\n");
 		close(pipefd[1]);          /* Reader will see EOF */
 		wait(NULL);                /* Wait for child */
 		exit(EXIT_SUCCESS);

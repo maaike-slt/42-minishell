@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 19:23:35 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/02 17:08:35 by msloot           ###   ########.fr       */
+/*   Updated: 2025/02/09 15:00:10 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // tmp
 
-static int	i_fork(const t_exp *exp, char **envp)
+static int	i_fork(t_exp *exp, char **envp)
 {
 	char	*path;
 	pid_t	pid;
@@ -28,18 +28,36 @@ static int	i_fork(const t_exp *exp, char **envp)
 		return (perror("fork"), EX_ERR);
 	if (pid == 0)
 	{
+		dbg("child");
+		if (exp->infd != STDIN_FILENO)
+			dup2(exp->infd, STDIN_FILENO);
+		if (exp->outfd != STDOUT_FILENO)
+			dup2(exp->outfd, STDOUT_FILENO);
+		dbg(path);
 		if (execve(path, exp->argv, envp) == -1)
 			perror("execve");
+		dbg("execve finished");
 		sleep(1);
 		free(path);
+		exp_free((void *)exp);
 		exit(0);	// FIXME: do not just exit(0)
+	}
+	if (exp->infd != STDIN_FILENO)
+	{
+		close(exp->infd);
+		exp->infd = STDIN_FILENO;
+	}
+	if (exp->outfd != STDOUT_FILENO)
+	{
+		close(exp->outfd);
+		exp->outfd = STDOUT_FILENO;
 	}
 	waitpid(pid, NULL, 0);
 	free(path);
 	return (EX_OK);
 }
 
-t_dispatch	dispatch(const t_exp *exp, char ***envp)
+t_dispatch	dispatch(t_exp *exp, char ***envp)
 {
 	if (ft_strcmp(exp->argv[0], "exit") == 0)
 	{

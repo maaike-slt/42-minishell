@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/02 18:49:55 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/09 15:00:21 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,9 @@ bool				loop(char ***envp);
 char				*prompt(char **envp);
 t_exp_list			*parse(char *line, char **envp);
 
-t_dispatch			dispatch(const t_exp *exp, char ***envp);
+bool				create_pipe(t_exp_list *exp_list);
+
+t_dispatch			dispatch(t_exp *exp, char ***envp);
 char				*find_bin_path(const char *cmd, char **envp);
 
 int					builtin(int argc, char **argv, char ***envp);
