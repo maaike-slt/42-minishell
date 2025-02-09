@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/09 16:36:14 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/09 17:18:34 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ t_exp_list			*parse(char *line, char **envp);
 
 bool				create_pipe(t_exp_list *exp_list);
 
-
+bool				exec_all_exp(t_exp_list *exp_list, char ***envp);
 t_dispatch			dispatch(t_exp *exp, char ***envp);
 bool				is_builtin(const char *cmd);
 bool				prepare_bin(t_exp *exp, char **envp);
