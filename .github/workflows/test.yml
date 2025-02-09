@@ -10,7 +10,9 @@ jobs:
       uses: actions/checkout@v4
 
     - name: install dependencies
-      run: sudo apt-get install libreadline-dev valgrind
+      run: |
+        sudo apt-get update
+        sudo apt get install libreadline-dev valgrind
 
     - name: make test
       run: make test
