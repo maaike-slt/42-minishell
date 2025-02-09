@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:02:47 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/09 16:30:08 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/09 17:08:02 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,13 @@ static bool	is_in_list(const char *cmd, const char *list[BUILTIN_COUNT])
 
 bool	is_builtin(const char *cmd)
 {
-	return (is_in_list(cmd, (const char *[]){ "cd", "echo", "env", "unset", "export", "pwd", NULL }));
+	return (is_in_list(cmd, (const char *[BUILTIN_COUNT + 1]){
+			"cd",
+			"echo",
+			"env",
+			"unset",
+			"export",
+			"pwd",
+			NULL
+		}));
 }
