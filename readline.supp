@@ -1,5 +1,5 @@
 {
-   readline_malloc
+   readline
    Memcheck:Leak
    ...
    obj:*/libreadline.so.*
