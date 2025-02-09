@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/09 17:18:34 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/09 18:20:25 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,13 +85,14 @@ bool				is_builtin(const char *cmd);
 bool				prepare_bin(t_exp *exp, char **envp);
 char				*find_bin_path(const char *cmd, char **envp);
 
-typedef				int (*t_runner)(int argc, char **argv, char ***envp);
+typedef int	(*t_runner)(int argc, char **argv, char ***envp);
 int					init_process(t_exp *exp, char ***envp, t_runner runner);
 int					run_builtin(int argc, char **argv, char ***envp);
 int					run_bin(int argc, char **argv, char ***envp);
 
+# define BUILTIN_COUNT 6
+
 int					builtin(int argc, char **argv, char ***envp);
-# define			BUILTIN_COUNT 6
 int					cd(int argc, char **argv, char ***envp);
 int					echo(int argc, char **argv);
 int					env(char **envp);
