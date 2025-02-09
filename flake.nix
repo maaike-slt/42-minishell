@@ -40,12 +40,12 @@
               # https://devenv.sh/reference/options/
               packages = with pkgs; [
                 # build dependencies
-                clang_19
+                clang
                 readline
 
                 # dev tools
                 norminette
-                lldb_19
+                # lldb
               ];
 
               languages.c = {
