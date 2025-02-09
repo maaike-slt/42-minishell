@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/02 17:59:36 by msloot           ###   ########.fr       */
+/*   Updated: 2025/02/09 18:20:25 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,22 @@
 
 # define PROMPT	"\033[38;2;17;240;188m\033[0m  "
 
+# define INTERNAL_PIPE_FD	-42
+
+enum e_internal_redirection_type
+{
+	IR_FILE_IN = -1,
+	IR_FILE_OUT = -2,
+	IR_HEREDOC = -3,
+	IR_FILE_OUT_APPEND = -4,
+};
+
 typedef struct s_expression
 {
 	int		argc;
 	char	**argv;
+	int		infd;
+	int		outfd;
 }	t_exp;
 
 void				exp_free(void *exp);
@@ -48,6 +60,7 @@ typedef struct s_expression_list
 
 enum e_exit_code
 {
+	EX_CHILD = -1,
 	EX_ERR = 1,
 	EX_NOTFOUND = 127
 };
@@ -64,8 +77,20 @@ bool				loop(char ***envp);
 char				*prompt(char **envp);
 t_exp_list			*parse(char *line, char **envp);
 
-t_dispatch			dispatch(const t_exp *exp, char ***envp);
+bool				create_pipe(t_exp_list *exp_list);
+
+bool				exec_all_exp(t_exp_list *exp_list, char ***envp);
+t_dispatch			dispatch(t_exp *exp, char ***envp);
+bool				is_builtin(const char *cmd);
+bool				prepare_bin(t_exp *exp, char **envp);
 char				*find_bin_path(const char *cmd, char **envp);
+
+typedef int	(*t_runner)(int argc, char **argv, char ***envp);
+int					init_process(t_exp *exp, char ***envp, t_runner runner);
+int					run_builtin(int argc, char **argv, char ***envp);
+int					run_bin(int argc, char **argv, char ***envp);
+
+# define BUILTIN_COUNT 6
 
 int					builtin(int argc, char **argv, char ***envp);
 int					cd(int argc, char **argv, char ***envp);

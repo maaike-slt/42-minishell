@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 23:12:00 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/02 17:51:08 by msloot           ###   ########.fr       */
+/*   Updated: 2025/02/09 17:19:10 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 bool	loop(char ***envp)
 {
+	bool		exit;
 	char		*line;
 	t_exp_list	*exp_list;
-	t_exp_list	*current;
-	t_dispatch	dispatch_ret;
 
-	while (true)
+	exit = false;
+	while (!exit)
 	{
 		line = prompt(*envp);
 		if (!line)
@@ -27,14 +27,12 @@ bool	loop(char ***envp)
 		dbg(line);
 		exp_list = parse(line, *envp);
 		free(line);
-		current = exp_list;
-		while (current)
+		if (!create_pipe(exp_list))
 		{
-			dispatch_ret = dispatch(current->content, envp);
-			if (dispatch_ret == D_EXIT)
-				return (ft_lstclear((t_list **)&exp_list, exp_free), true);
-			current = current->next;
+			ft_lstclear((t_list **)&exp_list, exp_free);
+			continue ;
 		}
+		exit = !exec_all_exp(exp_list, envp);
 		ft_lstclear((t_list **)&exp_list, exp_free);
 	}
 	return (true);

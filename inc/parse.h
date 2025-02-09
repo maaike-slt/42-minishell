@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 21:54:18 by adelille          #+#    #+#             */
-/*   Updated: 2024/12/14 18:06:45 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/09 18:20:57 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,9 @@ size_t		exp_len(const char *line);
 bool		is_exp_sep(char c);
 
 bool		extract_args(t_exp *exp, char *line, size_t len, char **envp);
+bool		extract_string(
+				char **ret, const char *line, size_t *i, char **envp);
+bool		extract_redirection(char **ret, const char *line, size_t *i);
 char		*extract_single_quote(const char *line, size_t *i);
 char		*extract_double_quote(const char *line, size_t *i, char **envp);
 char		*extract_variable(const char *line, size_t *i, char **envp);

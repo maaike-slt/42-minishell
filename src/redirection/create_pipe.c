@@ -1,28 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exp_free.c                                         :+:      :+:    :+:   */
+/*   create_pipe.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/08 18:23:23 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/09 14:09:02 by adelille         ###   ########.fr       */
+/*   Created: 2025/02/09 17:11:37 by adelille          #+#    #+#             */
+/*   Updated: 2025/02/09 17:11:44 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exp_free(void *exp)
+bool	create_pipe(t_exp_list *exp_list)
 {
-	t_exp	*e;
+	int			pipefd[2];
+	t_exp_list	*current;
 
-	if (!exp)
-		return ;
-	e = (t_exp *)exp;
-	if (e->infd > STDERR_FILENO)
-		close(e->infd);
-	if (e->outfd > STDERR_FILENO)
-		close(e->outfd);
-	ft_2d_free((void ***)&e->argv, e->argc);
-	free(e);
+	current = exp_list;
+	while (current)
+	{
+		if (current->content->infd == INTERNAL_PIPE_FD)
+			current->content->infd = pipefd[0];
+		if (current->content->outfd == INTERNAL_PIPE_FD)
+		{
+			if (pipe(pipefd) == -1)
+			{
+				perror("pipe");
+				return (false);
+			}
+			current->content->outfd = pipefd[1];
+		}
+		current = current->next;
+	}
+	return (true);
 }

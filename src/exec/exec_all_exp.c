@@ -1,18 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_exp_sep.c                                       :+:      :+:    :+:   */
+/*   exec_all_exp.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/01 21:55:28 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/09 13:05:06 by adelille         ###   ########.fr       */
+/*   Created: 2025/02/09 17:13:50 by adelille          #+#    #+#             */
+/*   Updated: 2025/02/09 17:18:13 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-bool	is_exp_sep(char c)
+bool	exec_all_exp(t_exp_list *exp_list, char ***envp)
 {
-	return (ft_is_in("|;&", c));
+	t_exp_list	*current;
+	t_dispatch	dispatch_ret;
+
+	current = exp_list;
+	while (current)
+	{
+		dispatch_ret = dispatch(current->content, envp);
+		if (dispatch_ret == D_EXIT)
+			return (false);
+		current = current->next;
+	}
+	return (true);
 }

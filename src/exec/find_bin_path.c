@@ -6,11 +6,13 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 16:15:53 by adelille          #+#    #+#             */
-/*   Updated: 2024/12/14 16:32:32 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/09 16:01:35 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// TODO: also need to work with relative path
 
 static char	*check_single_path(const char *dir, const char *cmd)
 {

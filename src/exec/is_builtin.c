@@ -1,18 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_exp_sep.c                                       :+:      :+:    :+:   */
+/*   is_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/01 21:55:28 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/09 13:05:06 by adelille         ###   ########.fr       */
+/*   Created: 2025/02/09 16:02:47 by adelille          #+#    #+#             */
+/*   Updated: 2025/02/09 17:08:02 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-bool	is_exp_sep(char c)
+static bool	is_in_list(const char *cmd, const char *list[BUILTIN_COUNT])
 {
-	return (ft_is_in("|;&", c));
+	size_t	i;
+
+	i = 0;
+	while (i < BUILTIN_COUNT)
+	{
+		if (ft_strcmp(cmd, list[i]) == 0)
+			return (true);
+		i++;
+	}
+	return (false);
+}
+
+bool	is_builtin(const char *cmd)
+{
+	return (is_in_list(cmd, (const char *[BUILTIN_COUNT + 1]){
+			"cd",
+			"echo",
+			"env",
+			"unset",
+			"export",
+			"pwd",
+			NULL
+		}));
 }

@@ -6,7 +6,7 @@
 #    By: msloot <msloot@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 19:19:04 by msloot            #+#    #+#              #
-#    Updated: 2024/12/14 19:35:15 by msloot           ###   ########.fr        #
+#    Updated: 2025/02/09 17:17:17 by adelille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,10 +73,16 @@ SRC_NAME =	main.c signals.c loop.c prompt.c \
 			parse/parse.c \
 			parse/exp_free.c parse/is_exp_sep.c parse/exp_len.c \
 			parse/extract_args/extract_args.c \
+			parse/extract_args/extract_string.c \
+			parse/extract_args/extract_redirection.c \
 			parse/extract_args/extract_single_quote.c \
 			parse/extract_args/extract_double_quote.c \
 			parse/extract_args/extract_variable.c \
-			exec/dispatch.c exec/find_bin_path.c \
+			redirection/create_pipe.c \
+			exec/exec_all_exp.c \
+			exec/dispatch.c exec/is_builtin.c \
+			exec/prepare_bin.c exec/find_bin_path.c \
+			exec/init_process.c \
 			env/get.c env/dup.c env/set.c \
 			error.c \
 			builtin/cd.c builtin/echo.c builtin/env.c builtin/exec.c builtin/pwd.c \
@@ -155,8 +161,16 @@ fclean:		clean $(addsuffix .fclean, $(LOCAL_LIB_PATH))
 
 re:			fclean all
 
+valgrind:	$(NAME)
+	valgrind \
+		--leak-check=full \
+		--track-origins=yes \
+		--show-leak-kinds=all \
+		--suppressions=readline.supp \
+		./$(NAME)
+
 -include $(OBJ:.o=.d)
 
-.PHONY: all clean fclean re launch
+.PHONY: all clean fclean re launch valgrind
 
 # **************************************************************************** #
