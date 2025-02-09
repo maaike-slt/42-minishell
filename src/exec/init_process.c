@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 15:20:03 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/09 16:30:38 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/09 17:02:40 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,11 @@ int	init_process(t_exp *exp, char ***envp, t_runner runner)
 		if (exp->outfd != STDOUT_FILENO)
 			dup2(exp->outfd, STDOUT_FILENO);
 		exit_code = runner(exp->argc, exp->argv, envp);
+		(void)exit_code;
+		// TODO: set status to exit_code
 		dbg("runner finished");
 		close_fds(exp);
-		exp_free((void *)exp);
-		exit(exit_code);
+		return (EX_CHILD);
 	}
 	close_fds(exp);
 	waitpid(pid, NULL, 0);

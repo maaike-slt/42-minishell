@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/09 16:29:34 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/09 16:36:14 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_expression_list
 
 enum e_exit_code
 {
+	EX_CHILD = -1,
 	EX_ERR = 1,
 	EX_NOTFOUND = 127
 };

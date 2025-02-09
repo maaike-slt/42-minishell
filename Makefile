@@ -6,7 +6,7 @@
 #    By: msloot <msloot@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 19:19:04 by msloot            #+#    #+#              #
-#    Updated: 2025/02/09 16:31:30 by adelille         ###   ########.fr        #
+#    Updated: 2025/02/09 17:01:49 by adelille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -159,8 +159,16 @@ fclean:		clean $(addsuffix .fclean, $(LOCAL_LIB_PATH))
 
 re:			fclean all
 
+valgrind:	$(NAME)
+	valgrind \
+		--leak-check=full \
+		--track-origins=yes \
+		--show-leak-kinds=all \
+		--suppressions=readline.supp \
+		./$(NAME)
+
 -include $(OBJ:.o=.d)
 
-.PHONY: all clean fclean re launch
+.PHONY: all clean fclean re launch valgrind
 
 # **************************************************************************** #
