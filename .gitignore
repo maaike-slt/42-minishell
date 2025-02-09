@@ -34,6 +34,7 @@ obj_pretty/
 # Executables
 minishell
 test
+test_minishell
 *.exe
 *.out
 *.app

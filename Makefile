@@ -6,7 +6,7 @@
 #    By: msloot <msloot@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 19:19:04 by msloot            #+#    #+#              #
-#    Updated: 2025/02/09 17:17:17 by adelille         ###   ########.fr        #
+#    Updated: 2025/02/09 20:41:36 by adelille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -94,7 +94,7 @@ SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJ_NAME = $(SRC_NAME:.c=.o)
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 
-TEST_NAME = test
+TEST_NAME = test_$(NAME)
 TEST_OBJ_PATH =	./obj/test/
 TEST_OBJ_NAME =	$(filter-out main.o, $(OBJ_NAME))
 TEST_OBJ =	$(addprefix $(TEST_OBJ_PATH), $(TEST_OBJ_NAME))
@@ -116,7 +116,7 @@ name = 0
 # *************************************************************************** #
 #	RULES	#
 
-all:		$(LOCAL_LIB) launch $(NAME)
+all:	$(LOCAL_LIB) launch $(NAME)
 	@if [ $(name) -ne 0 ]; then \
 		printf "\n$(B)$(PRIMARY)─╴$(NAME) compiled$(D)\n"; \
 	else \
@@ -144,7 +144,22 @@ $(LOCAL_LIB):
 
 $(TEST_NAME):		$(LOCAL_LIB) $(TEST_OBJ)
 	$(CC) $(CFLAGS) $(LDFLAGS) $(TEST_OBJ) $(LOCAL_LIB) $(LDLIBS) -o $(TEST_NAME)
-	valgrind -q ./$(TEST_NAME) || true
+
+test:	$(TEST_NAME)
+	valgrind \
+		--leak-check=full \
+		--errors-for-leak-kinds=all \
+		--error-exitcode=76 \
+		-q \
+		./$(TEST_NAME)
+
+valgrind:	$(NAME)
+	valgrind \
+		--leak-check=full \
+		--track-origins=yes \
+		--show-leak-kinds=all \
+		--suppressions=readline.supp \
+		./$(NAME)
 
 clean:	$(addsuffix .clean, $(LOCAL_LIB_PATH))
 	@$(RM) $(OBJ_PATH) $(TEST_OBJ_PATH)
@@ -161,16 +176,8 @@ fclean:		clean $(addsuffix .fclean, $(LOCAL_LIB_PATH))
 
 re:			fclean all
 
-valgrind:	$(NAME)
-	valgrind \
-		--leak-check=full \
-		--track-origins=yes \
-		--show-leak-kinds=all \
-		--suppressions=readline.supp \
-		./$(NAME)
-
 -include $(OBJ:.o=.d)
 
-.PHONY: all clean fclean re launch valgrind
+.PHONY: all clean fclean re launch test valgrind
 
 # **************************************************************************** #
