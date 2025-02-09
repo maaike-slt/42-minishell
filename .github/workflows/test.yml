@@ -9,8 +9,8 @@ jobs:
     - name: checkout
       uses: actions/checkout@v4
 
-    - name: install readline
-      run: sudo apt-get install libreadline-dev
+    - name: install dependencies
+      run: sudo apt-get install libreadline-dev valgrind
 
     - name: make test
       run: make test
