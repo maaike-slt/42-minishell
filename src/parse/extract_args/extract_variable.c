@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 19:04:11 by adelille          #+#    #+#             */
-/*   Updated: 2024/12/14 18:57:51 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/16 16:16:28 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ char	*extract_variable(const char *line, size_t *i, char **envp)
 		return (NULL);
 	if (line[*i] == '}')
 		(*i)++;
+	if (line[*i] && is_variable_separator(line[*i]))
+		(*i)--;
 	val = ft_getenv(envp, key);
 	free(key);
 	if (!val)
