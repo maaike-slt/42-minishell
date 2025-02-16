@@ -15,7 +15,7 @@
 static void	delete_argv(t_exp *exp, size_t i)
 {
 	free(exp->argv[i]);
-	while (exp->argv[i])
+	while (i < (size_t)exp->argc)
 	{
 		exp->argv[i] = exp->argv[i + 1];
 		i++;
