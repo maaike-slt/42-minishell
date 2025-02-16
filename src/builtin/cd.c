@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 17:42:45 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/02 18:44:00 by msloot           ###   ########.fr       */
+/*   Updated: 2025/02/16 16:13:56 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	go(const char *path, char ***envp)
 	else
 		ret = chdir(path);
 	if (ret == -1)
-		return (perror("cd"), EX_ERR);
+		return (free(current_pwd), perror("cd"), EX_ERR);
 	if (current_pwd)
 		ft_setenv(envp, "OLDPWD", current_pwd);
 	free(current_pwd);
