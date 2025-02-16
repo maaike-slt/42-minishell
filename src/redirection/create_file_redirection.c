@@ -6,14 +6,15 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 17:11:37 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/16 13:51:41 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/16 14:59:33 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	shift_argv(t_exp *exp, size_t i)
+static void	delete_argv(t_exp *exp, size_t i)
 {
+	free(exp->argv[i]);
 	while (exp->argv[i])
 	{
 		exp->argv[i] = exp->argv[i + 1];
@@ -61,10 +62,8 @@ static bool	handle_redirection(t_exp *exp, size_t i)
 	}
 	if (exp->outfd == -1 || exp->infd == -1)
 		return (perror("open"), false);
-	free(exp->argv[i]);
-	free(exp->argv[i + 1]);
-	shift_argv(exp, i);
-	shift_argv(exp, i);
+	delete_argv(exp, i);
+	delete_argv(exp, i);
 	return (true);
 }
 
