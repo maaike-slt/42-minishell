@@ -6,12 +6,17 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 22:14:59 by adelille          #+#    #+#             */
-/*   Updated: 2024/12/15 22:52:48 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/16 12:50:23 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "parse.h"
+
+inline static bool	is_file_redirection(char c)
+{
+	return (c == '<' || c == '>');
+}
 
 static char	*extract_single_arg(
 	const char *line, size_t *i, size_t len, char **envp)
@@ -21,6 +26,8 @@ static char	*extract_single_arg(
 	ret = ft_strdup("");
 	while (ret && *i < len && line[*i] && !ft_isspace(line[*i]))
 	{
+		if (is_file_redirection(line[*i]) && ret[0] != '\0')
+			break ;
 		if (extract_string(&ret, line, i, envp))
 			;
 		else if (extract_redirection(&ret, line, i))
