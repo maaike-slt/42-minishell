@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 23:12:00 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/16 13:06:18 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/16 15:42:46 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ bool	loop(char ***envp)
 	exit = false;
 	while (!exit)
 	{
-		line = prompt(*envp);
+		line = prompt(*envp, &exit);
 		if (!line)
 			continue ;
 		dbg(line);

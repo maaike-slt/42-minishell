@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 15:20:03 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/09 17:02:40 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/16 15:25:07 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	init_process(t_exp *exp, char ***envp, t_runner runner)
 	pid_t	pid;
 	int		exit_code;
 
-	// FIXME: must not fork when is_builtin && infd == STDIN_FILENO && outfd == STDOUT_FILENO
 	pid = fork();
 	if (pid == -1)
 		return (perror("fork"), EX_ERR);
