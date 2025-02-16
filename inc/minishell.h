@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/16 16:09:29 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/16 17:12:54 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ typedef struct s_expression_list
 	struct s_expression_list	*next;
 }	t_exp_list;
 
+typedef int8_t	t_status;
+
 enum e_exit_code
 {
 	EX_CHILD = -1,
@@ -80,7 +82,7 @@ void				set_sigquit(void);
 void				set_sigint(void);
 void				ignore_sigint(void);
 
-bool				loop(char ***envp);
+bool				loop(t_status *status, char ***envp);
 char				*prompt(char **envp, bool *exit);
 t_exp_list			*parse(char *line, char **envp);
 
@@ -117,7 +119,9 @@ char				**ft_setenv_raw(char ***envp, char *str);
 
 void				error(const char *err_src, const char *msg);
 
+# define DEBUG_PREFIX	"\033[1;36m[DEBUG]\033[0m\t"
 void				dbg(const char *str);
+void				dbg_number(const char *prefix, ssize_t nbr);
 void				dbg_builtin(int argc, char **argv);
 
 # ifdef TEST

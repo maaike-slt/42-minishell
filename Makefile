@@ -6,7 +6,7 @@
 #    By: msloot <msloot@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 19:19:04 by msloot            #+#    #+#              #
-#    Updated: 2025/02/16 14:53:55 by adelille         ###   ########.fr        #
+#    Updated: 2025/02/16 17:13:11 by adelille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -88,7 +88,8 @@ SRC_NAME =	main.c signals.c loop.c prompt.c \
 			error.c \
 			builtin/cd.c builtin/echo.c builtin/env.c builtin/exec.c builtin/pwd.c \
 			builtin/unset.c builtin/export.c \
-			debug.c test.c env/dummy.c \
+			debug/dbg.c debug/dbg_number.c debug/dbg_builtin.c \
+			test.c env/dummy.c \
 
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 

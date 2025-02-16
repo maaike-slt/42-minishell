@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:52 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/16 16:11:53 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/16 17:04:00 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,10 @@ static void	rl_clean(void)
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	**envp_cpy;
+	char		**envp_cpy;
+	t_status	status;
 
+	status = 0;
 	envp_cpy = envdup(envp);
 	if (!envp_cpy)
 		return (1);
@@ -51,7 +53,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	set_sigquit();
 	set_sigint();
-	loop(&envp_cpy);
+	loop(&status, &envp_cpy);
 	ft_2d_free((void ***)&envp_cpy, ft_2d_size((const void **)envp_cpy));
 	rl_clean();
 	return (0);
