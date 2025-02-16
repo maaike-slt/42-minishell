@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 19:04:11 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/16 16:16:28 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/16 16:39:04 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ static bool	test_extract_variable_does_not_exist(void)
 	i = 0;
 	ft_strlcpy(line, "$VARR yo", 99);
 	ret = extract_variable(line, &i, envp);
-	r |= assert_eq("extract variable $VARR index", i, 5);
-	r |= assert_str_eq("extract variable remaining", &line[i], " yo");
+	r |= assert_eq("extract variable $VARR index", i, 4);
+	r |= assert_str_eq("extract variable remaining", &line[i], "R yo");
 	r |= assert_str_eq("extract variable $VARR without envp", ret, "");
 	free(ret);
 	free(envp);
@@ -79,8 +79,8 @@ bool	test_extract_variable(void)
 	i = 0;
 	ft_strlcpy(line, "$VAR yo", 99);
 	ret = extract_variable(line, &i, envp);
-	r |= assert_eq("extract variable $VAR index", i, 4);
-	r |= assert_str_eq("extract variable remaining", &line[i], " yo");
+	r |= assert_eq("extract variable $VAR index", i, 3);
+	r |= assert_str_eq("extract variable remaining", &line[i], "R yo");
 	r |= assert_str_eq("extract variable $VAR + VAR=Hello", ret, "Hello");
 	free(ret);
 	i = 0;
