@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 17:11:37 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/16 14:59:33 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/16 15:17:17 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,8 @@ static bool	handle_redirection(t_exp *exp, size_t i)
 		exp->infd = open(exp->argv[i + 1], O_RDONLY);
 	else if (ir == IR_HEREDOC)
 	{
-		// FIXME: use getnextline to read heredoc
-		dbg("heredoc not implemented yet");
-		exit(42);
+		if (!heredoc(exp))
+			return (false);
 	}
 	if (exp->outfd == -1 || exp->infd == -1)
 		return (perror("open"), false);
