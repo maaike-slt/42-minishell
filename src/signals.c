@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 16:25:34 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/16 15:46:26 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/16 15:56:43 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,12 @@ void	init_signals(void)
 
 	sa_int.sa_flags = SA_RESTART;
 	sa_int.sa_sigaction = &ft_sigint;
+	sigemptyset(&sa_int.sa_mask);
+	sigaddset(&sa_int.sa_mask, SIGINT);
 	sigaction(SIGINT, &sa_int, NULL);
 	sa_quit.sa_flags = SA_RESTART;
-	sa_int.sa_sigaction = NULL;
+	sa_quit.sa_sigaction = NULL;
+	sigemptyset(&sa_quit.sa_mask);
+	sigaddset(&sa_quit.sa_mask, SIGQUIT);
 	sigaction(SIGQUIT, &sa_quit, NULL);
 }
