@@ -6,11 +6,15 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:52 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/14 19:32:34 by msloot           ###   ########.fr       */
+/*   Updated: 2025/02/16 16:11:53 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// TODO: $?
+// TODO: validate that no readline multi line are possible
+// TODO: have execve work with relative path
 
 #ifndef TEST
 
@@ -40,13 +44,13 @@ int	main(int argc, char **argv, char **envp)
 {
 	char	**envp_cpy;
 
-	ft_putstr("Hello, World!\n");
 	envp_cpy = envdup(envp);
 	if (!envp_cpy)
 		return (1);
 	(void)argc;
 	(void)argv;
-	init_signals();
+	set_sigquit();
+	set_sigint();
 	loop(&envp_cpy);
 	ft_2d_free((void ***)&envp_cpy, ft_2d_size((const void **)envp_cpy));
 	rl_clean();
