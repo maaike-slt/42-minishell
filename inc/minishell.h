@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/16 17:43:54 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/16 17:53:10 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void				ignore_sigint(void);
 
 bool				loop(t_status *status, char ***envp);
 char				*prompt(t_status *status, char **envp, bool *exit);
-t_exp_list			*parse(char *line, char **envp);
+t_exp_list			*parse(char *line, t_status *status, char **envp);
 
 bool				create_file_redirection(t_exp_list *exp_list);
 bool				create_pipe(t_exp_list *exp_list);
