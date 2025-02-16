@@ -6,14 +6,13 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:52 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/16 15:56:59 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/16 16:10:19 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // TODO: $?
-// remove and reapply signals between waitpid
 // validate that no readline multi line are possible
 
 #ifndef TEST
@@ -49,7 +48,8 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	(void)argc;
 	(void)argv;
-	init_signals();
+	set_sigquit();
+	set_sigint();
 	loop(&envp_cpy);
 	ft_2d_free((void ***)&envp_cpy, ft_2d_size((const void **)envp_cpy));
 	rl_clean();
