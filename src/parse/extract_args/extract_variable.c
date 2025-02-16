@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 19:04:11 by adelille          #+#    #+#             */
-/*   Updated: 2024/12/14 18:57:51 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/16 16:39:04 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ char	*extract_variable(const char *line, size_t *i, char **envp)
 		return (NULL);
 	if (line[*i] == '}')
 		(*i)++;
+	if (line[*i] && is_variable_separator(line[*i]))
+		(*i)--;
 	val = ft_getenv(envp, key);
 	free(key);
 	if (!val)
@@ -56,8 +58,8 @@ static bool	test_extract_variable_does_not_exist(void)
 	i = 0;
 	ft_strlcpy(line, "$VARR yo", 99);
 	ret = extract_variable(line, &i, envp);
-	r |= assert_eq("extract variable $VARR index", i, 5);
-	r |= assert_str_eq("extract variable remaining", &line[i], " yo");
+	r |= assert_eq("extract variable $VARR index", i, 4);
+	r |= assert_str_eq("extract variable remaining", &line[i], "R yo");
 	r |= assert_str_eq("extract variable $VARR without envp", ret, "");
 	free(ret);
 	free(envp);
@@ -77,8 +79,8 @@ bool	test_extract_variable(void)
 	i = 0;
 	ft_strlcpy(line, "$VAR yo", 99);
 	ret = extract_variable(line, &i, envp);
-	r |= assert_eq("extract variable $VAR index", i, 4);
-	r |= assert_str_eq("extract variable remaining", &line[i], " yo");
+	r |= assert_eq("extract variable $VAR index", i, 3);
+	r |= assert_str_eq("extract variable remaining", &line[i], "R yo");
 	r |= assert_str_eq("extract variable $VAR + VAR=Hello", ret, "Hello");
 	free(ret);
 	i = 0;

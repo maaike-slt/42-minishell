@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 23:19:10 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/02 17:51:35 by msloot           ###   ########.fr       */
+/*   Updated: 2025/02/16 15:50:03 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static char	*get_cwd(char **envp)
  *
  * @return char* the user input (on the heap) or NULL if nothing
  */
-char	*prompt(char **envp)
+char	*prompt(char **envp, bool *exit)
 {
 	char	*prompt;
 	char	*line;
@@ -50,8 +50,15 @@ char	*prompt(char **envp)
 	prompt = ft_strjoin_free(prompt, PROMPT, true, false);
 	line = readline(prompt);
 	free(prompt);
-	// FIXME: continue to prompt if line is still escaping
-	if (!line || line[0] == '\0')
+	if (!line)
+	{
+		*exit = true;
+		rl_replace_line("exit", false);
+		rl_redisplay();
+		ft_putstr_fd("\n", STDERR_FILENO);
+		return (NULL);
+	}
+	if (line[0] == '\0')
 		return (free(line), NULL);
 	add_history(line);
 	return (line);
