@@ -19,7 +19,7 @@ static void	shift_argv(t_exp *exp, size_t i)
 		exp->argv[i] = exp->argv[i + 1];
 		i++;
 	}
-	exp->argc -= 1;
+	exp->argc--;
 }
 
 static bool	close_existing(t_exp *exp, char ir)
