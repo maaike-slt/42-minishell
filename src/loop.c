@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 23:12:00 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/16 17:06:59 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/16 17:23:31 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ bool	loop(t_status *status, char ***envp)
 	while (!exit)
 	{
 		dbg_number("status = ", *status);
-		line = prompt(*envp, &exit);
+		line = prompt(status, *envp, &exit);
 		if (!line)
 			continue ;
 		dbg(line);

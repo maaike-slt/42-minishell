@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 23:19:10 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/16 15:50:03 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/16 17:23:04 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,13 @@ static char	*get_cwd(char **envp)
  *
  * @return char* the user input (on the heap) or NULL if nothing
  */
-char	*prompt(char **envp, bool *exit)
+char	*prompt(t_status *status, char **envp, bool *exit)
 {
-	char	*prompt;
-	char	*line;
+	char			*prompt;
+	char			*line;
+	union sigval	sigval;
 
+	sigval.sival_ptr = status;
 	prompt = ft_strjoin_free(Y_B_MAG, get_cwd(envp), false, true);
 	ft_strpush(&prompt, ' ');
 	prompt = ft_strjoin_free(prompt, PROMPT, true, false);
