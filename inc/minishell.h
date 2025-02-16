@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/16 17:53:10 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/16 19:15:52 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,14 +91,16 @@ bool				create_file_redirection(t_exp_list *exp_list);
 bool				create_pipe(t_exp_list *exp_list);
 bool				heredoc(t_exp *exp);
 
-bool				exec_all_exp(t_exp_list *exp_list, char ***envp);
-t_dispatch			dispatch(t_exp *exp, char ***envp);
+bool				exec_all_exp(t_exp_list *exp_list, t_status *status,
+						char ***envp);
+t_dispatch			dispatch(t_exp *exp, t_status *status, char ***envp);
 bool				is_builtin(const char *cmd);
 bool				prepare_bin(t_exp *exp, char **envp);
 char				*find_bin_path(const char *cmd, char **envp);
 
 typedef int (			*t_runner)(int argc, char **argv, char ***envp);
-int					init_process(t_exp *exp, char ***envp, t_runner runner);
+int					init_process(t_exp *exp, t_status *status, char ***envp,
+						t_runner runner);
 int					run_builtin(int argc, char **argv, char ***envp);
 int					run_bin(int argc, char **argv, char ***envp);
 

@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 23:12:00 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/16 17:53:46 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/16 19:02:02 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ bool	loop(t_status *status, char ***envp)
 			ft_lstclear((t_list **)&exp_list, exp_free);
 			continue ;
 		}
-		exit = !exec_all_exp(exp_list, envp);
+		exit = !exec_all_exp(exp_list, status, envp);
 		ft_lstclear((t_list **)&exp_list, exp_free);
 	}
 	return (true);
