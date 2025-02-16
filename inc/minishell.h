@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/16 13:12:08 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/16 14:54:46 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # include <fcntl.h>
 
 # define PROMPT	"\033[38;2;17;240;188m\033[0m  "
+# define HEREDOC_PROMPT	"\033[2m↬\033[0m "
 
 # define INTERNAL_PIPE_FD	-42
 
@@ -42,6 +43,8 @@ enum e_internal_redirection_type
 	IR_HEREDOC = -3,
 	IR_FILE_OUT_APPEND = -4,
 };
+
+# define HEREDOC_TMP_FILE	"/tmp/minishell_heredoc"
 
 typedef struct s_expression
 {
@@ -80,6 +83,7 @@ t_exp_list			*parse(char *line, char **envp);
 
 bool				create_file_redirection(t_exp_list *exp_list);
 bool				create_pipe(t_exp_list *exp_list);
+bool				heredoc(t_exp *exp);
 
 bool				exec_all_exp(t_exp_list *exp_list, char ***envp);
 t_dispatch			dispatch(t_exp *exp, char ***envp);
