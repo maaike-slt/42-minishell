@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/16 17:33:44 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/16 17:43:54 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # include <sys/stat.h>
 # include <sysexits.h>
 # include <fcntl.h>
+# include <stdint.h>
 
 # define PROMPT	"\033[38;2;17;240;188m\033[0m  "
 # define HEREDOC_PROMPT	"\033[2m↬\033[0m "
@@ -62,7 +63,7 @@ typedef struct s_expression_list
 	struct s_expression_list	*next;
 }	t_exp_list;
 
-typedef int8_t			t_status;
+typedef uint8_t			t_status;
 
 enum e_exit_code
 {
@@ -78,7 +79,6 @@ typedef enum e_dispatch_code
 	D_OKAY
 }	t_dispatch;
 
-volatile sig_atomic_t	g_signum;
 void				set_sigquit(void);
 void				set_sigint(void);
 void				ignore_sigint(void);
