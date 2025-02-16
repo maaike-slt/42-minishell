@@ -6,14 +6,15 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:52 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/16 16:10:19 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/16 16:11:53 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // TODO: $?
-// validate that no readline multi line are possible
+// TODO: validate that no readline multi line are possible
+// TODO: have execve work with relative path
 
 #ifndef TEST
 
