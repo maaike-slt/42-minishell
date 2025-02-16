@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/16 17:23:46 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/16 17:33:44 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct s_expression_list
 	struct s_expression_list	*next;
 }	t_exp_list;
 
-typedef int8_t	t_status;
+typedef int8_t			t_status;
 
 enum e_exit_code
 {
@@ -76,8 +76,9 @@ typedef enum e_dispatch_code
 	D_ERROR,
 	D_EXIT,
 	D_OKAY
-}				t_dispatch;
+}	t_dispatch;
 
+volatile sig_atomic_t	g_signum;
 void				set_sigquit(void);
 void				set_sigint(void);
 void				ignore_sigint(void);
@@ -96,7 +97,7 @@ bool				is_builtin(const char *cmd);
 bool				prepare_bin(t_exp *exp, char **envp);
 char				*find_bin_path(const char *cmd, char **envp);
 
-typedef int	(*t_runner)(int argc, char **argv, char ***envp);
+typedef int (			*t_runner)(int argc, char **argv, char ***envp);
 int					init_process(t_exp *exp, char ***envp, t_runner runner);
 int					run_builtin(int argc, char **argv, char ***envp);
 int					run_bin(int argc, char **argv, char ***envp);
@@ -120,6 +121,7 @@ char				**ft_setenv_raw(char ***envp, char *str);
 void				error(const char *err_src, const char *msg);
 
 # define DEBUG_PREFIX	"\033[1;36m[DEBUG]\033[0m\t"
+
 void				dbg(const char *str);
 void				dbg_number(const char *prefix, ssize_t nbr);
 void				dbg_builtin(int argc, char **argv);
