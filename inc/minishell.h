@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/09 18:20:25 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/16 13:12:08 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <sysexits.h>
+# include <fcntl.h>
 
 # define PROMPT	"\033[38;2;17;240;188m\033[0m  "
 
@@ -77,6 +78,7 @@ bool				loop(char ***envp);
 char				*prompt(char **envp);
 t_exp_list			*parse(char *line, char **envp);
 
+bool				create_file_redirection(t_exp_list *exp_list);
 bool				create_pipe(t_exp_list *exp_list);
 
 bool				exec_all_exp(t_exp_list *exp_list, char ***envp);
