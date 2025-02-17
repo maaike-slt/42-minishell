@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/17 19:37:20 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/17 20:22:43 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ bool				test_extract_args(void);
 bool				test_extract_double_quote(void);
 bool				test_extract_single_quote(void);
 bool				test_extract_variable(void);
+bool				test_getenv(void);
 
 # endif
 

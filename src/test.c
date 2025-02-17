@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 20:59:04 by adelille          #+#    #+#             */
-/*   Updated: 2024/12/14 17:48:24 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/17 20:23:09 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	main(void)
 	r |= test_extract_single_quote();
 	r |= test_extract_double_quote();
 	r |= test_extract_variable();
+	r |= test_getenv();
 	if (r == EX_OK)
 		ft_putstr_fd("\033[1;32m[OK]\n\033[0m", 1);
 	return (r);

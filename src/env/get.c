@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 21:08:35 by msloot            #+#    #+#             */
-/*   Updated: 2024/12/10 20:30:12 by msloot           ###   ########.fr       */
+/*   Updated: 2025/02/17 20:24:12 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,23 @@ char	*ft_getenv(char **envp, const char *key)
 	}
 	return (NULL);
 }
-// TODO: unit test
+
+#ifdef TEST
+
+bool	test_getenv(void)
+{
+	char	**envp;
+	bool	r;
+
+	envp = dummy_envp("VAR=42");
+
+	r = EX_OK;
+	r |= assert_str_eq("getenv VAR", ft_getenv(envp, "VAR"), "42");
+	r |= assert_eq("getenv VAR index", find_env(envp, "VAR"), 0);
+	r |= assert("getenv VAR not found", ft_getenv(envp, "NOT_FOUND") == NULL);
+	r |= assert_eq("getenv VAR not found index", find_env(envp, "NOT_FOUND"), -1);
+	free(envp);
+	return (r);
+}
+
+#endif
