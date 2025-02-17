@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:52 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/16 19:28:55 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/17 19:14:19 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ int	main(int argc, char **argv, char **envp)
 	loop(&status, &envp_cpy);
 	ft_2d_free((void ***)&envp_cpy, ft_2d_size((const void **)envp_cpy));
 	rl_clean();
-	// FIXME: return (status) doesn't seem to work
 	return (status);
 }
 

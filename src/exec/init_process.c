@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 15:20:03 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/17 19:09:35 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/17 19:14:26 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ int	init_process(t_exp *exp, t_status *status, char ***envp, t_runner runner)
 		*status = runner(exp->argc, exp->argv, envp);
 		dbg_number("runner finished with exit status ", *status);
 		close_fds(exp);
-		// FIXME: probable issue here
 		return (EX_CHILD);
 	}
 	close_fds(exp);
