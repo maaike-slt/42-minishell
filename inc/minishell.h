@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/17 19:19:57 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/17 19:37:20 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ int					run_bin(int argc, char **argv, char ***envp);
 
 # define BUILTIN_COUNT 6
 
+int					ft_exit(t_exp *exp, t_status *status);
 int					builtin(int argc, char **argv, char ***envp);
 int					cd(int argc, char **argv, char ***envp);
 int					echo(int argc, char **argv);
