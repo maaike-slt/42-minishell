@@ -1,6 +1,6 @@
 name: test
 
-on: push
+on: [push, pull_request]
 
 env:
   TERM: xterm-256color
@@ -9,13 +9,12 @@ jobs:
   tests:
     runs-on: ubuntu-latest
     steps:
-    - name: checkout
-      uses: actions/checkout@v4
+    - uses: actions/checkout@v4
 
     - name: install dependencies
       run: |
         sudo apt-get update
         sudo apt-get install libreadline-dev valgrind
 
-    - name: make test
+    - name: run test
       run: make test
