@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:52 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/17 20:07:30 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/17 20:09:06 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,18 @@
 	rl_free_keymap(rl_get_keymap_by_name("vi-insert"));
 */
 
-static void	rl_clean(void)
-{
-	rl_clear_history();
+/*
 	rl_clear_signals();
 	rl_cleanup_after_signal();
 	rl_free_line_state();
 	rl_callback_sigcleanup();
 	rl_callback_handler_remove();
 	rl_free_undo_list();
+*/
+
+static void	rl_clean(void)
+{
+	rl_clear_history();
 }
 
 int	main(int argc, char **argv, char **envp)
