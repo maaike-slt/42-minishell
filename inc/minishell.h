@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/16 19:15:52 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/17 19:19:57 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ enum e_exit_code
 {
 	EX_CHILD = -1,
 	EX_ERR = 1,
+	EX_PERMDENIED = 126,
 	EX_NOTFOUND = 127
 };
 
@@ -95,7 +96,7 @@ bool				exec_all_exp(t_exp_list *exp_list, t_status *status,
 						char ***envp);
 t_dispatch			dispatch(t_exp *exp, t_status *status, char ***envp);
 bool				is_builtin(const char *cmd);
-bool				prepare_bin(t_exp *exp, char **envp);
+bool				prepare_bin(t_exp *exp, t_status *status, char **envp);
 char				*find_bin_path(const char *cmd, char **envp);
 
 typedef int (			*t_runner)(int argc, char **argv, char ***envp);
