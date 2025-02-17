@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 15:20:03 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/16 19:29:30 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/17 19:09:35 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ static void	wait_child(int pid, t_status *status)
 
 int	init_process(t_exp *exp, t_status *status, char ***envp, t_runner runner)
 {
-	int		exit_status;
 	pid_t	pid;
 
 	pid = fork();
@@ -54,11 +53,11 @@ int	init_process(t_exp *exp, t_status *status, char ***envp, t_runner runner)
 			dup2(exp->infd, STDIN_FILENO);
 		if (exp->outfd != STDOUT_FILENO)
 			dup2(exp->outfd, STDOUT_FILENO);
-		exit_status = runner(exp->argc, exp->argv, envp);
-		dbg_number("runner finished with exit status ", exit_status);
+		*status = runner(exp->argc, exp->argv, envp);
+		dbg_number("runner finished with exit status ", *status);
 		close_fds(exp);
 		// FIXME: probable issue here
-		return (exit_status);
+		return (EX_CHILD);
 	}
 	close_fds(exp);
 	wait_child(pid, status);
