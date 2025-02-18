@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 17:11:37 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/09 17:11:44 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/18 22:54:42 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ bool	create_pipe(t_exp_list *exp_list)
 		{
 			if (pipe(pipefd) == -1)
 			{
-				perror("pipe");
+				error("pipe", strerror(errno));
 				return (false);
 			}
 			current->content->outfd = pipefd[1];
