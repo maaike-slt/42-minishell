@@ -1,6 +1,6 @@
 - cd without arguments (cd to $HOME if $HOME is set)
 - cd - (cd to previous directory)
-- cd ~ (cd to $HOME)
 - cd -- (cd to $HOME)
 - pwd in prompt
   - `~` when in $HOME
+- ~ is expanded to $HOME

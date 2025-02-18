@@ -6,14 +6,14 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 19:04:11 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/16 18:54:54 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/18 23:27:18 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "parse.h"
 
-static bool	is_variable_separator(char c)
+bool	is_variable_sep(char c)
 {
 	return (!ft_isalnum(c) && c != '_');
 }
@@ -49,14 +49,14 @@ char	*extract_variable(const char *line, size_t *i, t_env *e)
 	if (line[*i] == '{')
 		(*i)++;
 	start = *i;
-	while (line[*i] && !is_variable_separator(line[*i]))
+	while (line[*i] && !is_variable_sep(line[*i]))
 		(*i)++;
 	key = ft_strndup(&line[start], *i - start);
 	if (!key)
 		return (NULL);
 	if (key[0] == '\0')
 		return (free(key), get_special_variable(line, i, start, e));
-	if (line[*i] && is_variable_separator(line[*i]) && line[*i] != '}')
+	if (line[*i] && is_variable_sep(line[*i]) && line[*i] != '}')
 		(*i)--;
 	val = ft_getenv(e->envp, key);
 	free(key);

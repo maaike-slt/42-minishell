@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 17:42:45 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/18 22:57:15 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/18 23:19:24 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,7 @@ int	cd(int argc, char **argv, char ***envp)
 	dbg_builtin(argc, argv);
 	if (argc > 2)
 		return (error(argv[0], "too many arguments"), EX_ERR);
-	if (argc == 2
-		&& ft_strcmp(argv[1], "--") != 0 && ft_strcmp(argv[1], "~") != 0)
+	if (argc == 2 && ft_strcmp(argv[1], "--") != 0)
 		return (go(argv[1], envp));
 	home_path = ft_getenv(*envp, "HOME");
 	if (!home_path)
