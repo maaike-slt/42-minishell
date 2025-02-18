@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 21:08:35 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/17 20:24:12 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/18 22:53:09 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,12 @@ bool	test_getenv(void)
 	bool	r;
 
 	envp = dummy_envp("VAR=42");
-
 	r = EX_OK;
 	r |= assert_str_eq("getenv VAR", ft_getenv(envp, "VAR"), "42");
 	r |= assert_eq("getenv VAR index", find_env(envp, "VAR"), 0);
 	r |= assert("getenv VAR not found", ft_getenv(envp, "NOT_FOUND") == NULL);
-	r |= assert_eq("getenv VAR not found index", find_env(envp, "NOT_FOUND"), -1);
+	r |= assert_eq("getenv VAR not found index",
+			find_env(envp, "NOT_FOUND"), -1);
 	free(envp);
 	return (r);
 }

@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/17 20:22:43 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/18 22:49:46 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # include <sysexits.h>
 # include <fcntl.h>
 # include <stdint.h>
+# include <errno.h>
 
 # define PROMPT	"\033[38;2;17;240;188m\033[0m  "
 # define HEREDOC_PROMPT	"\033[2m↬\033[0m "

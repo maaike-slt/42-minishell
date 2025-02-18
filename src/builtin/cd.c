@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 17:42:45 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/16 16:13:56 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/18 22:51:09 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	go(const char *path, char ***envp)
 	else
 		ret = chdir(path);
 	if (ret == -1)
-		return (free(current_pwd), perror("cd"), EX_ERR);
+		return (free(current_pwd), error("cd", strerror(errno)), EX_ERR);
 	if (current_pwd)
 		ft_setenv(envp, "OLDPWD", current_pwd);
 	free(current_pwd);
@@ -53,5 +53,7 @@ int	cd(int argc, char **argv, char ***envp)
 	home_path = ft_getenv(*envp, "HOME");
 	if (!home_path)
 		return (error("cd", "HOME not set"), EX_ERR);
+	if (home_path[0] == '\0')
+		return (EX_OK);
 	return (go(home_path, envp));
 }

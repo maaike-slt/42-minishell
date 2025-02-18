@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 15:20:03 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/17 19:14:26 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/18 22:51:45 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	init_process(t_exp *exp, t_status *status, char ***envp, t_runner runner)
 
 	pid = fork();
 	if (pid == -1)
-		return (perror("fork"), EX_ERR);
+		return (error("fork", strerror(errno)), EX_ERR);
 	if (pid == 0)
 	{
 		if (exp->infd != STDIN_FILENO)
@@ -73,7 +73,7 @@ int	run_bin(int argc, char **argv, char ***envp)
 	(void)argc;
 	if (execve(argv[0], argv, *envp) == -1)
 	{
-		perror("execve");
+		error("execve", strerror(errno));
 		return (EX_ERR);
 	}
 	return (EX_OK);
