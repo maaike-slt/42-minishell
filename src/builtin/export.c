@@ -6,13 +6,13 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 19:34:24 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/18 23:13:54 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/18 23:18:13 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_invalid_identifier_error(char *arg)
+static int	print_invalid_identifier_error(char *arg)
 {
 	char	*msg;
 
@@ -20,6 +20,7 @@ void	print_invalid_identifier_error(char *arg)
 	msg = ft_strjoin_free(msg, "': not a valid identifier", true, false);
 	error("export", msg);
 	free(msg);
+	return (EX_ERR);
 }
 
 int	export(int argc, char **argv, char ***envp)
@@ -34,15 +35,14 @@ int	export(int argc, char **argv, char ***envp)
 	i = 1;
 	while (argv[i])
 	{
-		if (ft_is_in(argv[i], '='))
+		if (!argv[i][0])
+			ret = print_invalid_identifier_error(argv[i]);
+		else if (ft_is_in(argv[i], '='))
 		{
 			if (ft_strncmp(argv[i], "_=", 2) == 0)
 				;
 			else if (argv[i][0] == '=')
-			{
-				print_invalid_identifier_error(argv[i]);
-				ret = EX_ERR;
-			}
+				ret = print_invalid_identifier_error(argv[i]);
 			else
 				ft_setenv_raw(envp, ft_strdup(argv[i]));
 		}
