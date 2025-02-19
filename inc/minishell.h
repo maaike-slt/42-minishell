@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/16 16:09:29 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/16 19:15:52 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # include <sys/stat.h>
 # include <sysexits.h>
 # include <fcntl.h>
+# include <stdint.h>
 
 # define PROMPT	"\033[38;2;17;240;188m\033[0m  "
 # define HEREDOC_PROMPT	"\033[2m↬\033[0m "
@@ -62,6 +63,8 @@ typedef struct s_expression_list
 	struct s_expression_list	*next;
 }	t_exp_list;
 
+typedef uint8_t			t_status;
+
 enum e_exit_code
 {
 	EX_CHILD = -1,
@@ -74,28 +77,30 @@ typedef enum e_dispatch_code
 	D_ERROR,
 	D_EXIT,
 	D_OKAY
-}				t_dispatch;
+}	t_dispatch;
 
 void				set_sigquit(void);
 void				set_sigint(void);
 void				ignore_sigint(void);
 
-bool				loop(char ***envp);
-char				*prompt(char **envp, bool *exit);
-t_exp_list			*parse(char *line, char **envp);
+bool				loop(t_status *status, char ***envp);
+char				*prompt(t_status *status, char **envp, bool *exit);
+t_exp_list			*parse(char *line, t_status *status, char **envp);
 
 bool				create_file_redirection(t_exp_list *exp_list);
 bool				create_pipe(t_exp_list *exp_list);
 bool				heredoc(t_exp *exp);
 
-bool				exec_all_exp(t_exp_list *exp_list, char ***envp);
-t_dispatch			dispatch(t_exp *exp, char ***envp);
+bool				exec_all_exp(t_exp_list *exp_list, t_status *status,
+						char ***envp);
+t_dispatch			dispatch(t_exp *exp, t_status *status, char ***envp);
 bool				is_builtin(const char *cmd);
 bool				prepare_bin(t_exp *exp, char **envp);
 char				*find_bin_path(const char *cmd, char **envp);
 
-typedef int	(*t_runner)(int argc, char **argv, char ***envp);
-int					init_process(t_exp *exp, char ***envp, t_runner runner);
+typedef int (			*t_runner)(int argc, char **argv, char ***envp);
+int					init_process(t_exp *exp, t_status *status, char ***envp,
+						t_runner runner);
 int					run_builtin(int argc, char **argv, char ***envp);
 int					run_bin(int argc, char **argv, char ***envp);
 
@@ -117,7 +122,10 @@ char				**ft_setenv_raw(char ***envp, char *str);
 
 void				error(const char *err_src, const char *msg);
 
+# define DEBUG_PREFIX	"\033[1;36m[DEBUG]\033[0m\t"
+
 void				dbg(const char *str);
+void				dbg_number(const char *prefix, ssize_t nbr);
 void				dbg_builtin(int argc, char **argv);
 
 # ifdef TEST

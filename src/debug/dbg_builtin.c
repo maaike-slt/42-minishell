@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debug.c                                            :+:      :+:    :+:   */
+/*   dbg_builtin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 21:42:44 by adelille          #+#    #+#             */
-/*   Updated: 2024/12/09 22:22:18 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/16 17:12:00 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,11 @@
 
 #ifdef DEBUG
 
-void	dbg(const char *str)
-{
-	ft_putstr_fd("\033[1;36m[DEBUG]\033[0m\t", STDERR_FILENO);
-	ft_putendl_fd(str, STDERR_FILENO);
-}
-
 void	dbg_builtin(int argc, char **argv)
 {
 	size_t	i;
 
-	ft_putstr_fd("\033[1;36m[DEBUG]\033[0m\t", STDERR_FILENO);
+	ft_putstr_fd(DEBUG_PREFIX, STDERR_FILENO);
 	ft_putstr_fd("\033[1;35m", STDERR_FILENO);
 	ft_putstr_fd(argv[0], STDERR_FILENO);
 	ft_putstr_fd(
@@ -46,11 +40,6 @@ void	dbg_builtin(int argc, char **argv)
 }
 
 #else
-
-void	dbg(const char *str)
-{
-	(void)str;
-}
 
 void	dbg_builtin(const char *builtin, int argc, char **argv)
 {

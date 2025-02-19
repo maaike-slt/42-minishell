@@ -1,29 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_all_exp.c                                     :+:      :+:    :+:   */
+/*   dbg_number.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/09 17:13:50 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/16 19:01:32 by adelille         ###   ########.fr       */
+/*   Created: 2024/12/09 21:42:44 by adelille          #+#    #+#             */
+/*   Updated: 2025/02/16 17:11:11 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	exec_all_exp(t_exp_list *exp_list, t_status *status, char ***envp)
-{
-	t_exp_list	*current;
-	t_dispatch	dispatch_ret;
+#ifdef DEBUG
 
-	current = exp_list;
-	while (current)
-	{
-		dispatch_ret = dispatch(current->content, status, envp);
-		if (dispatch_ret == D_EXIT)
-			return (false);
-		current = current->next;
-	}
-	return (true);
+void	dbg_number(const char *prefix, ssize_t nbr)
+{
+	ft_putstr_fd(DEBUG_PREFIX, STDERR_FILENO);
+	ft_putstr_fd(prefix, STDERR_FILENO);
+	ft_putstr_fd("\033[0m\033[1;34m", STDERR_FILENO);
+	ft_putnbr_fd(nbr, STDERR_FILENO);
+	ft_putstr_fd("\033[0m\n", STDERR_FILENO);
 }
+
+#else
+
+void	dbg_number(const char *prefix, ssize_t nbr)
+{
+	(void)prefix;
+	(void)nbr;
+}
+
+#endif

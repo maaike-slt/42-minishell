@@ -6,11 +6,13 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 23:19:10 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/16 15:50:03 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/16 17:46:05 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern volatile sig_atomic_t	g_signum;
 
 static char	*get_cwd(char **envp)
 {
@@ -40,15 +42,18 @@ static char	*get_cwd(char **envp)
  *
  * @return char* the user input (on the heap) or NULL if nothing
  */
-char	*prompt(char **envp, bool *exit)
+char	*prompt(t_status *status, char **envp, bool *exit)
 {
-	char	*prompt;
-	char	*line;
+	char			*prompt;
+	char			*line;
 
 	prompt = ft_strjoin_free(Y_B_MAG, get_cwd(envp), false, true);
 	ft_strpush(&prompt, ' ');
 	prompt = ft_strjoin_free(prompt, PROMPT, true, false);
+	g_signum = 0;
 	line = readline(prompt);
+	if (g_signum == SIGINT)
+		*status = 130;
 	free(prompt);
 	if (!line)
 	{

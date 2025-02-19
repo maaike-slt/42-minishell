@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 22:14:59 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/16 12:50:23 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/16 18:39:49 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ inline static bool	is_file_redirection(char c)
 }
 
 static char	*extract_single_arg(
-	const char *line, size_t *i, size_t len, char **envp)
+	const char *line, size_t *i, size_t len, t_env *e)
 {
 	char	*ret;
 
@@ -28,7 +28,7 @@ static char	*extract_single_arg(
 	{
 		if (is_file_redirection(line[*i]) && ret[0] != '\0')
 			break ;
-		if (extract_string(&ret, line, i, envp))
+		if (extract_string(&ret, line, i, e))
 			;
 		else if (extract_redirection(&ret, line, i))
 			return (ret);
@@ -39,7 +39,7 @@ static char	*extract_single_arg(
 	return (ret);
 }
 
-bool	extract_args(t_exp *exp, char *line, size_t len, char **envp)
+bool	extract_args(t_exp *exp, char *line, size_t len, t_env *e)
 {
 	char	*arg;
 	size_t	i;
@@ -56,7 +56,7 @@ bool	extract_args(t_exp *exp, char *line, size_t len, char **envp)
 			i++;
 		if (i >= len)
 			break ;
-		arg = extract_single_arg(line, &i, len, envp);
+		arg = extract_single_arg(line, &i, len, e);
 		if (!arg || !ft_2d_push((void ***)(&exp->argv), arg))
 			return (ft_2d_free((void ***)(&exp->argv),
 				ft_2d_size((const void **)exp->argv)), false);
@@ -69,16 +69,17 @@ bool	extract_args(t_exp *exp, char *line, size_t len, char **envp)
 
 bool	test_extract_args(void)
 {
-	t_exp	exp;
-	char	line[99];
-	char	**envp;
-	bool	r;
+	t_exp		exp;
+	char		line[99];
+	t_status	status;
+	char		**envp;
+	bool		r;
 
 	envp = (char *[]){"HOME=/home/adelille", "USER=adelille", NULL};
 	ft_strcpy(line, "yo \"ye; no\" 'oh | e'");
 	r = EX_OK;
 	r |= assert("extract_args yo \"ye; no\" 'oh | e'",
-			extract_args(&exp, line, ft_strlen(line), envp));
+			extract_args(&exp, line, ft_strlen(line), &(t_env){&status, envp}));
 	r |= assert_eq("exp.argc", exp.argc, 3);
 	r |= assert("exp.argv != NULL", exp.argv != NULL);
 	r |= assert_eq("exp.argv[0]", ft_strcmp(exp.argv[0], "yo"), 0);

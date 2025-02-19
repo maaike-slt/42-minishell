@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 15:20:03 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/16 16:09:21 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/17 19:14:26 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,23 @@ static void	close_fds(t_exp *exp)
 	}
 }
 
-int	init_process(t_exp *exp, char ***envp, t_runner runner)
+static void	wait_child(int pid, t_status *status)
+{
+	int	exit_status;
+
+	ignore_sigint();
+	waitpid(pid, &exit_status, 0);
+	set_sigint();
+	dbg_number("child process finished with exit status ", exit_status);
+	if (WIFEXITED(exit_status))
+		*status = WEXITSTATUS(exit_status);
+	else
+		*status = 128 + WTERMSIG(exit_status);
+}
+
+int	init_process(t_exp *exp, t_status *status, char ***envp, t_runner runner)
 {
 	pid_t	pid;
-	int		exit_code;
 
 	pid = fork();
 	if (pid == -1)
@@ -40,17 +53,13 @@ int	init_process(t_exp *exp, char ***envp, t_runner runner)
 			dup2(exp->infd, STDIN_FILENO);
 		if (exp->outfd != STDOUT_FILENO)
 			dup2(exp->outfd, STDOUT_FILENO);
-		exit_code = runner(exp->argc, exp->argv, envp);
-		(void)exit_code;
-		// TODO: set status to exit_code
-		dbg("runner finished");
+		*status = runner(exp->argc, exp->argv, envp);
+		dbg_number("runner finished with exit status ", *status);
 		close_fds(exp);
 		return (EX_CHILD);
 	}
 	close_fds(exp);
-	ignore_sigint();
-	waitpid(pid, NULL, 0);
-	set_sigint();
+	wait_child(pid, status);
 	return (EX_OK);
 }
 
