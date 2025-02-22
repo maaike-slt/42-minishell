@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 19:23:35 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/17 19:12:38 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/17 19:37:13 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,7 @@
 t_dispatch	dispatch(t_exp *exp, t_status *status, char ***envp)
 {
 	if (ft_strcmp(exp->argv[0], "exit") == 0)
-	{
-		// TODO: exit with status
-		dbg("👋");
-		return (D_EXIT);
-	}
+		return (ft_exit(exp, status));
 	else if (is_builtin(exp->argv[0]))
 	{
 		if (exp->infd == STDIN_FILENO && exp->outfd == STDOUT_FILENO)
@@ -32,7 +28,7 @@ t_dispatch	dispatch(t_exp *exp, t_status *status, char ***envp)
 	}
 	else
 	{
-		if (!prepare_bin(exp, *envp))
+		if (!prepare_bin(exp, status, *envp))
 			return (D_OKAY);
 		if (init_process(exp, status, envp, run_bin) == EX_CHILD)
 			return (D_EXIT);

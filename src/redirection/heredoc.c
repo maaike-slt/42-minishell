@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 14:47:19 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/16 15:20:39 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/18 22:48:46 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ bool	heredoc(t_exp *exp)
 	line = NULL;
 	fd = open(HEREDOC_TMP_FILE, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd == -1)
-		return (perror("open"), false);
+		return (error("open", strerror(errno)), false);
 	while (true)
 	{
 		line = readline(HEREDOC_PROMPT);

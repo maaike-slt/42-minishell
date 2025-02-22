@@ -6,13 +6,13 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:21:47 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/09 17:06:56 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/17 19:17:13 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	prepare_bin(t_exp *exp, char **envp)
+bool	prepare_bin(t_exp *exp, t_status *status, char **envp)
 {
 	char	*path;
 
@@ -21,14 +21,14 @@ bool	prepare_bin(t_exp *exp, char **envp)
 	{
 		free(path);
 		error(exp->argv[0], "command not found");
-		// TODO: set status to EX_NOTFOUND
+		*status = EX_NOTFOUND;
 		return (false);
 	}
 	if (access(path, X_OK) != 0)
 	{
 		free(path);
 		error(exp->argv[0], "permission denied");
-		// TODO: set status to EX_PERMDENIED
+		*status = EX_PERMDENIED;
 		return (false);
 	}
 	free(exp->argv[0]);

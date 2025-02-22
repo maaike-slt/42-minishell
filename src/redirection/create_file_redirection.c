@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 17:11:37 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/16 15:17:17 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/18 22:52:18 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ static bool	close_existing(t_exp *exp, char ir)
 		&& exp->outfd > STDERR_FILENO)
 	{
 		if (close(exp->outfd) == -1)
-			return (perror("close"), false);
+			return (error("close", strerror(errno)), false);
 	}
 	else if ((ir == IR_FILE_IN || ir == IR_HEREDOC)
 		&& exp->infd > STDERR_FILENO)
 	{
 		if (close(exp->infd) == -1)
-			return (perror("close"), false);
+			return (error("close", strerror(errno)), false);
 	}
 	return (true);
 }
@@ -60,7 +60,7 @@ static bool	handle_redirection(t_exp *exp, size_t i)
 			return (false);
 	}
 	if (exp->outfd == -1 || exp->infd == -1)
-		return (perror("open"), false);
+		return (error("open", strerror(errno)), false);
 	delete_argv(exp, i);
 	delete_argv(exp, i);
 	return (true);

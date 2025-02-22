@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/16 19:15:52 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/18 22:49:46 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # include <sysexits.h>
 # include <fcntl.h>
 # include <stdint.h>
+# include <errno.h>
 
 # define PROMPT	"\033[38;2;17;240;188m\033[0m  "
 # define HEREDOC_PROMPT	"\033[2m↬\033[0m "
@@ -69,6 +70,7 @@ enum e_exit_code
 {
 	EX_CHILD = -1,
 	EX_ERR = 1,
+	EX_PERMDENIED = 126,
 	EX_NOTFOUND = 127
 };
 
@@ -95,7 +97,7 @@ bool				exec_all_exp(t_exp_list *exp_list, t_status *status,
 						char ***envp);
 t_dispatch			dispatch(t_exp *exp, t_status *status, char ***envp);
 bool				is_builtin(const char *cmd);
-bool				prepare_bin(t_exp *exp, char **envp);
+bool				prepare_bin(t_exp *exp, t_status *status, char **envp);
 char				*find_bin_path(const char *cmd, char **envp);
 
 typedef int (			*t_runner)(int argc, char **argv, char ***envp);
@@ -106,6 +108,7 @@ int					run_bin(int argc, char **argv, char ***envp);
 
 # define BUILTIN_COUNT 6
 
+int					ft_exit(t_exp *exp, t_status *status);
 int					builtin(int argc, char **argv, char ***envp);
 int					cd(int argc, char **argv, char ***envp);
 int					echo(int argc, char **argv);
@@ -142,6 +145,7 @@ bool				test_extract_args(void);
 bool				test_extract_double_quote(void);
 bool				test_extract_single_quote(void);
 bool				test_extract_variable(void);
+bool				test_getenv(void);
 
 # endif
 
