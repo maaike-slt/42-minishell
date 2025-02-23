@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 19:23:35 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/17 19:37:13 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/23 14:02:31 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 
 t_dispatch	dispatch(t_exp *exp, t_status *status, char ***envp)
 {
+	if (exp->argc == 0)
+	{
+		*status = 0;
+		return (close_fds(exp), D_OKAY);
+	}
 	if (ft_strcmp(exp->argv[0], "exit") == 0)
 		return (ft_exit(exp, status));
 	else if (is_builtin(exp->argv[0]))

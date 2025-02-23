@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 17:15:14 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/16 18:22:09 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/23 14:22:53 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,9 @@ t_exp_list	*parse(char *line, t_status *status, char **envp)
 		if (!current)
 			return (ft_lstclear((t_list **)&head, exp_free), NULL);
 		ft_lstadd_back((t_list **)&head, current);
-		is_pipe = line[i] == '|';
-		if (is_pipe && ((t_exp_list *)current)->content->outfd == STDOUT_FILENO)
+		is_pipe = line[i] == '|'
+			&& ((t_exp_list *)current)->content->outfd == STDOUT_FILENO;
+		if (is_pipe)
 			((t_exp_list *)current)->content->outfd = INTERNAL_PIPE_FD;
 		if (line[i])
 			i++;

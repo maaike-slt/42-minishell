@@ -6,13 +6,11 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:52 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/17 20:09:06 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/23 14:21:34 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// TODO: validate that no readline multi line are possible
 
 #ifndef TEST
 
@@ -52,7 +50,7 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	(void)argc;
 	(void)argv;
-	set_sigquit();
+	set_sigquit(SIG_IGN);
 	set_sigint();
 	loop(&status, &envp_cpy);
 	ft_2d_free((void ***)&envp_cpy, ft_2d_size((const void **)envp_cpy));

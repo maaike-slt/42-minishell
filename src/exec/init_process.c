@@ -6,20 +6,20 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 15:20:03 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/18 22:51:45 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/23 14:21:49 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	close_fds(t_exp *exp)
+void	close_fds(t_exp *exp)
 {
-	if (exp->infd != STDIN_FILENO)
+	if (exp->infd > STDERR_FILENO)
 	{
 		close(exp->infd);
 		exp->infd = STDIN_FILENO;
 	}
-	if (exp->outfd != STDOUT_FILENO)
+	if (exp->outfd > STDERR_FILENO)
 	{
 		close(exp->outfd);
 		exp->outfd = STDOUT_FILENO;
@@ -71,6 +71,7 @@ int	run_builtin(int argc, char **argv, char ***envp)
 int	run_bin(int argc, char **argv, char ***envp)
 {
 	(void)argc;
+	set_sigquit(SIG_DFL);
 	if (execve(argv[0], argv, *envp) == -1)
 	{
 		error("execve", strerror(errno));

@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 19:04:11 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/23 13:21:54 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/23 14:13:02 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*get_special_variable(const char *line, size_t *i, size_t start)
 		ret = ft_strdup("?");
 		if (!ret)
 			return (error("malloc", strerror(errno)), NULL);
-		ret[0] = IR_STATUS_FLAG;
+		ret[0] = INTERNAL_STATUS_FLAG;
 	}
 	else if (line[start - 1] == '{')
 	{
@@ -108,7 +108,7 @@ bool	test_extract_variable(void)
 	r |= test_var("${VAR}yo", 5, "}yo", "Hello");
 	r |= test_var("$VARR yo", 4, "R yo", "");
 	tmp = ft_strdup("?");
-	tmp[0] = IR_STATUS_FLAG;
+	tmp[0] = INTERNAL_STATUS_FLAG;
 	r |= test_var("$? yo", 1, "? yo", tmp);
 	free(tmp);
 	return (r);
