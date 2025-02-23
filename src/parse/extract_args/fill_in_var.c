@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 19:04:11 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/23 18:06:24 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/23 18:48:32 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static bool	expand_var(char **arg, size_t i, t_status *status, char **envp)
 	tmp = ft_strjoin_free(tmp, &(*arg)[i + key_len + 1], true, false);
 	if (!tmp)
 		return (error("malloc", strerror(errno)), false);
-	*arg[i] = '\0';
+	(*arg)[i] = '\0';
 	*arg = ft_strjoin_free(*arg, tmp, true, true);
 	if (!*arg)
 		return (error("malloc", strerror(errno)), false);
