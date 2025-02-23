@@ -6,14 +6,14 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 19:04:11 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/16 18:47:38 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/23 17:27:35 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "parse.h"
 
-char	*extract_double_quote(const char *line, size_t *i, t_env *e)
+char	*extract_double_quote(const char *line, size_t *i)
 {
 	char	*ret;
 
@@ -27,8 +27,7 @@ char	*extract_double_quote(const char *line, size_t *i, t_env *e)
 			ft_strpush(&ret, line[*i]);
 		}
 		else if (line[*i] == '$')
-			ret = ft_strjoin_free(ret,
-					extract_variable(line, i, e), true, true);
+			ret = ft_strjoin_free(ret, mark_variable(line, i), true, true);
 		else
 			ft_strpush(&ret, line[*i]);
 		(*i)++;

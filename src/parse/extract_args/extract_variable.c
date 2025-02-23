@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 19:04:11 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/23 14:13:02 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/23 17:29:47 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,12 @@ char	*get_special_variable(const char *line, size_t *i, size_t start)
 
 	if (line[*i] == '?')
 	{
-		ret = ft_strdup("?");
+		ret = ft_strdup("s?e");
 		if (!ret)
 			return (error("malloc", strerror(errno)), NULL);
-		ret[0] = INTERNAL_STATUS_FLAG;
+		ret[0] = INTERNAL_VAR_START;
+		ret[2] = INTERNAL_VAR_END;
+		return (ret);
 	}
 	else if (line[start - 1] == '{')
 	{
@@ -38,81 +40,37 @@ char	*get_special_variable(const char *line, size_t *i, size_t start)
 		free(ret);
 		return (NULL);
 	}
-	else
-		ret = ft_strndup(&line[start - 1], *i - start + 2);
+	ret = ft_strndup(&line[start - 1], *i - start + 2);
+	if (!ret)
+		return (error("malloc", strerror(errno)), NULL);
 	return (ret);
 }
 
-char	*extract_variable(const char *line, size_t *i, t_env *e)
+char	*mark_variable(const char *line, size_t *i)
 {
 	char	*key;
-	char	*val;
+	char	*ret;
 	size_t	start;
 
 	(*i)++;
 	if (line[*i] == '{')
-		(*i)++;
+		i++;
 	start = *i;
 	while (line[*i] && !is_variable_sep(line[*i]))
-		(*i)++;
+		i++;
 	key = ft_strndup(&line[start], *i - start);
 	if (!key)
-		return (NULL);
+		return (error("malloc", strerror(errno)), NULL);
 	if (key[0] == '\0')
 		return (free(key), get_special_variable(line, i, start));
-	if (line[*i] && is_variable_sep(line[*i]) && line[*i] != '}')
-		(*i)--;
-	val = ft_getenv(e->envp, key);
-	free(key);
-	if (!val)
-		return (ft_strdup(""));
-	return (ft_strdup(val));
+	ft_strpush(&ret, INTERNAL_VAR_START);
+	if (!ret)
+		return (error("malloc", strerror(errno)), NULL);
+	ret = ft_strjoin_free(ret, key, true, true);
+	if (!ret)
+		return (error("malloc", strerror(errno)), NULL);
+	ft_strpush(&ret, INTERNAL_VAR_END);
+	if (!ret)
+		return (error("malloc", strerror(errno)), NULL);
+	return (ret);
 }
-
-#ifdef TEST
-
-static bool	test_var(
-	const char *line,
-	size_t expected_i,
-	const char *expected_remaining,
-	const char *expected_ret)
-{
-	t_status	status;
-	char		**envp;
-	char		*ret;
-	size_t		i;
-	bool		r;
-
-	r = EX_OK;
-	envp = dummy_envp("VAR=Hello");
-	status = 42;
-	i = 0;
-	ret = extract_variable(line, &i, &(t_env){&status, envp});
-	r |= assert_eq("extract variable index", i, expected_i);
-	r |= assert_str_eq("extract variable remaining", &line[i],
-			expected_remaining);
-	r |= (ret == NULL && expected_ret == NULL)
-		|| assert_str_eq("extract variable", ret, expected_ret);
-	free(ret);
-	free(envp);
-	return (r);
-}
-
-bool	test_extract_variable(void)
-{
-	bool	r;
-	char	*tmp;
-
-	r = EX_OK;
-	r |= test_var("$VAR yo", 3, "R yo", "Hello");
-	r |= test_var("${VAR}yo", 5, "}yo", "Hello");
-	r |= test_var("$VARR yo", 4, "R yo", "");
-	tmp = ft_strdup("?");
-	tmp[0] = INTERNAL_STATUS_FLAG;
-	r |= test_var("$? yo", 1, "? yo", tmp);
-	free(tmp);
-	return (r);
-}
-/* r |= test_var("${=} yo", 3, "} yo", NULL); */
-
-#endif
