@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 19:04:11 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/23 17:58:51 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/23 18:32:54 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,31 +46,43 @@ static char	*get_special_var(const char *line, size_t *i, size_t start)
 	return (ret);
 }
 
-char	*mark_var(const char *line, size_t *i)
+static char	*extract_key(const char *line, size_t *i, size_t start)
 {
 	char	*key;
 	char	*ret;
-	size_t	start;
 
-	(*i)++;
-	if (line[*i] == '{')
-		i++;
-	start = *i;
-	while (line[*i] && !is_var_sep(line[*i]))
-		i++;
 	key = ft_strndup(&line[start], *i - start);
 	if (!key)
 		return (error("malloc", strerror(errno)), NULL);
 	if (key[0] == '\0')
 		return (free(key), get_special_var(line, i, start));
-	ft_strpush(&ret, INTERNAL_VAR_START);
+	ret = ft_strpush(NULL, INTERNAL_VAR_START);
 	if (!ret)
-		return (error("malloc", strerror(errno)), NULL);
+		return (free(key), error("malloc", strerror(errno)), NULL);
 	ret = ft_strjoin_free(ret, key, true, true);
 	if (!ret)
 		return (error("malloc", strerror(errno)), NULL);
 	ft_strpush(&ret, INTERNAL_VAR_END);
 	if (!ret)
 		return (error("malloc", strerror(errno)), NULL);
+	return (ret);
+}
+
+char	*mark_var(const char *line, size_t *i)
+{
+	char	*ret;
+	size_t	start;
+
+	(*i)++;
+	if (line[*i] == '{')
+		(*i)++;
+	start = *i;
+	while (line[*i] && !is_var_sep(line[*i]))
+		(*i)++;
+	ret = extract_key(line, i, start);
+	if (!ret)
+		return (NULL);
+	if (line[*i] != '}')
+		(*i)--;
 	return (ret);
 }
