@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   extract_variable.c                                 :+:      :+:    :+:   */
+/*   mark_var.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 19:04:11 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/23 17:29:47 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/23 17:58:51 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "parse.h"
 
-bool	is_variable_sep(char c)
+bool	is_var_sep(char c)
 {
 	return (!ft_isalnum(c) && c != '_');
 }
 
-char	*get_special_variable(const char *line, size_t *i, size_t start)
+static char	*get_special_var(const char *line, size_t *i, size_t start)
 {
 	char	*ret;
 
@@ -46,7 +46,7 @@ char	*get_special_variable(const char *line, size_t *i, size_t start)
 	return (ret);
 }
 
-char	*mark_variable(const char *line, size_t *i)
+char	*mark_var(const char *line, size_t *i)
 {
 	char	*key;
 	char	*ret;
@@ -56,13 +56,13 @@ char	*mark_variable(const char *line, size_t *i)
 	if (line[*i] == '{')
 		i++;
 	start = *i;
-	while (line[*i] && !is_variable_sep(line[*i]))
+	while (line[*i] && !is_var_sep(line[*i]))
 		i++;
 	key = ft_strndup(&line[start], *i - start);
 	if (!key)
 		return (error("malloc", strerror(errno)), NULL);
 	if (key[0] == '\0')
-		return (free(key), get_special_variable(line, i, start));
+		return (free(key), get_special_var(line, i, start));
 	ft_strpush(&ret, INTERNAL_VAR_START);
 	if (!ret)
 		return (error("malloc", strerror(errno)), NULL);

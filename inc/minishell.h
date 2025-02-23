@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/23 17:15:17 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/23 18:03:11 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ bool				heredoc(t_exp *exp);
 
 bool				exec_all_exp(t_exp_list *exp_list, t_status *status,
 						char ***envp);
-bool				apply_special_var(t_exp *exp, t_status *status);
+bool				fill_in_var(t_exp *exp, t_status *status, char **envp);
 t_dispatch			dispatch(t_exp *exp, t_status *status, char ***envp);
 bool				is_builtin(const char *cmd);
 bool				prepare_bin(t_exp *exp, t_status *status, char **envp);
@@ -149,7 +149,6 @@ bool				test_exp_len(void);
 bool				test_extract_args(void);
 bool				test_extract_double_quote(void);
 bool				test_extract_single_quote(void);
-bool				test_extract_variable(void);
 bool				test_getenv(void);
 
 # endif
