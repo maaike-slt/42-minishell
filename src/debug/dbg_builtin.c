@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 21:42:44 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/16 17:12:00 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/23 21:55:40 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,8 @@ void	dbg_builtin(int argc, char **argv)
 
 #else
 
-void	dbg_builtin(const char *builtin, int argc, char **argv)
+void	dbg_builtin(int argc, char **argv)
 {
-	(void)builtin;
 	(void)argc;
 	(void)argv;
 }
