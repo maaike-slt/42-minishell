@@ -6,13 +6,13 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 15:20:03 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/18 22:51:45 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/23 13:47:10 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	close_fds(t_exp *exp)
+void	close_fds(t_exp *exp)
 {
 	if (exp->infd != STDIN_FILENO)
 	{

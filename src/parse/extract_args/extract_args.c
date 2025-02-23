@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 22:14:59 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/16 18:39:49 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/23 14:01:52 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ bool	extract_args(t_exp *exp, char *line, size_t len, t_env *e)
 
 	exp->argv = (char **)malloc(sizeof(char *));
 	if (!exp->argv)
-		return (false);
+		return (error("malloc", strerror(errno)), false);
 	exp->argv[0] = NULL;
 	exp->argc = 0;
 	i = 0;
@@ -60,6 +60,7 @@ bool	extract_args(t_exp *exp, char *line, size_t len, t_env *e)
 		if (!arg || !ft_2d_push((void ***)(&exp->argv), arg))
 			return (ft_2d_free((void ***)(&exp->argv),
 				ft_2d_size((const void **)exp->argv)), false);
+		set_redirection_fd(exp, arg);
 		exp->argc++;
 	}
 	return (true);

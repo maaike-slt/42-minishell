@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/23 13:02:29 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/23 13:47:27 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ char				*find_bin_path(const char *cmd, char **envp);
 typedef int (			*t_runner)(int argc, char **argv, char ***envp);
 int					init_process(t_exp *exp, t_status *status, char ***envp,
 						t_runner runner);
+void				close_fds(t_exp *exp);
 int					run_builtin(int argc, char **argv, char ***envp);
 int					run_bin(int argc, char **argv, char ***envp);
 
