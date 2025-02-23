@@ -4,3 +4,4 @@
 - pwd in prompt
   - `~` when in $HOME
 - ~ is expanded to $HOME
+- exit status works through pipes (`cd I_DONT_EXIST | echo $?` returns 1)

@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 17:13:50 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/16 19:01:32 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/23 13:02:55 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ bool	exec_all_exp(t_exp_list *exp_list, t_status *status, char ***envp)
 	current = exp_list;
 	while (current)
 	{
+		if (!apply_special_var(current->content, status))
+			return (false);
 		dispatch_ret = dispatch(current->content, status, envp);
 		if (dispatch_ret == D_EXIT)
 			return (false);

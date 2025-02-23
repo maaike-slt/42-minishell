@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 19:04:11 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/18 23:27:18 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/23 13:21:54 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,17 @@ bool	is_variable_sep(char c)
 	return (!ft_isalnum(c) && c != '_');
 }
 
-char	*get_special_variable(
-	const char *line, size_t *i, size_t start, t_env *e)
+char	*get_special_variable(const char *line, size_t *i, size_t start)
 {
 	char	*ret;
 
 	if (line[*i] == '?')
-		ret = ft_untoa(*(e->status));
+	{
+		ret = ft_strdup("?");
+		if (!ret)
+			return (error("malloc", strerror(errno)), NULL);
+		ret[0] = IR_STATUS_FLAG;
+	}
 	else if (line[start - 1] == '{')
 	{
 		while (line[*i] && line[*i] != '}')
@@ -55,7 +59,7 @@ char	*extract_variable(const char *line, size_t *i, t_env *e)
 	if (!key)
 		return (NULL);
 	if (key[0] == '\0')
-		return (free(key), get_special_variable(line, i, start, e));
+		return (free(key), get_special_variable(line, i, start));
 	if (line[*i] && is_variable_sep(line[*i]) && line[*i] != '}')
 		(*i)--;
 	val = ft_getenv(e->envp, key);
@@ -97,12 +101,16 @@ static bool	test_var(
 bool	test_extract_variable(void)
 {
 	bool	r;
+	char	*tmp;
 
 	r = EX_OK;
 	r |= test_var("$VAR yo", 3, "R yo", "Hello");
 	r |= test_var("${VAR}yo", 5, "}yo", "Hello");
 	r |= test_var("$VARR yo", 4, "R yo", "");
-	r |= test_var("$? yo", 1, "? yo", "42");
+	tmp = ft_strdup("?");
+	tmp[0] = IR_STATUS_FLAG;
+	r |= test_var("$? yo", 1, "? yo", tmp);
+	free(tmp);
 	return (r);
 }
 /* r |= test_var("${=} yo", 3, "} yo", NULL); */
