@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 19:04:11 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/23 18:32:54 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/23 22:13:38 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,17 +72,25 @@ char	*mark_var(const char *line, size_t *i)
 {
 	char	*ret;
 	size_t	start;
+	bool	is_curly;
 
 	(*i)++;
+	is_curly = false;
 	if (line[*i] == '{')
+	{
+		is_curly = true;
 		(*i)++;
+	}
 	start = *i;
 	while (line[*i] && !is_var_sep(line[*i]))
 		(*i)++;
 	ret = extract_key(line, i, start);
 	if (!ret)
 		return (NULL);
-	if (line[*i] != '}')
+	if (!((is_curly && line[*i] == '}')
+			|| (ret[0] && ret[1] == '?' && line[*i] == '?')))
 		(*i)--;
+	if (is_curly && line[*i] == '?')
+		(*i)++;
 	return (ret);
 }
