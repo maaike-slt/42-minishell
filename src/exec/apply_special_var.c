@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:52:19 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/23 13:40:01 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/23 14:13:06 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ bool	apply_special_var(t_exp *exp, t_status *status)
 		char_i = 0;
 		while (exp->argv[arg_i][char_i])
 		{
-			if (exp->argv[arg_i][char_i] == IR_STATUS_FLAG)
+			if (exp->argv[arg_i][char_i] == INTERNAL_STATUS_FLAG)
 			{
 				if (!expand_special_var(&(exp->argv[arg_i]), char_i, status))
 					return (false);

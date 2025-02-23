@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/23 13:47:27 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/23 14:12:38 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,13 @@
 
 enum e_internal_redirection_type
 {
-	IR_FILE_IN = -1,
-	IR_FILE_OUT = -2,
-	IR_HEREDOC = -3,
-	IR_FILE_OUT_APPEND = -4,
+	IR_FILE_IN = -2,
+	IR_FILE_OUT = -3,
+	IR_HEREDOC = -4,
+	IR_FILE_OUT_APPEND = -5,
 };
 
-# define IR_STATUS_FLAG		-5
+# define INTERNAL_STATUS_FLAG		-6
 
 # define HEREDOC_TMP_FILE	"/tmp/minishell_heredoc"
 

@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 15:20:03 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/23 13:47:10 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/23 14:06:48 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	close_fds(t_exp *exp)
 {
-	if (exp->infd != STDIN_FILENO)
+	if (exp->infd > STDERR_FILENO)
 	{
 		close(exp->infd);
 		exp->infd = STDIN_FILENO;
 	}
-	if (exp->outfd != STDOUT_FILENO)
+	if (exp->outfd > STDERR_FILENO)
 	{
 		close(exp->outfd);
 		exp->outfd = STDOUT_FILENO;
