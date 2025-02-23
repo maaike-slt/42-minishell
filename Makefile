@@ -6,7 +6,7 @@
 #    By: msloot <msloot@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 19:19:04 by msloot            #+#    #+#              #
-#    Updated: 2025/02/23 13:01:48 by adelille         ###   ########.fr        #
+#    Updated: 2025/02/23 18:02:53 by adelille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,13 +77,13 @@ SRC_NAME =	main.c signals.c loop.c prompt.c \
 			parse/extract_args/extract_redirection.c \
 			parse/extract_args/extract_single_quote.c \
 			parse/extract_args/extract_double_quote.c \
-			parse/extract_args/extract_variable.c \
+			parse/extract_args/mark_var.c \
+			parse/extract_args/fill_in_var.c \
 			redirection/create_file_redirection.c redirection/create_pipe.c \
 			redirection/heredoc.c \
 			exec/exec_all_exp.c \
 			exec/dispatch.c exec/is_builtin.c \
 			exec/prepare_bin.c exec/find_bin_path.c \
-			exec/apply_special_var.c \
 			exec/init_process.c \
 			env/get.c env/dup.c env/set.c \
 			error.c \

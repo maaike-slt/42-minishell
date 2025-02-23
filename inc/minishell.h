@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/23 14:22:16 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/23 18:03:11 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ enum e_internal_redirection_type
 	IR_FILE_OUT_APPEND = -5,
 };
 
-# define INTERNAL_STATUS_FLAG		-6
+# define INTERNAL_VAR_START		-6
+# define INTERNAL_VAR_END		-7
 
 # define HEREDOC_TMP_FILE	"/tmp/minishell_heredoc"
 
@@ -97,7 +98,7 @@ bool				heredoc(t_exp *exp);
 
 bool				exec_all_exp(t_exp_list *exp_list, t_status *status,
 						char ***envp);
-bool				apply_special_var(t_exp *exp, t_status *status);
+bool				fill_in_var(t_exp *exp, t_status *status, char **envp);
 t_dispatch			dispatch(t_exp *exp, t_status *status, char ***envp);
 bool				is_builtin(const char *cmd);
 bool				prepare_bin(t_exp *exp, t_status *status, char **envp);
@@ -148,7 +149,6 @@ bool				test_exp_len(void);
 bool				test_extract_args(void);
 bool				test_extract_double_quote(void);
 bool				test_extract_single_quote(void);
-bool				test_extract_variable(void);
 bool				test_getenv(void);
 
 # endif

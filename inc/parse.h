@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 21:54:18 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/23 14:01:42 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/23 18:21:49 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ typedef struct s_env
 size_t		exp_len(const char *line);
 
 bool		is_exp_sep(char c);
-bool		is_variable_sep(char c);
+bool		is_var_sep(char c);
 
 bool		extract_args(t_exp *exp, char *line, size_t len, t_env *e);
 bool		extract_string(
@@ -88,7 +88,7 @@ bool		extract_string(
 bool		extract_redirection(char **ret, const char *line, size_t *i);
 void		set_redirection_fd(t_exp *exp, char *arg);
 char		*extract_single_quote(const char *line, size_t *i);
-char		*extract_double_quote(const char *line, size_t *i, t_env *e);
-char		*extract_variable(const char *line, size_t *i, t_env *e);
+char		*extract_double_quote(const char *line, size_t *i);
+char		*mark_var(const char *line, size_t *i);
 
 #endif
