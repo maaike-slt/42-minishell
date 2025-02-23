@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 19:04:11 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/23 13:17:34 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/23 13:21:54 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,12 +101,16 @@ static bool	test_var(
 bool	test_extract_variable(void)
 {
 	bool	r;
+	char	*tmp;
 
 	r = EX_OK;
 	r |= test_var("$VAR yo", 3, "R yo", "Hello");
 	r |= test_var("${VAR}yo", 5, "}yo", "Hello");
 	r |= test_var("$VARR yo", 4, "R yo", "");
-	r |= test_var("$? yo", 1, "? yo", "42");
+	tmp = ft_strdup("?");
+	tmp[0] = IR_STATUS_FLAG;
+	r |= test_var("$? yo", 1, "? yo", tmp);
+	free(tmp);
 	return (r);
 }
 /* r |= test_var("${=} yo", 3, "} yo", NULL); */
