@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 16:15:53 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/17 20:06:46 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/23 19:04:59 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*find_bin_path(const char *cmd, char **envp)
 	char	*path;
 	char	**paths;
 
-	if (access(cmd, X_OK) == 0)
+	if (cmd[0] == '.' || cmd[0] == '/')
 		return (ft_strdup(cmd));
 	path = ft_getenv(envp, "PATH");
 	if (!path)
