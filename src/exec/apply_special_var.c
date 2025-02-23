@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:52:19 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/23 13:18:15 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/23 13:40:01 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,5 @@ bool	apply_special_var(t_exp *exp, t_status *status)
 		}
 		arg_i++;
 	}
-	dbg("out");
 	return (true);
 }
