@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 15:20:03 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/23 14:06:48 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/23 14:21:49 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int	run_builtin(int argc, char **argv, char ***envp)
 int	run_bin(int argc, char **argv, char ***envp)
 {
 	(void)argc;
+	set_sigquit(SIG_DFL);
 	if (execve(argv[0], argv, *envp) == -1)
 	{
 		error("execve", strerror(errno));

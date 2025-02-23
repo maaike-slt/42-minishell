@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 16:25:34 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/16 17:44:27 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/23 14:22:27 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	ft_sigint(int signum, siginfo_t *info, void *context)
 	rl_redisplay();
 }
 
-struct sigaction	init_sigaction_struct(void)
+static struct sigaction	init_sigaction_struct(void)
 {
 	struct sigaction	sa;
 
@@ -53,11 +53,11 @@ void	ignore_sigint(void)
 	sigaction(SIGINT, &sa, NULL);
 }
 
-void	set_sigquit(void)
+void	set_sigquit(void (*handler)(int))
 {
 	struct sigaction	sa;
 
 	sa = init_sigaction_struct();
-	sa.sa_handler = SIG_IGN;
+	sa.sa_handler = handler;
 	sigaction(SIGQUIT, &sa, NULL);
 }

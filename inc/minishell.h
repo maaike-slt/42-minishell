@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/23 14:12:38 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/23 14:22:16 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ typedef enum e_dispatch_code
 	D_OKAY
 }	t_dispatch;
 
-void				set_sigquit(void);
+void				set_sigquit(void (*handler)(int));
 void				set_sigint(void);
 void				ignore_sigint(void);
 
