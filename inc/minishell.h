@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/18 22:49:46 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/23 13:02:29 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ enum e_internal_redirection_type
 	IR_HEREDOC = -3,
 	IR_FILE_OUT_APPEND = -4,
 };
+
+# define IR_STATUS_FLAG		-5
 
 # define HEREDOC_TMP_FILE	"/tmp/minishell_heredoc"
 
@@ -95,6 +97,7 @@ bool				heredoc(t_exp *exp);
 
 bool				exec_all_exp(t_exp_list *exp_list, t_status *status,
 						char ***envp);
+bool				apply_special_var(t_exp *exp, t_status *status);
 t_dispatch			dispatch(t_exp *exp, t_status *status, char ***envp);
 bool				is_builtin(const char *cmd);
 bool				prepare_bin(t_exp *exp, t_status *status, char **envp);
