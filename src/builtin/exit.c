@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 19:29:17 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/17 19:55:10 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/26 17:16:47 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_status	exit_status(const char *arg)
 	i = 0;
 	if (arg[i] == '-' || arg[i] == '+')
 		i++;
-	while (arg[i] && ft_isspace(arg[i]))
+	while (arg[i] && !ft_isspace(arg[i]))
 	{
 		if (!ft_isdigit(arg[i]))
 		{
