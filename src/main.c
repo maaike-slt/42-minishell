@@ -6,14 +6,13 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:52 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/26 17:17:33 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/26 17:24:32 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // TODO:
-// - exit over int/uint
 // - cat | cat
 // - cat | ls (must print ls without waiting)
 // - cat + Ctrl + c must add a newline
