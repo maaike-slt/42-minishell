@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:52 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/26 18:31:49 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/26 18:48:18 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 // - cat | cat
 // - cat | ls (must print ls without waiting)
 // - cat + Ctrl + c must add a newline
-// - < no ; ls must still launch ls
 // - <<END cat must still have `END` as EOF
 // - look for leaks
 
