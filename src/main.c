@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:52 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/26 18:48:18 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/26 21:27:52 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 // TODO:
 // - cat | cat
 // - cat | ls (must print ls without waiting)
-// - cat + Ctrl + c must add a newline
-// - <<END cat must still have `END` as EOF
 // - look for leaks
 
 #ifndef TEST
@@ -88,7 +86,7 @@ int	main(int argc, char **argv, char **envp)
 		return (EX_OSERR);
 	}
 	set_sigquit(SIG_IGN);
-	set_sigint();
+	set_sigint(&prompt_handler);
 	loop(&status, &envp_cpy);
 	ft_2d_free((void ***)&envp_cpy, ft_2d_size((const void **)envp_cpy));
 	rl_clean();

@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 15:20:03 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/26 18:47:20 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/26 21:24:14 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ static void	wait_child(int pid, t_status *status)
 {
 	int	exit_status;
 
-	ignore_sigint();
+	set_sigint(&process_handler);
 	waitpid(pid, &exit_status, 0);
-	set_sigint();
+	set_sigint(&prompt_handler);
 	dbg_number("child process finished with exit status ", exit_status);
 	if (WIFEXITED(exit_status))
 		*status = WEXITSTATUS(exit_status);
