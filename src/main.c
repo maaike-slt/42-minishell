@@ -6,11 +6,26 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:52 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/23 14:21:34 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/26 15:25:03 by msloot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// TODO:
+// - exit over int/uint
+// - exit with alpha (must print error + set status)
+// - cat | cat
+// - cat | ls (must print ls without waiting)
+// - cat + Ctrl + c must add a newline
+// - $= -> $==
+// - "$" -> $"
+// - export must print env with declare -X and sorted
+// - export a; export must print a and sorted
+// - $SHLVL
+// - < no ; ls must still launch ls
+// - <<END cat must still have `END` as EOF
+// - look for leaks
 
 #ifndef TEST
 
