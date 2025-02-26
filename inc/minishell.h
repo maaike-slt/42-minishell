@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/26 18:40:23 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/26 21:14:31 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ t_exp_list			*parse(char *line, t_status *status, char **envp);
 bool				create_file_redirection(t_exp_list *exp_list);
 bool				close_existing_redirection(t_exp *exp, char ir);
 bool				create_pipe(t_exp_list *exp_list);
-bool				heredoc(t_exp *exp);
+bool				heredoc(t_exp *exp, size_t i);
 
 bool				exec_all_exp(t_exp_list *exp_list, t_status *status,
 						char ***envp);

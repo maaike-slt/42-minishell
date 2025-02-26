@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 17:11:37 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/26 18:47:34 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/26 21:15:01 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ static bool	handle_redirection(t_exp *exp, size_t i)
 	char	ir;
 
 	ir = exp->argv[i][0];
+	if ((size_t)exp->argc <= i + 1 || ft_isascii(exp->argv[i + 1][0]) == false)
+		return (error("syntax error", "unexpected end of file"), false);
 	if (!close_existing_redirection(exp, ir))
 		return (false);
 	if (ir == IR_FILE_OUT)
@@ -53,7 +55,7 @@ static bool	handle_redirection(t_exp *exp, size_t i)
 		exp->infd = open(exp->argv[i + 1], O_RDONLY);
 	else if (ir == IR_HEREDOC)
 	{
-		if (!heredoc(exp))
+		if (!heredoc(exp, i))
 			return (false);
 	}
 	handle_fd_error(exp);
