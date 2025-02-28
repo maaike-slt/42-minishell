@@ -6,16 +6,11 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:52 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/26 21:27:52 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/28 18:39:32 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// TODO:
-// - cat | cat
-// - cat | ls (must print ls without waiting)
-// - look for leaks
 
 #ifndef TEST
 
