@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 19:29:17 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/26 17:23:32 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/28 18:37:00 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,41 @@ static t_status	numeric_argument_required(const char *arg)
 	return (EX_USAGE);
 }
 
+static t_status	correct_overflow(const char *arg, size_t size, char sign)
+{
+	size_t	un;
+
+	if (size > 20)
+		return (numeric_argument_required(arg));
+	if (sign)
+		un = ft_atoun(&arg[1]);
+	else
+		un = ft_atoun(arg);
+	if ((sign == '-' && un > ((size_t)LONG_MAX) + 1)
+		|| (sign != '-' && un > LONG_MAX))
+		return (numeric_argument_required(arg));
+	return ((t_status)ft_aton(arg));
+}
+
 static t_status	exit_status(const char *arg)
 {
 	size_t	i;
-	ssize_t	n;
+	char	sign;
 
 	i = 0;
+	sign = '\0';
 	if (arg[i] == '-' || arg[i] == '+')
+	{
+		sign = arg[i];
 		i++;
+	}
 	while (arg[i] && !ft_isspace(arg[i]))
 	{
 		if (!ft_isdigit(arg[i]))
 			return (numeric_argument_required(arg));
 		i++;
 	}
-	n = ft_aton(arg);
-	if (ft_strlen(arg) > 10 || (n < 0 && ft_strlen(arg) > 11))
-		return (numeric_argument_required(arg));
-	return ((t_status)n);
+	return (correct_overflow(arg, i, sign));
 }
 
 int	ft_exit(t_exp *exp, t_status *status)
