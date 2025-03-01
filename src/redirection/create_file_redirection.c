@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 17:11:37 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/26 21:15:01 by adelille         ###   ########.fr       */
+/*   Updated: 2025/03/01 21:21:12 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,23 @@ static void	delete_argv(t_exp *exp, size_t i)
 	exp->argc--;
 }
 
-static void	handle_fd_error(t_exp *exp)
+static void	handle_fd_error(t_exp *exp, t_status *status)
 {
 	if (exp->outfd == -1)
 	{
 		error("open", strerror(errno));
 		exp->outfd = STDERR_FILENO;
+		*status = EX_ERR;
 	}
 	if (exp->infd == -1)
 	{
 		error("open", strerror(errno));
 		exp->infd = STDIN_FILENO;
+		*status = EX_ERR;
 	}
 }
 
-static bool	handle_redirection(t_exp *exp, size_t i)
+static bool	handle_redirection(t_exp *exp, size_t i, t_status *status)
 {
 	char	ir;
 
@@ -58,13 +60,13 @@ static bool	handle_redirection(t_exp *exp, size_t i)
 		if (!heredoc(exp, i))
 			return (false);
 	}
-	handle_fd_error(exp);
+	handle_fd_error(exp, status);
 	delete_argv(exp, i);
 	delete_argv(exp, i);
 	return (true);
 }
 
-static bool	create_single_exp_file_redirection(t_exp *exp)
+static bool	create_single_exp_file_redirection(t_exp *exp, t_status *status)
 {
 	size_t	i;
 
@@ -76,7 +78,7 @@ static bool	create_single_exp_file_redirection(t_exp *exp)
 			|| exp->argv[i][0] == IR_FILE_IN
 			|| exp->argv[i][0] == IR_HEREDOC)
 		{
-			if (!handle_redirection(exp, i))
+			if (!handle_redirection(exp, i, status))
 				return (false);
 		}
 		else
@@ -85,14 +87,14 @@ static bool	create_single_exp_file_redirection(t_exp *exp)
 	return (true);
 }
 
-bool	create_file_redirection(t_exp_list *exp_list)
+bool	create_file_redirection(t_exp_list *exp_list, t_status *status)
 {
 	t_exp_list	*current;
 
 	current = exp_list;
 	while (current)
 	{
-		if (!create_single_exp_file_redirection(current->content))
+		if (!create_single_exp_file_redirection(current->content, status))
 			return (false);
 		current = current->next;
 	}

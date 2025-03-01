@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 23:12:00 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/26 18:35:55 by adelille         ###   ########.fr       */
+/*   Updated: 2025/03/01 21:20:16 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ bool	loop(t_status *status, char ***envp)
 		dbg(line);
 		exp_list = parse(line, status, *envp);
 		free(line);
-		if (!create_file_redirection(exp_list) || !create_pipe(exp_list))
+		if (!create_file_redirection(exp_list, status) || !create_pipe(exp_list))
 		{
 			ft_lstclear((t_list **)&exp_list, exp_free);
 			continue ;
