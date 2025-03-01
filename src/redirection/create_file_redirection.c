@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 17:11:37 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/23 14:11:21 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/26 21:15:01 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,18 @@ static void	delete_argv(t_exp *exp, size_t i)
 	exp->argc--;
 }
 
-static bool	close_existing(t_exp *exp, char ir)
+static void	handle_fd_error(t_exp *exp)
 {
-	if ((ir == IR_FILE_OUT || ir == IR_FILE_OUT_APPEND)
-		&& exp->outfd > STDERR_FILENO)
+	if (exp->outfd == -1)
 	{
-		if (close(exp->outfd) == -1)
-			return (error("close", strerror(errno)), false);
+		error("open", strerror(errno));
+		exp->outfd = STDERR_FILENO;
 	}
-	else if ((ir == IR_FILE_IN || ir == IR_HEREDOC)
-		&& exp->infd > STDERR_FILENO)
+	if (exp->infd == -1)
 	{
-		if (close(exp->infd) == -1)
-			return (error("close", strerror(errno)), false);
+		error("open", strerror(errno));
+		exp->infd = STDIN_FILENO;
 	}
-	return (true);
 }
 
 static bool	handle_redirection(t_exp *exp, size_t i)
@@ -45,7 +42,9 @@ static bool	handle_redirection(t_exp *exp, size_t i)
 	char	ir;
 
 	ir = exp->argv[i][0];
-	if (!close_existing(exp, ir))
+	if ((size_t)exp->argc <= i + 1 || ft_isascii(exp->argv[i + 1][0]) == false)
+		return (error("syntax error", "unexpected end of file"), false);
+	if (!close_existing_redirection(exp, ir))
 		return (false);
 	if (ir == IR_FILE_OUT)
 		exp->outfd = open(exp->argv[i + 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
@@ -56,11 +55,10 @@ static bool	handle_redirection(t_exp *exp, size_t i)
 		exp->infd = open(exp->argv[i + 1], O_RDONLY);
 	else if (ir == IR_HEREDOC)
 	{
-		if (!heredoc(exp))
+		if (!heredoc(exp, i))
 			return (false);
 	}
-	if (exp->outfd == -1 || exp->infd == -1)
-		return (error("open", strerror(errno)), false);
+	handle_fd_error(exp);
 	delete_argv(exp, i);
 	delete_argv(exp, i);
 	return (true);

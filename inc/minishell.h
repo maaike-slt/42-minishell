@@ -6,7 +6,7 @@
 /*   By: msloot <msloot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 22:18:37 by msloot            #+#    #+#             */
-/*   Updated: 2025/02/23 18:03:11 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/26 21:25:03 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,16 +85,18 @@ typedef enum e_dispatch_code
 }	t_dispatch;
 
 void				set_sigquit(void (*handler)(int));
-void				set_sigint(void);
-void				ignore_sigint(void);
+void				set_sigint(void (*handler)(int));
+void				prompt_handler(int signum);
+void				process_handler(int signum);
 
 bool				loop(t_status *status, char ***envp);
 char				*prompt(t_status *status, char **envp, bool *exit);
 t_exp_list			*parse(char *line, t_status *status, char **envp);
 
 bool				create_file_redirection(t_exp_list *exp_list);
+bool				close_existing_redirection(t_exp *exp, char ir);
 bool				create_pipe(t_exp_list *exp_list);
-bool				heredoc(t_exp *exp);
+bool				heredoc(t_exp *exp, size_t i);
 
 bool				exec_all_exp(t_exp_list *exp_list, t_status *status,
 						char ***envp);

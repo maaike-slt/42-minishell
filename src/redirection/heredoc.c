@@ -6,13 +6,13 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 14:47:19 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/18 22:48:46 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/26 21:13:18 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	heredoc(t_exp *exp)
+bool	heredoc(t_exp *exp, size_t i)
 {
 	int		fd;
 	char	*line;
@@ -26,7 +26,7 @@ bool	heredoc(t_exp *exp)
 		line = readline(HEREDOC_PROMPT);
 		if (!line)
 			return (false);
-		if (ft_strcmp(line, exp->argv[exp->argc - 1]) == 0)
+		if (ft_strcmp(line, exp->argv[i + 1]) == 0)
 		{
 			free(line);
 			break ;

@@ -6,7 +6,7 @@
 #    By: msloot <msloot@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 19:19:04 by msloot            #+#    #+#              #
-#    Updated: 2025/02/23 18:02:53 by adelille         ###   ########.fr        #
+#    Updated: 2025/02/26 18:41:58 by adelille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,6 +81,7 @@ SRC_NAME =	main.c signals.c loop.c prompt.c \
 			parse/extract_args/fill_in_var.c \
 			redirection/create_file_redirection.c redirection/create_pipe.c \
 			redirection/heredoc.c \
+			redirection/close_existing_redirection.c \
 			exec/exec_all_exp.c \
 			exec/dispatch.c exec/is_builtin.c \
 			exec/prepare_bin.c exec/find_bin_path.c \

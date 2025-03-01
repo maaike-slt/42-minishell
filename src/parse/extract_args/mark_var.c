@@ -6,7 +6,7 @@
 /*   By: adelille <adelille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 19:04:11 by adelille          #+#    #+#             */
-/*   Updated: 2025/02/23 22:13:38 by adelille         ###   ########.fr       */
+/*   Updated: 2025/02/26 17:10:49 by adelille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static char	*get_special_var(const char *line, size_t *i, size_t start)
 		free(ret);
 		return (NULL);
 	}
-	ret = ft_strndup(&line[start - 1], *i - start + 2);
+	ret = ft_strndup(&line[start - 1], *i - start + 1);
 	if (!ret)
 		return (error("malloc", strerror(errno)), NULL);
 	return (ret);
