@@ -28,7 +28,8 @@ bool	loop(t_status *status, char ***envp)
 		dbg(line);
 		exp_list = parse(line, status, *envp);
 		free(line);
-		if (!create_file_redirection(exp_list, status) || !create_pipe(exp_list))
+		if (!create_file_redirection(exp_list, status)
+			|| !create_pipe(exp_list))
 		{
 			ft_lstclear((t_list **)&exp_list, exp_free);
 			continue ;
