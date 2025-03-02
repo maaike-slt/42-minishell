@@ -94,7 +94,7 @@ char				*prompt(t_status *status, char **envp, bool *exit);
 t_exp_list			*parse(char *line, t_status *status, char **envp);
 
 bool				create_file_redirection(t_exp_list *exp_list,
-					t_status *status);
+						t_status *status);
 bool				close_existing_redirection(t_exp *exp, char ir);
 bool				create_pipe(t_exp_list *exp_list);
 bool				heredoc(t_exp *exp, size_t i);
